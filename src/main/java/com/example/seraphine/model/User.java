@@ -1,6 +1,18 @@
 package com.example.seraphine.model;
 
+import lombok.NoArgsConstructor;
+import javax.persistence.*;
+
+@Entity
+@Table(name = "User")
+@NoArgsConstructor
+
 public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+
+    private Long id;
     private String fistName;
     private String lastName;
     private String email;
@@ -19,6 +31,14 @@ public class User {
         this.dateOfBirth = dateOfBirth;
         this.insuranceType = insuranceType;
         this.insuranceName = insuranceName;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getFistName() {
