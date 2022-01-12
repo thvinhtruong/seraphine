@@ -6,18 +6,16 @@ public class User {
     private String email;
     private String username;
     private String password;
-    private String address;
     private String dateOfBirth;
     private String insuranceType;
     private String insuranceName;
 
-    public User(String fistName, String lastName, String email, String username, String password, String address, String dateOfBirth, String insuranceType, String insuranceName) {
+    public User(String fistName, String lastName, String email, String username, String password, String dateOfBirth, String insuranceType, String insuranceName) {
         this.fistName = fistName;
         this.lastName = lastName;
         this.email = email;
         this.username = username;
         this.password = password;
-        this.address = address;
         this.dateOfBirth = dateOfBirth;
         this.insuranceType = insuranceType;
         this.insuranceName = insuranceName;
@@ -41,10 +39,6 @@ public class User {
 
     public String getPassword() {
         return password;
-    }
-
-    public String getAddress() {
-        return address;
     }
 
     public String getDateOfBirth() {
@@ -79,10 +73,6 @@ public class User {
         this.password = password;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
     public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
@@ -103,7 +93,6 @@ public class User {
                 ", email='" + email + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", address='" + address + '\'' +
                 ", dateOfBirth='" + dateOfBirth + '\'' +
                 ", insuranceType='" + insuranceType + '\'' +
                 ", insuranceName='" + insuranceName + '\'' +

@@ -1,38 +1,46 @@
 package com.example.seraphine.model;
 
-import java.util.UUID;
+import lombok.NoArgsConstructor;
+import javax.persistence.*;
+
+@Entity
+@Table(name = "Doctor")
+@NoArgsConstructor
 
 public class Doctor {
-    private UUID doctor_id;
-    private String fistName;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+
+    private int id;
+    private String firstName;
     private String lastName;
     private String gender;
     private String address;
     private String specialization;
 
-    public Doctor(UUID doctor_id, String fistName, String lastName, String gender, String address, String specialization) {
-        this.doctor_id = doctor_id;
-        this.fistName = fistName;
+    public Doctor(String fistName, String lastName, String gender, String address, String specialization) {
+        this.firstName = fistName;
         this.lastName = lastName;
         this.gender = gender;
         this.address = address;
         this.specialization = specialization;
     }
 
-    public UUID getDoctor_id() {
-        return doctor_id;
+    public int getId() {
+        return id;
     }
 
-    public void setDoctor_id(UUID doctor_id) {
-        this.doctor_id = doctor_id;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getFistName() {
-        return fistName;
+        return firstName;
     }
 
     public void setFistName(String fistName) {
-        this.fistName = fistName;
+        this.firstName = fistName;
     }
 
     public String getLastName() {
@@ -70,8 +78,8 @@ public class Doctor {
     @Override
     public String toString() {
         return "Doctor{" +
-                "doctor_id=" + doctor_id +
-                ", fistName='" + fistName + '\'' +
+                "doctor_id=" + id +
+                ", fistName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", gender='" + gender + '\'' +
                 ", address='" + address + '\'' +
