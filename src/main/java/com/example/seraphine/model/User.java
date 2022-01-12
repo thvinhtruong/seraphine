@@ -23,7 +23,7 @@ public class User {
     private String insuranceName;
 
     public User(String firstName, String lastName, String email, String username, String password, String dateOfBirth, String insuranceType, String insuranceName) {
-        this.firstName = fistName;
+        this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.username = username;
