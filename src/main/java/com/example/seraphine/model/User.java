@@ -13,7 +13,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
 
     private Long id;
-    private String fistName;
+    private String firstName;
     private String lastName;
     private String email;
     private String username;
@@ -22,8 +22,8 @@ public class User {
     private String insuranceType;
     private String insuranceName;
 
-    public User(String fistName, String lastName, String email, String username, String password, String dateOfBirth, String insuranceType, String insuranceName) {
-        this.fistName = fistName;
+    public User(String firstName, String lastName, String email, String username, String password, String dateOfBirth, String insuranceType, String insuranceName) {
+        this.firstName = fistName;
         this.lastName = lastName;
         this.email = email;
         this.username = username;
@@ -42,7 +42,7 @@ public class User {
     }
 
     public String getFistName() {
-        return fistName;
+        return firstName;
     }
 
     public String getLastName() {
@@ -74,7 +74,7 @@ public class User {
     }
 
     public void setFistName(String fistName) {
-        this.fistName = fistName;
+        this.firstName = fistName;
     }
 
     public void setLastName(String lastName) {
@@ -108,7 +108,7 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "fistName='" + fistName + '\'' +
+                "fistName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", username='" + username + '\'' +
