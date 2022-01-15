@@ -5,38 +5,36 @@ import com.example.seraphine.service.DoctorService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import javax.print.Doc;
 import java.util.List;
 import java.util.Optional;
 
 
 @RestController
-// @RequestMapping("/doctor")
 public class DoctorController {
     @Autowired
     private DoctorService doctorService;
 
-    @PostMapping("/doctor/post")
-    public String post(@RequestBody Doctor doctor) {
+    @PostMapping("api/v1/doctor/post")
+    public String createDoctor(@RequestBody Doctor doctor) {
         doctorService.saveDoctor(doctor);
         return "new doctor is successfully added";
     }
 
-    @GetMapping("/doctor/all")
-    public List<Doctor> list() {
+    @GetMapping("api/v1/doctor/all")
+    public List<Doctor> showAllDoctors() {
         return doctorService.getAllDoctors();
     }
 
-    @GetMapping("/doctor/{id}")
+    @GetMapping("api/v1/doctor/{id}")
     public ResponseEntity<Optional<Doctor>> getDoctor(@PathVariable(value = "id") int id) {
         Optional<Doctor> doctor = this.doctorService.getDoctorById(id);
         return ResponseEntity.ok().body(doctor);
     }
 
-    @PutMapping("/doctor/{id}")
-    public Doctor updateDoctor(@PathVariable(value = "id") int id, @RequestBody Doctor newDoctor) {
-        return this.doctorService.updateDoctor(id, newDoctor);
+    @PutMapping("api/v1/doctor/{id}")
+    public String updateDoctor(@PathVariable(value = "id") int id, @RequestBody Doctor newDoctor) {
+        this.doctorService.updateDoctor(id, newDoctor);
+        return "all changes about doctor have been saved";
     }
 
     @DeleteMapping("/doctor/{id}")

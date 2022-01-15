@@ -27,7 +27,7 @@ public class DoctorServiceImpl implements DoctorService {
     @Override
     public Doctor updateDoctor(int id, Doctor newdoctor) {
         return (Doctor) this.doctorRepo.findById(id).map(doctor ->{
-            doctor.setFistName(newdoctor.getFistName());
+            doctor.setFirstName(newdoctor.getFirstName());
             doctor.setLastName(newdoctor.getLastName());
             doctor.setGender(newdoctor.getGender());
             doctor.setAddress(newdoctor.getAddress());

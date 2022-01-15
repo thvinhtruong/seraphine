@@ -19,8 +19,8 @@ public class Doctor {
     private String address;
     private String specialization;
 
-    public Doctor(String fistName, String lastName, String gender, String address, String specialization) {
-        this.firstName = fistName;
+    public Doctor(String firstName, String lastName, String gender, String address, String specialization) {
+        this.firstName = firstName;
         this.lastName = lastName;
         this.gender = gender;
         this.address = address;
@@ -35,12 +35,12 @@ public class Doctor {
         this.id = id;
     }
 
-    public String getFistName() {
+    public String getFirstName() {
         return firstName;
     }
 
-    public void setFistName(String fistName) {
-        this.firstName = fistName;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getLastName() {

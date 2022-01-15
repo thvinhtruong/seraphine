@@ -2,7 +2,6 @@ package com.example.seraphine.service;
 
 import java.util.List;
 import java.util.Optional;
-
 import com.example.seraphine.model.Doctor;
 
 public interface DoctorService {
