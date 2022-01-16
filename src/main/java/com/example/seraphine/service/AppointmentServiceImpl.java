@@ -30,12 +30,10 @@ public class AppointmentServiceImpl implements AppointmentService {
         return (Appointment) this.appointmentRepo.findById(id).map(appointment -> {
             appointment.setAppointment_reason(new_appointment.getAppointment_reason());
             appointment.setAppointment_description(new_appointment.getAppointment_description());
-            appointment.setDoctor_id(new_appointment.getDoctor_id());
             appointment.setTimestamp(new_appointment.getTimestamp());
             appointment.setDateBooking(new_appointment.getDateBooking());
             appointment.setLocation(new_appointment.getLocation());
             appointment.setZipCode(new_appointment.getZipCode());
-            appointment.setReminder_time(new_appointment.getReminder_time());
             return null;
         }).orElseGet(() -> {
             new_appointment.setId(id);

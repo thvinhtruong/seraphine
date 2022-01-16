@@ -30,6 +30,7 @@ public class DoctorServiceImpl implements DoctorService {
             doctor.setFirstName(newdoctor.getFirstName());
             doctor.setLastName(newdoctor.getLastName());
             doctor.setGender(newdoctor.getGender());
+            doctor.setEmails(newdoctor.getEmails());
             doctor.setAddress(newdoctor.getAddress());
             doctor.setSpecialization(newdoctor.getSpecialization());
             return null;
