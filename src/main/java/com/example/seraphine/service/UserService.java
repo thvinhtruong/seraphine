@@ -7,6 +7,7 @@ import com.example.seraphine.model.ConfirmationToken;
 import com.example.seraphine.model.User;
 import com.example.seraphine.repository.UserRepo;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,6 +20,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class UserService implements UserDetailsService{
     
+    @Autowired
     private final UserRepo appUserRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final ConfirmationTokenService confirmationTokenService;
@@ -56,5 +58,30 @@ public class UserService implements UserDetailsService{
     
     public int enableAppUser(String email) {
         return appUserRepository.enableAppUser(email);
+    }
+
+    public void updateResetPassword(String token, String email){
+        User user = appUserRepository.FindByEmail(email);
+
+        if (user != null){
+            user.setResetPasswordToken(token);
+            appUserRepository.save(user);
+        } else {
+            throw new UsernameNotFoundException(String.format(USER_NOT_FOUND_MSG));
+        }
+    }
+
+    public User get(String resetPasswordToken) {
+        return appUserRepository.findByResetPasswordToken(resetPasswordToken);
+    }
+
+    public void updatePassword(User user, String newPassword){
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodePassword = passwordEncoder.encode(newPassword);
+
+        user.setPassword(encodePassword);
+        user.setResetPasswordToken(null);
+
+        appUserRepository.save(user);
     }
 }
