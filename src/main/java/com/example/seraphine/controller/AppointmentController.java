@@ -1,7 +1,7 @@
 package com.example.seraphine.controller;
 
 import com.example.seraphine.model.Appointment;
-import com.example.seraphine.service.AppointmentService;;
+import com.example.seraphine.service.AppointmentService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
