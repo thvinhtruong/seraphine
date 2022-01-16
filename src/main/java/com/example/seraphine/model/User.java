@@ -31,6 +31,7 @@ public class User implements UserDetails{
     private String insuranceName;
     private Boolean locked = false;
     private Boolean enabled = false;
+    private String resetPasswordToken;
 
     public User(String firstName, String lastName, String email, String username, String password, String dateOfBirth, String insuranceType, String insuranceName) {
         this.firstName = firstName;
@@ -41,6 +42,10 @@ public class User implements UserDetails{
         this.dateOfBirth = dateOfBirth;
         this.insuranceType = insuranceType;
         this.insuranceName = insuranceName;
+    }
+
+    public void setResetPasswordToken (String resetPasswordToken) {
+        this.resetPasswordToken = resetPasswordToken;
     }
 
     public int getId(){
@@ -65,6 +70,10 @@ public class User implements UserDetails{
 
     public String getUsername() {
         return username;
+    }
+
+    public String getResetPasswordToken(){
+        return resetPasswordToken;
     }
 
     @Override
