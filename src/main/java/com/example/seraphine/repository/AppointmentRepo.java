@@ -5,4 +5,6 @@ import org.springframework.stereotype.Repository;
 import com.example.seraphine.model.Appointment;
 
 @Repository
-public interface AppointmentRepo extends JpaRepository<Appointment, Long>{}
+public interface AppointmentRepo extends JpaRepository<Appointment, Long>{
+    int convertToTimeDuration();
+}
