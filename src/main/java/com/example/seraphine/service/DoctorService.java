@@ -10,6 +10,4 @@ public interface DoctorService {
     Optional<Doctor> getDoctorById(int id);
     Doctor updateDoctor(int id, Doctor doctor);
     void deleteDoctor(int id);
-
-
 }

@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(path = "api/v1/registration")
 @AllArgsConstructor
 public class RegistrationController {
-
     private final RegistrationService registrationService;
 
     @PostMapping

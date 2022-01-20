@@ -2,7 +2,6 @@ package com.example.seraphine.model;
 
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
-import java.util.Objects;
 
 @Entity
 @Table(name = "Appointment")
@@ -19,22 +18,20 @@ public class Appointment {
     private int doctor_id;
     private String appointment_reason;
     private String appointment_description;
-    private String timestamp;
+    private String start_time;
+    private String end_time;
     private String dateBooking;
-    private String location;
-    private int zipCode;
-    private int reminder_time;
+    private int locationZipCode;
+    private String reminder_option;
 
-    public Appointment(int doctor_id, String appointment_reason, String appointment_description, String timestamp, String dateBooking,
-                       String location, int zipCode, int reminder_time) {
-        this.doctor_id = doctor_id;
+    public Appointment(String appointment_reason, String appointment_description, String start_time, String end_time, String dateBooking, int locationZipCode, String reminder_option) {
         this.appointment_reason = appointment_reason;
         this.appointment_description = appointment_description;
-        this.timestamp = timestamp;
+        this.start_time = start_time;
+        this.end_time = end_time;
         this.dateBooking = dateBooking;
-        this.location = location;
-        this.zipCode = zipCode;
-        this.reminder_time = reminder_time;
+        this.locationZipCode = locationZipCode;
+        this.reminder_option = reminder_option;
     }
 
     public Long getId() {
@@ -69,12 +66,20 @@ public class Appointment {
         this.appointment_description = appointment_description;
     }
 
-    public String getTimestamp() {
-        return timestamp;
+    public String getStart_time() {
+        return start_time;
     }
 
-    public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
+    public void setStart_time(String start_time) {
+        this.start_time = start_time;
+    }
+
+    public String getEnd_time() {
+        return end_time;
+    }
+
+    public void setEnd_time(String end_time) {
+        this.end_time = end_time;
     }
 
     public String getDateBooking() {
@@ -85,48 +90,34 @@ public class Appointment {
         this.dateBooking = dateBooking;
     }
 
-    public String getLocation() {
-        return location;
+    public int getLocationZipCode() {
+        return locationZipCode;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setLocationZipCode(int locationZipCode) {
+        this.locationZipCode = locationZipCode;
     }
 
-    public int getZipCode() {
-        return zipCode;
+    public String getReminder_option() {
+        return reminder_option;
     }
 
-    public void setZipCode(int zipCode) {
-        this.zipCode = zipCode;
+    public void setReminder_option(String reminder_option) {
+        this.reminder_option = reminder_option;
     }
 
-    public int getReminder_time() {
-        return reminder_time;
-    }
-
-    public void setReminder_time(int reminder_time) {
-        this.reminder_time = reminder_time;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Appointment)) return false;
-        Appointment that = (Appointment) o;
-        return getDoctor_id() == that.getDoctor_id() && getZipCode() == that.getZipCode()
-                && getReminder_time() == that.getReminder_time() &&
-                Objects.equals(getId(), that.getId()) && Objects.equals(getAppointment_reason(),
-                that.getAppointment_reason()) && Objects.equals(getAppointment_description(),
-                that.getAppointment_description()) && Objects.equals(getTimestamp(),
-                that.getTimestamp()) && Objects.equals(getDateBooking(), that.getDateBooking()) &&
-                Objects.equals(getLocation(), that.getLocation());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId(), getDoctor_id(), getAppointment_reason(), getAppointment_description(), getTimestamp(),
-                getDateBooking(), getLocation(), getZipCode(), getReminder_time());
+    public int convertToTimeDuration() {
+        if (this.reminder_option == "10 minutes") {
+            return 1000 * 60 * 10;
+        } else if (this.reminder_option == "1 hour") {
+            return 1000 * 60 * 60;
+        } else if (this.reminder_option == "3 days") {
+            return 1000 * 60 * 60 * 24 * 3;
+        } else if (this.reminder_option == "1 week") {
+            return 1000 * 60 * 60 * 24 * 7;
+        } else {
+            return 0;
+        }
     }
 
     @Override
@@ -136,11 +127,11 @@ public class Appointment {
                 ", doctor_id=" + doctor_id +
                 ", appointment_reason='" + appointment_reason + '\'' +
                 ", appointment_description='" + appointment_description + '\'' +
-                ", timestamp='" + timestamp + '\'' +
+                ", start_time='" + start_time + '\'' +
+                ", end_time='" + end_time + '\'' +
                 ", dateBooking='" + dateBooking + '\'' +
-                ", location='" + location + '\'' +
-                ", zipCode=" + zipCode +
-                ", reminder_time=" + reminder_time +
+                ", locationZipCode=" + locationZipCode +
+                ", reminder_option='" + reminder_option + '\'' +
                 '}';
     }
 }

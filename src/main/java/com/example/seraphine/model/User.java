@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
 
 @Getter
 @Setter
@@ -29,6 +30,10 @@ public class User implements UserDetails{
     private String dateOfBirth;
     private String insuranceType;
     private String insuranceName;
+
+    @OneToMany(targetEntity = Appointment.class,cascade = CascadeType.ALL)
+    @JoinColumn(name ="appointments",referencedColumnName = "id")
+    private List<Appointment> myAppointment;
     private Boolean locked = false;
     private Boolean enabled = false;
     private String resetPasswordToken;
@@ -129,18 +134,32 @@ public class User implements UserDetails{
         this.insuranceName = insuranceName;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "fistName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", dateOfBirth='" + dateOfBirth + '\'' +
-                ", insuranceType='" + insuranceType + '\'' +
-                ", insuranceName='" + insuranceName + '\'' +
-                '}';
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public List<Appointment> getMyAppointment() {
+        return myAppointment;
+    }
+
+    public Boolean getLocked() {
+        return locked;
+    }
+
+    public void setLocked(Boolean locked) {
+        this.locked = locked;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 
     @Override

@@ -1,49 +1,30 @@
 package com.example.seraphine.model;
 
-import java.util.Date;
-import java.util.Properties;
-import javax.mail.*;
-import javax.mail.internet.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.stereotype.Service;
 
+@Service
 public class EmailSender {
+    @Autowired
+    private JavaMailSender mailSender;
 
-    public void sendEmail(String host, String port,
-                          final String userName, final String password, String toAddress,
-                          String subject, String message) throws AddressException,
-            MessagingException {
+    public EmailSender(){}
 
-        // sets SMTP server properties
-        Properties properties = new Properties();
-
-        properties.put("mail.smtp.host", host);
-        properties.put("mail.smtp.port", port);
-        properties.put("mail.smtp.auth", "true");
-        properties.put("mail.smtp.starttls.enable", "true");
-        //properties.put("mail.debug", "true");
-        properties.put("mail.store.protocol", "pop3");
-        properties.put("mail.transport.protocol", "smtp");
-        // creates a new session with an authenticator
-        Authenticator auth = new Authenticator() {
-            public PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(userName, password);
-            }
-        };
-
-        Session session = Session.getInstance(properties, auth);
-
-        // creates a new e-mail message
-        Message msg = new MimeMessage(session);
-
-        msg.setFrom(new InternetAddress(userName));
-        InternetAddress[] toAddresses = { new InternetAddress(toAddress) };
-        msg.setRecipients(Message.RecipientType.TO, toAddresses);
+    public void sendEmail(String recipient_mail,
+                          String subject,
+                          String body){
+        System.out.println("Prepare to send message...");
+        SimpleMailMessage msg = new SimpleMailMessage();
+        //Setting up mail attributes
+        msg.setFrom("nguyenminhtri280101@gmail.com");
+        msg.setTo(recipient_mail);
+        msg.setText(body);
         msg.setSubject(subject);
-        msg.setSentDate(new Date());
-        // set plain text message
-        msg.setText(message);
-
-        // sends the e-mail
-        Transport.send(msg);
-
+        //Send the mail
+        mailSender.send(msg);
+        //Prompting the message
+        System.out.println("Mail sent successfully!");
     }
 }
