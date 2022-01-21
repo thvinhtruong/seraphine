@@ -18,7 +18,7 @@ public class EmailSender {
         System.out.println("Prepare to send message...");
         SimpleMailMessage msg = new SimpleMailMessage();
         //Setting up mail attributes
-        msg.setFrom("nguyenminhtri280101@gmail.com");
+        msg.setFrom("seraphine.webmail@gmail.com");
         msg.setTo(recipient_mail);
         msg.setText(body);
         msg.setSubject(subject);

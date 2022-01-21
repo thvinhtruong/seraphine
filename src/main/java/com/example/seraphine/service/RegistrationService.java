@@ -3,8 +3,11 @@ package com.example.seraphine.service;
 import com.example.seraphine.model.User;
 import com.example.seraphine.controller.EmailValidator;
 import com.example.seraphine.model.ConfirmationToken;
+import com.example.seraphine.model.EmailSender;
+
 import lombok.AllArgsConstructor;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,7 +20,9 @@ public class RegistrationService {
     private final UserService appUserService;
     private final EmailValidator emailValidator;
     private final ConfirmationTokenService confirmationTokenService;
-
+    @Autowired
+	private EmailSender senderService;
+    
     public String register(RegistrationRequest request) {
         boolean isValidEmail = emailValidator.
                 test(request.getEmail());
@@ -39,6 +44,10 @@ public class RegistrationService {
 
                 )
         );
+
+        String link = "http://localhost:8080/api/v1/registration/confirm?token=" + token;
+
+        senderService.sendEmail(request.getEmail(), "[SERAPHINE] Confirm your email now to get started", "Click on this link to confirm your email and activate your account: "+link);
 
         return token;
     }
