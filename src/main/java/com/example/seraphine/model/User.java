@@ -21,7 +21,8 @@ public class User implements UserDetails{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 
-    private int id;
+    private UserRole userRole;
+    private Long id;
     private String firstName;
     private String lastName;
     private String email;
@@ -53,11 +54,15 @@ public class User implements UserDetails{
         this.resetPasswordToken = resetPasswordToken;
     }
 
-    public int getId(){
+    public UserRole getUserRole() { return this.userRole; }
+
+    public void setUserRole(UserRole userRole) { this.userRole = userRole; }
+
+    public Long getId(){
         return id;
     }
 
-    public void setId(int id){
+    public void setId(Long id){
         this.id = id;
     }
 
