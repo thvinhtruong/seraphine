@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 import com.example.seraphine.model.ConfirmationToken;
+import com.example.seraphine.model.ForgotPasswordToken;
 import com.example.seraphine.model.User;
 import com.example.seraphine.repository.UserRepo;
 
@@ -24,6 +25,7 @@ public class UserService implements UserDetailsService{
     private final UserRepo appUserRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final ConfirmationTokenService confirmationTokenService;
+    private final ForgotPasswordTokenService forgotPasswordTokenService;
     private final static String USER_NOT_FOUND_MSG = "user with email %s not found";
     
 
@@ -55,33 +57,29 @@ public class UserService implements UserDetailsService{
         
         return token;
     }
+
+    public String Forgot(String email, String password)
+    {
+        boolean userExists = appUserRepository.findByEmail(email).isPresent();
+
+        if (userExists){
+            String token  = UUID.randomUUID().toString();
+            ForgotPasswordToken forgotPasswordToken = new ForgotPasswordToken(token, LocalDateTime.now(), LocalDateTime.now().plusMinutes(15),password);
+            forgotPasswordTokenService.saveForgotPasswordToken(forgotPasswordToken);
+            
+            return token;
+        }
+        return null;
+    }
     
-    public int enableAppUser(String email) {
+    public int enableAppUser(String email){
         return appUserRepository.enableAppUser(email);
     }
 
-    public void updateResetPassword(String token, String email){
-        User user = appUserRepository.FindByEmail(email);
-
-        if (user != null){
-            user.setResetPasswordToken(token);
-            appUserRepository.save(user);
-        } else {
-            throw new UsernameNotFoundException(String.format(USER_NOT_FOUND_MSG));
-        }
-    }
-
-    public User get(String resetPasswordToken) {
-        return appUserRepository.findByResetPasswordToken(resetPasswordToken);
-    }
-
-    public void updatePassword(User user, String newPassword){
+    public void updatePassword(User user, String password){
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String encodePassword = passwordEncoder.encode(newPassword);
+        String encodePassword = passwordEncoder.encode(password);
 
         user.setPassword(encodePassword);
-        user.setResetPasswordToken(null);
-
-        appUserRepository.save(user);
     }
 }
