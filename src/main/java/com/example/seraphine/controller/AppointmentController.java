@@ -5,6 +5,8 @@ import com.example.seraphine.service.AppointmentService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+
+
 import java.util.Optional;
 
 @RestController
@@ -40,5 +42,11 @@ public class AppointmentController {
     public ResponseEntity<Void> cancelAppointment(@PathVariable(value = "id") Long id) {
         this.appointmentService.deleteAppointment(id);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/pdf/generate/{id}")
+    public String exportAppointment(@PathVariable(value = "id") Long id) {
+        this.appointmentService.exportAppointmentInfo(id);
+        return "Printed successfully";
     }
 }
