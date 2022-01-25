@@ -11,4 +11,6 @@ import lombok.ToString;
 @ToString
 public class ForgotPasswordRequest {
     private final String email;
+    private final String password;
+    private final String REpassword;
 }
