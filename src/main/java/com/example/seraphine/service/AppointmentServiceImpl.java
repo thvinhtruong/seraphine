@@ -1,11 +1,18 @@
 package com.example.seraphine.service;
 
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Optional;
 
+import com.example.seraphine.model.PDFDownloader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.seraphine.repository.AppointmentRepo;
 import com.example.seraphine.model.Appointment;
+
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @Service
@@ -42,6 +49,23 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Override
     public void deleteAppointment(Long id) {
         this.appointmentRepo.deleteById(id);
+    }
+
+    @Override
+    public void exportAppointmentInfo(Long id) {
+        PDFDownloader downloader = new PDFDownloader();
+        Optional<Appointment> appointment_obj = this.appointmentRepo.findById(id);
+        if (appointment_obj.isEmpty()) {
+            System.out.println("Appointment not found");
+        }
+        Appointment appointment = appointment_obj.get();
+        String title = "Appointment Information - Seraphine EHealth Service Team";
+        String body = appointment.toString();
+        try {
+            downloader.export(title, body);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
 
