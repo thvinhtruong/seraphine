@@ -10,36 +10,42 @@ import java.util.Optional;
 
 
 @RestController
+@RequestMapping("api/v1/doctor")
 public class DoctorController {
     @Autowired
     private DoctorService doctorService;
 
-    @PostMapping("api/v1/doctor/post")
+    @PostMapping("/post")
     public String createDoctor(@RequestBody Doctor doctor) {
         doctorService.saveDoctor(doctor);
         return "new doctor is successfully added";
     }
 
-    @GetMapping("api/v1/doctor/all")
+    @GetMapping("/all")
     public List<Doctor> showAllDoctors() {
         return doctorService.getAllDoctors();
     }
 
-    @GetMapping("api/v1/doctor/{id}")
-    public ResponseEntity<Optional<Doctor>> getDoctor(@PathVariable(value = "id") int id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<Optional<Doctor>> getDoctor(@PathVariable(value = "id") Long id) {
         Optional<Doctor> doctor = this.doctorService.getDoctorById(id);
         return ResponseEntity.ok().body(doctor);
     }
 
-    @PutMapping("api/v1/doctor/{id}")
-    public String updateDoctor(@PathVariable(value = "id") int id, @RequestBody Doctor newDoctor) {
+    @PutMapping("/{id}")
+    public String updateDoctor(@PathVariable(value = "id") Long id, @RequestBody Doctor newDoctor) {
         this.doctorService.updateDoctor(id, newDoctor);
         return "all changes about doctor have been saved";
     }
 
-    @DeleteMapping("/doctor/{id}")
-    public ResponseEntity<Void> deleteDoctor(@PathVariable(value = "id") int id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteDoctor(@PathVariable(value = "id") Long id) {
         this.doctorService.deleteDoctor(id);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/search/query")
+    public List<Doctor> displayAllDoctorsWithQuery(@RequestParam String issue_covered, @RequestParam int distance_to_user) {
+        return this.doctorService.findDoctorWithCriteria(issue_covered, distance_to_user);
     }
 }

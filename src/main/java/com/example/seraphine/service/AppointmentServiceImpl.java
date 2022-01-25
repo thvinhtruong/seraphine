@@ -5,13 +5,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.seraphine.repository.AppointmentRepo;
-import com.example.seraphine.model.EmailSender;
-import java.util.List;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
 import com.example.seraphine.model.Appointment;
+import java.util.List;
 
 @Service
 public class AppointmentServiceImpl implements AppointmentService {
@@ -38,7 +33,6 @@ public class AppointmentServiceImpl implements AppointmentService {
             appointment.setStart_time(new_appointment.getStart_time());
             appointment.setEnd_time(new_appointment.getEnd_time());
             appointment.setDateBooking(new_appointment.getDateBooking());
-            appointment.setLocationZipCode(new_appointment.getLocationZipCode());
             return null;
         }).orElseGet(() -> {
             new_appointment.setId(id);
@@ -47,39 +41,7 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
     @Override
     public void deleteAppointment(Long id) {
-        this.appointmentRepo.delete(appointmentRepo.getById(id));
-    }
-
-    @Override
-    public void reminderUser(String emails) {
-        // duration
-        int duration = this.appointmentRepo.convertToTimeDuration();
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 9);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-
-        Date dateSchedule = calendar.getTime();
-        long period = duration;
-
-        TimerTask timerTask = new TimerTask() {
-            @Override
-            public void run() {
-                this.sendEmailToUser(emails);
-            }
-            private void sendEmailToUser(String emails) {
-                EmailSender sender = new EmailSender();
-                String title = "Appointment Reminder: Remember your important date with us!";
-                String body = "You have appointment on the next coming days from Seraphine Service Team!";
-                sender.sendEmail(emails, title, body);
-            }
-        };
-
-        Timer timer = new Timer();
-        timer.schedule(timerTask, dateSchedule, period);
-
-
+        this.appointmentRepo.deleteById(id);
     }
 }
 

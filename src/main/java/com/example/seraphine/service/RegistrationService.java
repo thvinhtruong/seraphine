@@ -36,7 +36,6 @@ public class RegistrationService {
                         request.getDateOfBirth(),
                         request.getInsuranceType(),
                         request.getInsuranceName()
-
                 )
         );
 

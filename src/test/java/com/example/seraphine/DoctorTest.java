@@ -15,9 +15,9 @@ public class DoctorTest {
 
     @Test
     public void testSaveDoctor() throws Exception {
-        Doctor doctor = new Doctor("Trung", "Nguyen", "male", "trung@gmail.com","quan 9", "khoa san");
+        Doctor doctor = new Doctor("Trung", "Nguyen", "male", "trung@gmail.com","quan 9", "khoa san", 10, "pregnant, blah blah");
         this.doctorService.saveDoctor(doctor);
-        doctorService.getDoctorById(1).map(newDoctor -> {
+        doctorService.getDoctorById(1L).map(newDoctor -> {
             Assert.assertEquals("Trung", newDoctor.getFirstName());
             return true;
         });

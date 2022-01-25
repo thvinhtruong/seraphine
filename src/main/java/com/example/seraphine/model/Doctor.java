@@ -1,9 +1,10 @@
 package com.example.seraphine.model;
 
-import java.util.List;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
-
+import java.util.Set;
+import java.util.HashSet;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name = "Doctor")
@@ -14,32 +15,36 @@ public class Doctor {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 
-    private int id;
+    private Long id;
     private String firstName;
     private String lastName;
     private String gender;
     private String emails;
     private String address;
     private String specialization;
+    private int distance_to_user;
+    private String issue_covered;
 
-    @OneToMany(targetEntity = Appointment.class,cascade = CascadeType.ALL)
-    @JoinColumn(name ="appointments",referencedColumnName = "id")
-    List<Appointment> listAppointments;
+    @OneToMany(targetEntity = Appointment.class,cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name ="appointments", referencedColumnName = "id")
+    Set<Appointment> appointments = new HashSet<>();
 
-    public Doctor(String firstName, String lastName, String gender, String emails, String address, String specialization) {
+    public Doctor(String firstName, String lastName, String gender, String emails, String address, String specialization, int distance_to_user, String issue_covered) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.gender = gender;
         this.emails = emails;
         this.address = address;
         this.specialization = specialization;
+        this.distance_to_user = distance_to_user;
+        this.issue_covered = issue_covered;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -91,24 +96,27 @@ public class Doctor {
         this.emails = emails;
     }
 
-    public List<Appointment> getListAppointments() {
-        return listAppointments;
+    public Set<Appointment> getAppointments() {
+        return appointments;
     }
 
-    public void setListAppointments(List<Appointment> listAppointments) {
-        this.listAppointments = listAppointments;
+    public void setAppointments(Set<Appointment> appointments) {
+        this.appointments = appointments;
     }
 
-    @Override
-    public String toString() {
-        return "Doctor{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", gender='" + gender + '\'' +
-                ", emails='" + emails + '\'' +
-                ", address='" + address + '\'' +
-                ", specialization='" + specialization + '\'' +
-                '}';
+    public int getDistance_to_user() {
+        return distance_to_user;
+    }
+
+    public void setDistance_to_user(int distance_to_user) {
+        this.distance_to_user = distance_to_user;
+    }
+
+    public String getIssue_covered() {
+        return issue_covered;
+    }
+
+    public void setIssue_covered(String issue_covered) {
+        this.issue_covered = issue_covered;
     }
 }

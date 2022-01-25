@@ -10,5 +10,4 @@ public interface AppointmentService {
     Optional<Appointment> getAppointmentById(Long id);
     Appointment updateAppointment(Long id, Appointment appointment);
     void deleteAppointment(Long id);
-    void reminderUser(String emails);
 }

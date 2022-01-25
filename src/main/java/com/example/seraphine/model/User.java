@@ -5,18 +5,22 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.Hibernate;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
 
 import javax.persistence.*;
 import java.util.Collection;
-import java.util.List;
+import java.util.Collections;
+import java.util.Set;
+import java.util.HashSet;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @Entity
 @Table(name = "User")
-public class User implements UserDetails{
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -30,10 +34,15 @@ public class User implements UserDetails{
     private String dateOfBirth;
     private String insuranceType;
     private String insuranceName;
+    private long point_x;
+    private long point_y;
 
-    @OneToMany(targetEntity = Appointment.class,cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = Appointment.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name ="appointments",referencedColumnName = "id")
-    private List<Appointment> myAppointment;
+    private Set<Appointment> myAppointment = new HashSet<>();
+
+    @Enumerated(EnumType.STRING)
+    private UserRole userRole;
     private Boolean locked = false;
     private Boolean enabled = false;
     private String resetPasswordToken;
@@ -47,10 +56,6 @@ public class User implements UserDetails{
         this.dateOfBirth = dateOfBirth;
         this.insuranceType = insuranceType;
         this.insuranceName = insuranceName;
-    }
-
-    public void setResetPasswordToken (String resetPasswordToken) {
-        this.resetPasswordToken = resetPasswordToken;
     }
 
     public int getId(){
@@ -75,15 +80,6 @@ public class User implements UserDetails{
 
     public String getUsername() {
         return username;
-    }
-
-    public String getResetPasswordToken(){
-        return resetPasswordToken;
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
     }
 
     public String getPassword() {
@@ -142,7 +138,7 @@ public class User implements UserDetails{
         this.firstName = firstName;
     }
 
-    public List<Appointment> getMyAppointment() {
+    public Set<Appointment> getMyAppointment() {
         return myAppointment;
     }
 
@@ -160,6 +156,49 @@ public class User implements UserDetails{
 
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public String getResetPasswordToken(){
+        return resetPasswordToken;
+    }
+
+    public void setMyAppointment(Set<Appointment> myAppointment) {
+        this.myAppointment = myAppointment;
+    }
+
+    public void setResetPasswordToken(String resetPasswordToken) {
+        this.resetPasswordToken = resetPasswordToken;
+    }
+
+    public UserRole getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(UserRole userRole) {
+        this.userRole = userRole;
+    }
+
+    public long getPoint_x() {
+        return point_x;
+    }
+
+    public void setPoint_x(long point_x) {
+        this.point_x = point_x;
+    }
+
+    public long getPoint_y() {
+        return point_y;
+    }
+
+    public void setPoint_y(long point_y) {
+        this.point_y = point_y;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        SimpleGrantedAuthority authorities = new SimpleGrantedAuthority(userRole.name());
+        return Collections.singletonList(authorities);
+
     }
 
     @Override
