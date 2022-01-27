@@ -34,8 +34,8 @@ public class User implements UserDetails {
     private String dateOfBirth;
     private String insuranceType;
     private String insuranceName;
-    private long point_x;
-    private long point_y;
+    private long longitude;
+    private long latitude;
 
     @OneToMany(targetEntity = Appointment.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name ="appointments",referencedColumnName = "id")
@@ -178,20 +178,20 @@ public class User implements UserDetails {
         this.userRole = userRole;
     }
 
-    public long getPoint_x() {
-        return point_x;
+    public long getLongitude() {
+        return longitude;
     }
 
-    public void setPoint_x(long point_x) {
-        this.point_x = point_x;
+    public void setLongitude(long longitude) {
+        this.longitude = longitude;
     }
 
-    public long getPoint_y() {
-        return point_y;
+    public long getLatitude() {
+        return latitude;
     }
 
-    public void setPoint_y(long point_y) {
-        this.point_y = point_y;
+    public void setLatitude(long latitude) {
+        this.latitude = latitude;
     }
 
     @Override
@@ -235,5 +235,27 @@ public class User implements UserDetails {
     @Override
     public int hashCode() {
         return getClass().hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", dateOfBirth='" + dateOfBirth + '\'' +
+                ", insuranceType='" + insuranceType + '\'' +
+                ", insuranceName='" + insuranceName + '\'' +
+                ", longitude=" + longitude +
+                ", latitude=" + latitude +
+                ", myAppointment=" + myAppointment +
+                ", userRole=" + userRole +
+                ", locked=" + locked +
+                ", enabled=" + enabled +
+                ", resetPasswordToken='" + resetPasswordToken + '\'' +
+                '}';
     }
 }

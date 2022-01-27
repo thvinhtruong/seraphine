@@ -12,5 +12,6 @@ public interface DoctorService {
     Optional<Doctor> getDoctorById(long id);
     void updateDoctor(long id, Doctor doctor);
     void deleteDoctor(long id);
-    List<Doctor> findDoctorWithCriteria(String issues, int distance_to_user);
+    void calculateDistanceToUser(String address);
+    List<Doctor> findDoctorWithCriteria(String issues, String address, int distance_to_user);
 }

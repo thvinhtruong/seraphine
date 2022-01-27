@@ -4,7 +4,6 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.Set;
 import java.util.HashSet;
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name = "Doctor")
@@ -22,14 +21,16 @@ public class Doctor {
     private String emails;
     private String address;
     private String specialization;
-    private int distance_to_user;
+    private double distance_to_user;
     private String issue_covered;
+    private long longitude;
+    private long latitude;
 
     @OneToMany(targetEntity = Appointment.class,cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name ="appointments", referencedColumnName = "id")
     Set<Appointment> appointments = new HashSet<>();
 
-    public Doctor(String firstName, String lastName, String gender, String emails, String address, String specialization, int distance_to_user, String issue_covered) {
+    public Doctor(String firstName, String lastName, String gender, String emails, String address, String specialization, double distance_to_user, String issue_covered) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.gender = gender;
@@ -104,11 +105,11 @@ public class Doctor {
         this.appointments = appointments;
     }
 
-    public int getDistance_to_user() {
+    public double getDistance_to_user() {
         return distance_to_user;
     }
 
-    public void setDistance_to_user(int distance_to_user) {
+    public void setDistance_to_user(double distance_to_user) {
         this.distance_to_user = distance_to_user;
     }
 
@@ -118,5 +119,39 @@ public class Doctor {
 
     public void setIssue_covered(String issue_covered) {
         this.issue_covered = issue_covered;
+    }
+
+    public long getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(long longitude) {
+        this.longitude = longitude;
+    }
+
+    public long getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(long latitude) {
+        this.latitude = latitude;
+    }
+
+    @Override
+    public String toString() {
+        return "Doctor{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", gender='" + gender + '\'' +
+                ", emails='" + emails + '\'' +
+                ", address='" + address + '\'' +
+                ", specialization='" + specialization + '\'' +
+                ", distance_to_user=" + distance_to_user +
+                ", issue_covered='" + issue_covered + '\'' +
+                ", longitude=" + longitude +
+                ", latitude=" + latitude +
+                ", appointments=" + appointments +
+                '}';
     }
 }
