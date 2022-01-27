@@ -1,6 +1,5 @@
 package com.example.seraphine.service;
 
-<<<<<<< HEAD
 import java.util.HashSet;
 import java.util.Optional;
 
@@ -8,24 +7,14 @@ import com.example.seraphine.repository.DoctorRepo;
 import com.example.seraphine.model.User;
 import com.example.seraphine.model.Doctor;
 import com.example.seraphine.repository.UserRepo;
-=======
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Optional;
 
 import com.example.seraphine.model.PDFDownloader;
->>>>>>> 17a5db440cef197899420523ac6394b4b600ed5a
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.seraphine.repository.AppointmentRepo;
 import com.example.seraphine.model.Appointment;
 
-<<<<<<< HEAD
-=======
-import javax.servlet.http.HttpServletResponse;
->>>>>>> 17a5db440cef197899420523ac6394b4b600ed5a
 import java.util.List;
 import java.util.Set;
 
@@ -73,7 +62,6 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
-<<<<<<< HEAD
     public Appointment bookAppointment(Long user_id, Appointment new_appointment) {
         new_appointment.setStatus(true);
         Set<Appointment> appointment_list = new HashSet<>();
@@ -110,7 +98,8 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Override
     public List<Appointment> showAllUsersAppointments(Long id) {
         return this.appointmentRepo.findByUserId(id);
-=======
+    }
+    @Override
     public void exportAppointmentInfo(Long id) {
         PDFDownloader downloader = new PDFDownloader();
         Optional<Appointment> appointment_obj = this.appointmentRepo.findById(id);
@@ -125,7 +114,6 @@ public class AppointmentServiceImpl implements AppointmentService {
         } catch (IOException e) {
             e.printStackTrace();
         }
->>>>>>> 17a5db440cef197899420523ac6394b4b600ed5a
     }
 }
 
