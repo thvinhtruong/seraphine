@@ -26,3 +26,10 @@
     border-radius: 12px;
     font-weight: 700;
   }
+
+.App-title {
+    font-size: 48px;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 700;
+}
