@@ -36,10 +36,10 @@ public class AdminServiceImpl implements AdminService{
     }
 
     @Override
-    public void deleteUser(Long id) {
+    public void deleteUser(Long id) throws Exception {
         boolean exists = userRepo.existsById(id);
         if (!exists){
-            throw new IllegalStateException("User with ID " + id + " does not exists");
+            throw new Exception("User with ID " + id + " does not exists");
         }
         userRepo.deleteById(id);
     }

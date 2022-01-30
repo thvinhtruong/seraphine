@@ -8,5 +8,5 @@ public interface AdminService {
     List<User> getAllUser();
     Optional<User> getUserById(Long id);
     User updateUser(Long id, User newUser);
-    void deleteUser(Long id);
+    void deleteUser(Long id) throws Exception;
 }

@@ -10,4 +10,9 @@ public interface AppointmentService {
     Optional<Appointment> getAppointmentById(Long id);
     Appointment updateAppointment(Long id, Appointment appointment);
     void deleteAppointment(Long id);
+    Appointment bookAppointment(Long user_id, Appointment new_appointment);
+    Appointment addDoctorAppointment(Long doctor_id, Appointment appointment);
+    List<Appointment> showAllDoctorsAppointments(Long id);
+    List<Appointment> showAllUsersAppointments(Long id);
+    void exportAppointmentInfo(Long id);
 }

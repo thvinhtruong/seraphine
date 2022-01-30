@@ -5,6 +5,9 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "Appointment")
@@ -18,7 +21,6 @@ public class Appointment {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "BOOKING_SEQ")
 
     private Long id;
-    private int doctor_id;
     private String appointment_reason;
     private String appointment_description;
 
@@ -30,11 +32,24 @@ public class Appointment {
 
     @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
     private LocalDate dateBooking;
+
     private boolean booked = false;
 
-    public Appointment(int doctor_id, String appointment_reason, String appointment_description, LocalTime start_time,
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
+    @JoinColumn(name = "user_id", nullable = false)
+    @JsonProperty("user_id")
+    private User user;
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
+    @JoinColumn(name = "doctor_id", nullable = false)
+    @JsonProperty("doctor_id")
+    private Doctor doctor;
+
+
+    public Appointment(String appointment_reason, String appointment_description, LocalTime start_time,
                        LocalTime end_time, LocalDate dateBooking, boolean booked) {
-        this.doctor_id = doctor_id;
         this.appointment_reason = appointment_reason;
         this.appointment_description = appointment_description;
         this.start_time = start_time;
@@ -49,14 +64,6 @@ public class Appointment {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public int getDoctor_id() {
-        return doctor_id;
-    }
-
-    public void setDoctor_id(int doctor_id) {
-        this.doctor_id = doctor_id;
     }
 
     public String getAppointment_reason() {
@@ -99,12 +106,27 @@ public class Appointment {
         this.dateBooking = dateBooking;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Doctor getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
+    }
 
     public boolean isBooked() {
         return booked;
     }
 
-    public void setBooked(boolean booked) {
+    public void setStatus(boolean booked) {
         this.booked = booked;
     }
 
@@ -112,12 +134,13 @@ public class Appointment {
     public String toString() {
         return "Appointment{" +
                 "id=" + id +
-                ", doctor_id=" + doctor_id +
                 ", appointment_reason='" + appointment_reason + '\'' +
                 ", appointment_description='" + appointment_description + '\'' +
-                ", start_time='" + start_time + '\'' +
-                ", end_time='" + end_time + '\'' +
-                ", dateBooking='" + dateBooking + '\'' +
+                ", start_time=" + start_time +
+                ", end_time=" + end_time +
+                ", dateBooking=" + dateBooking +
+                ", booked=" + booked +
+                ", user=" + user +
                 '}';
     }
 }
