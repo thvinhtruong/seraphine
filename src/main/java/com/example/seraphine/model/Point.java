@@ -1,6 +1,5 @@
 package com.example.seraphine.model;
 
-import java.math.BigDecimal;
 import java.util.Objects;
 
 public class Point {
@@ -45,13 +44,11 @@ public class Point {
 
 
     public double calculateDistance(Point p) {
-        // use haversin formula
+        // use Haversin formula
         double delta_p1 = ((p.getLongitude() - this.longitude)*Math.PI)/180;
         double delta_p2 = ((p.getLatitude() - this.latitude)*Math.PI)/180;
         double res = Math.pow(Math.sin(delta_p2/2), 2) + Math.cos(this.latitude* Math.PI/180) * Math.cos(p.getLatitude() * Math.PI/180)*Math.pow(Math.sin(delta_p1/2), 2);
         double res_kilometer = 6378.8 * (2 * Math.asin(Math.sqrt(res)));
-        //double distance = Math.sqrt(Math.pow(this.longitude - p.getLongitude(), 2) + Math.pow(this.latitude - p.getLatitude(), 2));
-        //return distance * 180 / Math.PI;
         return res_kilometer;
     }
 
