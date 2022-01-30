@@ -34,8 +34,6 @@ public class User implements UserDetails {
     private String dateOfBirth;
     private String insuranceType;
     private String insuranceName;
-    private long longitude;
-    private long latitude;
 
     @OneToMany(targetEntity = Appointment.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name ="appointments",referencedColumnName = "id")
@@ -43,6 +41,7 @@ public class User implements UserDetails {
 
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
+
     private Boolean locked = false;
     private Boolean enabled = false;
     private String resetPasswordToken;
@@ -178,22 +177,6 @@ public class User implements UserDetails {
         this.userRole = userRole;
     }
 
-    public long getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(long longitude) {
-        this.longitude = longitude;
-    }
-
-    public long getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(long latitude) {
-        this.latitude = latitude;
-    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
@@ -248,8 +231,6 @@ public class User implements UserDetails {
                 ", dateOfBirth='" + dateOfBirth + '\'' +
                 ", insuranceType='" + insuranceType + '\'' +
                 ", insuranceName='" + insuranceName + '\'' +
-                ", longitude=" + longitude +
-                ", latitude=" + latitude +
                 ", myAppointment=" + myAppointment +
                 ", userRole=" + userRole +
                 ", locked=" + locked +
