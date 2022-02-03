@@ -1,0 +1,88 @@
+@media all and (min-width: 480px) {
+    .Register {
+      padding: 60px 0;
+    }
+  
+.App {
+    text-align: center;
+    background-color:rgb(255, 255, 255);
+    }
+
+.label{
+    text-align: center;
+    display: block;
+    font-size: larger;
+    color: white;
+    padding: 5px;
+    }
+    
+.input{
+    font-size: larger;
+    padding: 5px;
+    margin: 2px;
+    }
+
+.btn{
+    color: white;
+    background-color: red;
+    border-radius: 5px;
+    font-size: larger;
+    display: block;
+    padding: 5px;
+    margin: 10px auto;
+    }
+    
+.messages{
+    display: flex;
+    justify-content: center;
+    }
+    
+.error{
+    display: block;
+    color: rgb(255, 6, 6);
+    width: fit-content;
+    height: 50px;
+    padding: 5px;
+    }
+    
+.success{
+    display: block;
+    background-color: lightblue;
+    color: black;
+    width: fit-content;
+    height: 50px;
+    padding: 5px;
+    }
+    
+.App-title {
+        color: white;
+        font-size: 48px;
+        text-align: center;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: 700;
+    }
+
+.App-notify {
+        color: red;
+        font-size: 20px;
+        text-align: center;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+.App-button {
+        background-color: white; /* Blue */
+        border: none;
+        font-family: Arial, Helvetica, sans-serif;
+        color: #0a566b;
+        padding: 16px 32px;
+        text-align: center;
+        text-decoration: none;
+        font-size: 16px;
+        margin: 4px 2px;
+        width: 80px;
+        height: 15px;
+        cursor: pointer;
+        border-radius: 12px;
+        font-weight: 700;
+      }
+    }

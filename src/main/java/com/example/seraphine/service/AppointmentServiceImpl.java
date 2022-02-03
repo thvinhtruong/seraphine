@@ -1,5 +1,7 @@
 package com.example.seraphine.service;
 
+import java.util.HashSet;
+import java.util.Optional;
 
 import java.util.*;
 import com.example.seraphine.model.*;
@@ -12,6 +14,16 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.seraphine.repository.AppointmentRepo;
+import java.io.IOException;
+
+import com.example.seraphine.model.PDFDownloader;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import com.example.seraphine.repository.AppointmentRepo;
+import com.example.seraphine.model.Appointment;
+
+import java.util.List;
+import java.util.Set;
 
 @AllArgsConstructor
 @Service
