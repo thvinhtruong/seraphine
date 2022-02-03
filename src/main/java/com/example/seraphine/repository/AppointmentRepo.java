@@ -8,7 +8,4 @@ import java.util.List;
 
 @Repository
 public interface AppointmentRepo extends JpaRepository<Appointment, Long>, PagingAndSortingRepository<Appointment, Long> {
-    List<Appointment> findByUserId(Long user_id);
-    List<Appointment> findByDoctorId(Long doctor_id);
-
 }

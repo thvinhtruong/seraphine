@@ -1,7 +1,9 @@
 package com.example.seraphine.service;
 
 import com.example.seraphine.model.User;
+import com.example.seraphine.model.UserRole;
 import com.example.seraphine.repository.UserRepo;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,19 +11,23 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class AdminServiceImpl implements AdminService{
     @Autowired
     private UserRepo userRepo;
 
     @Override
-    public List<User> getAllUser() { return userRepo.findAll(); }
+    public List<User> getAllUsers() { return userRepo.findAll(); }
 
     @Override
     public Optional<User> getUserById(Long id) { return userRepo.findById(id); }
 
     @Override
-    public User updateUser(Long id, User newUser) {
-        return (User) this.userRepo.findById(id).map(user -> {
+    public void deleteUser(Long id) { this.userRepo.findById(id); }
+
+    @Override
+    public void updateUser(Long id, User newUser) {
+        this.userRepo.findById(id).map(user -> {
             user.setFirstName(newUser.getFirstName());
             user.setLastName(newUser.getLastName());
             user.setEmail(newUser.getEmail());
@@ -34,13 +40,21 @@ public class AdminServiceImpl implements AdminService{
             return this.userRepo.save(newUser);
         });
     }
-
-    @Override
-    public void deleteUser(Long id) throws Exception {
-        boolean exists = userRepo.existsById(id);
-        if (!exists){
-            throw new Exception("User with ID " + id + " does not exists");
-        }
-        userRepo.deleteById(id);
-    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

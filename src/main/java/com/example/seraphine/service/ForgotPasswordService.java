@@ -19,6 +19,7 @@ public class ForgotPasswordService {
     private final UserService appUserService;
     private final EmailValidator emailValidator;
     private final ForgotPasswordTokenService forgotPasswordTokenService;
+
     @Autowired
 	private EmailSender senderService;
 
@@ -52,6 +53,7 @@ public class ForgotPasswordService {
                 .getToken(token)
                 .orElseThrow(() ->
                         new IllegalStateException("token not found"));
+
 
         if (forgotPasswordToken.getConfirmedAt() != null) {
             throw new IllegalStateException("password already changed");

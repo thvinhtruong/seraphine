@@ -20,9 +20,10 @@ public class RegistrationService {
     private final UserService appUserService;
     private final EmailValidator emailValidator;
     private final ConfirmationTokenService confirmationTokenService;
+
     @Autowired
-	private EmailSender senderService;
-    
+    private EmailSender senderService;
+
     public String register(RegistrationRequest request) {
         boolean isValidEmail = emailValidator.
                 test(request.getEmail());
