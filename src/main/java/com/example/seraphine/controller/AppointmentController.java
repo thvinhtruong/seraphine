@@ -1,14 +1,13 @@
 package com.example.seraphine.controller;
 
-import com.example.seraphine.model.Appointment;
+import com.example.seraphine.model.*;
 import com.example.seraphine.service.AppointmentService;
-import com.example.seraphine.model.User;
-import com.example.seraphine.model.Doctor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
+import javax.mail.MessagingException;
 import java.util.Optional;
 import java.util.List;
 import java.util.Set;
@@ -47,6 +46,7 @@ public class AppointmentController {
         return ResponseEntity.ok().body(appointment);
     }
 
+<<<<<<< HEAD
     @GetMapping("user/appointment/all/{id}")
     public Set<Appointment> getAllUserAppointments(@PathVariable(value = "id") Long id) {
         return this.appointmentService.showUserAppointments(id);
@@ -58,6 +58,9 @@ public class AppointmentController {
     }
 
     @PutMapping("appointment/{id}")
+=======
+    @PutMapping("/{id}")
+>>>>>>> refs/remotes/origin/main
     public String shiftAppointment(@PathVariable(value = "id") Long id, @RequestBody Appointment new_appointment) {
         this.appointmentService.updateAppointment(id, new_appointment);
         return "all changes about appointment have been saved";
@@ -73,5 +76,11 @@ public class AppointmentController {
     public String exportAppointment(@PathVariable(value = "id") Long id) {
         this.appointmentService.exportAppointmentInfo(id);
         return "Printed successfully";
+    }
+
+    @GetMapping("/remind/{id}")
+    public String remindAppointment(@PathVariable(value = "id") Long id, @RequestParam String remind_option) {
+        this.appointmentService.remindAppointment(id, remind_option);
+        return "Remind appointment successfully!";
     }
 }

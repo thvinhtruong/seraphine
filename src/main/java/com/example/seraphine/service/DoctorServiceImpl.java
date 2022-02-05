@@ -76,7 +76,6 @@ public class DoctorServiceImpl implements DoctorService {
         newQuery.add(new SearchCriteria(issue_criteria, issues, SearchOperation.MATCH));
         newQuery.add(new SearchCriteria(address_criteria, address, SearchOperation.MATCH));
         newQuery.add(new SearchCriteria(distance_criteria, distance_to_user, SearchOperation.LESS_THAN_EQUAL));
-
         return doctorRepo.findAll(newQuery);
     }
 

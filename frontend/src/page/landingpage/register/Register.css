@@ -1,22 +1,28 @@
-    .App {
+@media all and (min-width: 480px) {
+    .Register {
+      padding: 60px 0;
+    }
+  
+.App {
     text-align: center;
     background-color:rgb(255, 255, 255);
     }
 
-    .label{
+.label{
+    text-align: center;
     display: block;
     font-size: larger;
     color: white;
     padding: 5px;
     }
     
-    .input{
+.input{
     font-size: larger;
     padding: 5px;
     margin: 2px;
-    
     }
-    .btn{
+
+.btn{
     color: white;
     background-color: red;
     border-radius: 5px;
@@ -26,12 +32,12 @@
     margin: 10px auto;
     }
     
-    .messages{
+.messages{
     display: flex;
     justify-content: center;
     }
     
-    .error{
+.error{
     display: block;
     color: rgb(255, 6, 6);
     width: fit-content;
@@ -39,7 +45,7 @@
     padding: 5px;
     }
     
-    .success{
+.success{
     display: block;
     background-color: lightblue;
     color: black;
@@ -48,14 +54,22 @@
     padding: 5px;
     }
     
-    .App-title {
+.App-title {
+        color: white;
         font-size: 48px;
         text-align: center;
         font-family: Arial, Helvetica, sans-serif;
         font-weight: 700;
     }
 
-    .App-button {
+.App-notify {
+        color: red;
+        font-size: 20px;
+        text-align: center;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+.App-button {
         background-color: white; /* Blue */
         border: none;
         font-family: Arial, Helvetica, sans-serif;
@@ -71,4 +85,4 @@
         border-radius: 12px;
         font-weight: 700;
       }
-    
+    }

@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface AdminService {
-    List<User> getAllUser();
+    List<User> getAllUsers();
     Optional<User> getUserById(Long id);
-    User updateUser(Long id, User newUser);
-    void deleteUser(Long id) throws Exception;
+    void updateUser(Long id, User newUser);
+    void deleteUser(Long id);
 }

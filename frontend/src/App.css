@@ -1,6 +1,7 @@
 .App-background {
     background-image: url(./Background/background.jpg);
 }
+
 .App-logo {
     height: 20vmin;
     pointer-events: none;
@@ -42,11 +43,11 @@
     border: none;
     font-family: Arial, Helvetica, sans-serif;
     color: #0a566b;
-    padding: 16px 32px;
+    padding: 25px 50px;
     text-align: center;
     text-decoration: none;
     /*display: inline-block;*/
-    font-size: 16px;
+    font-size: 12px;
     margin: 4px 2px;
     width: 80px;
     height: 15px;

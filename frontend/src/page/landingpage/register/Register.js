@@ -78,11 +78,11 @@ const handleSubmit = (e) => {
 // Showing success message
 const successMessage = () => {
 	return (
-	<div>
+	<div
 		className="success"
 		style={{
 		display: submitted ? '' : 'none',
-		}}
+		}}>
 		<p className="App-title">USER SUCCESSFULLY REGISTER</p>
 	</div>
 	);
@@ -96,61 +96,71 @@ const errorMessage = () => {
 		style={{
 		display: error ? '' : 'none',
 		}}>
-		<p>PLEASE ENTER ALL THE FIELDS</p>
+		<p className="App-notify">PLEASE ENTER ALL THE FIELDS</p>
 	</div>
 	);
 };
 
 return (
 	<div className = "App-background">
-	<div className="form">
-	<p className = "App-title">REGISTRATION</p> 
+		<div className="form">
+		<p className = "App-title">REGISTRATION</p> 
 
-	{/* Calling to the methods */}
-	<div className="messages">
-		{errorMessage()}
-		{successMessage()}
-	</div>
+		{/* Calling to the methods */}
+		<div className="messages">
+			{errorMessage()}
+			{successMessage()}
+		</div>
 
-	<form>
-		{/* Labels and inputs for form data */}
-		<label className="label">First Name</label>
-		<input onChange={handlefirstName} className="input"
-		value={firstName} type="text" />
-
-		<label className="label">Last Name</label>
-		<input onChange={handlelastName} className="input"
-		value={lastName} type="text" />
-
-		<label className="label">User Name</label>
-		<input onChange={handleUserName} className="input"
-		value={lastName} type="text" />
-
-		<label className="label">Email</label>
-		<input onChange={handleEmail} className="input"
-		value={email} type="email" />
-
-		<label className="label">Password</label>
-		<input onChange={handlePassword} className="input"
-		value={password} type="password" />
-
-		<label className="label">Date of Birth</label>
-		<input onChange={handleDateofBirth} className="input"
-		value={dateofbirth} type="date" />
-
-		<label className="label">Insurance Name</label>
-		<input onChange={handleInsuranceName} className="input"
-		value={insuranceName} type="text" />
-
-		<label className="label">Insurance Type</label>
-		<input onChange={handleInsuranceType} className="input"
-		value={insuranceType} type="text" />
-
-		<button className = "App-button">
-		<button onClick={handleSubmit} className="btn" type="submit">SUBMIT</button>
-		</button>
-	</form>
-	</div>
+			<form>
+				{/* Labels and inputs for form data */}
+				<div>
+					<label className="label">First Name</label>
+					<input onChange={handlefirstName} className="input"
+					value={firstName} type="text" />
+				</div>
+				<div>
+					<label className="label">Last Name</label>
+					<input onChange={handlelastName} className="input"
+					value={lastName} type="text" />
+				</div>
+				<div>
+					<label className="label">User Name</label>
+					<input onChange={handleUserName} className="input"
+					value={lastName} type="text" />
+				</div>
+				<div>
+					<label className="label">Email</label>
+					<input onChange={handleEmail} className="input"
+					value={email} type="email" />
+				</div>
+				<div>
+					<label className="label">Password</label>
+					<input onChange={handlePassword} className="input"
+					value={password} type="password" />
+				</div>
+				<div>
+					<label className="label">Date of Birth</label>
+					<input onChange={handleDateofBirth} className="input"
+					value={dateofbirth} type="date" />
+				</div>
+				<div>
+					<label className="label">Insurance Name</label>
+					<input onChange={handleInsuranceName} className="input"
+					value={insuranceName} type="text" />
+				</div>
+				<div>
+					<label className="label">Insurance Type</label>
+					<input onChange={handleInsuranceType} className="input"
+					value={insuranceType} type="text" />
+				</div>
+				<div>
+					<button className = "App-button"
+					onClick={handleSubmit} className="btn" type="submit">SUBMIT
+					</button>
+				</div>
+			</form>
+		</div>
 	</div>
 );
 }

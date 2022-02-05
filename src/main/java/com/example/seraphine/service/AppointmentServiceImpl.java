@@ -2,10 +2,23 @@ package com.example.seraphine.service;
 
 import java.util.*;
 
+<<<<<<< HEAD
 import com.example.seraphine.model.Doctor;
 import com.example.seraphine.repository.DoctorRepo;
 import com.example.seraphine.model.User;
+=======
+import java.util.*;
+import com.example.seraphine.model.*;
+import com.example.seraphine.repository.DoctorRepo;
+>>>>>>> refs/remotes/origin/main
 import com.example.seraphine.repository.UserRepo;
+
+import java.io.IOException;
+
+import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import com.example.seraphine.repository.AppointmentRepo;
 import java.io.IOException;
 
 import com.example.seraphine.model.PDFDownloader;
@@ -16,6 +29,7 @@ import com.example.seraphine.model.Appointment;
 
 import javax.print.Doc;
 
+@AllArgsConstructor
 @Service
 public class AppointmentServiceImpl implements AppointmentService {
     @Autowired
@@ -26,6 +40,9 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Autowired
     private UserRepo userRepo;
+
+    @Autowired
+    private EmailSender senderService;
 
     @Override
     public void saveAppointment(Appointment appointment) {
@@ -91,6 +108,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         }
         Doctor doctor = doctor_obj.get();
 
+<<<<<<< HEAD
         Appointment booking = this.appointmentRepo.save(new_appointment);
         appointments_ls.add(booking);
         doctor.setAppointments(appointments_ls);
@@ -98,13 +116,13 @@ public class AppointmentServiceImpl implements AppointmentService {
         return booking;
     }
 
+=======
+>>>>>>> refs/remotes/origin/main
     @Override
     public void exportAppointmentInfo(Long id) {
         PDFDownloader downloader = new PDFDownloader();
         Optional<Appointment> appointment_obj = this.appointmentRepo.findById(id);
-        if (appointment_obj.isEmpty()) {
-            System.out.println("Appointment not found");
-        }
+        if (appointment_obj.isEmpty()) System.out.println("Appointment not found");
         Appointment appointment = appointment_obj.get();
         String title = "Appointment Information - Seraphine EHealth Service Team";
         String body = appointment.toString();
@@ -116,6 +134,7 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
+<<<<<<< HEAD
     public Set<Appointment> showUserAppointments(Long user_id) {
         Optional<User> user_obj = this.userRepo.findById(user_id);
         if (user_obj.isEmpty()) {
@@ -134,6 +153,27 @@ public class AppointmentServiceImpl implements AppointmentService {
         }
         Doctor doctor = doctor_obj.get();
         return doctor.getAppointments();
+=======
+    public void remindAppointment(Long appointment_id, String option) {
+        Optional<Appointment> appointment_obj = this.appointmentRepo.findById(appointment_id);
+        if (appointment_obj.isEmpty()) {
+            System.out.println("Appointment not found");
+        }
+        Appointment appointment = appointment_obj.get();
+
+        if (appointment.getUser_id() == null) {
+            System.out.println("no available user");
+        }
+
+        Optional<User> user_obj = this.userRepo.findById(appointment.getUser_id());
+        if (user_obj.isEmpty()) {
+            System.out.println("user not found");
+        }
+        User user = user_obj.get();
+
+        String user_email = user.getEmail();
+        senderService.sendScheduledMail(user_email, appointment, option);
+>>>>>>> refs/remotes/origin/main
     }
 }
 
