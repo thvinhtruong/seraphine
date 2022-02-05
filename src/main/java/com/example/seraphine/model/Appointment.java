@@ -35,17 +35,8 @@ public class Appointment {
 
     private boolean booked = false;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
-    @JoinColumn(name = "user_id", nullable = false)
-    @JsonProperty("user_id")
-    private User user;
-
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
-    @JoinColumn(name = "doctor_id", nullable = false)
-    @JsonProperty("doctor_id")
-    private Doctor doctor;
+    private Long userId;
+    private Long doctorId;
 
 
     public Appointment(String appointment_reason, String appointment_description, LocalTime start_time,
@@ -82,6 +73,22 @@ public class Appointment {
         this.appointment_description = appointment_description;
     }
 
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public Long getDoctorId() {
+        return doctorId;
+    }
+
+    public void setDoctorId(Long doctorId) {
+        this.doctorId = doctorId;
+    }
+
     public LocalTime getStart_time() {
         return start_time;
     }
@@ -106,22 +113,6 @@ public class Appointment {
         this.dateBooking = dateBooking;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Doctor getDoctor() {
-        return doctor;
-    }
-
-    public void setDoctor(Doctor doctor) {
-        this.doctor = doctor;
-    }
-
     public boolean isBooked() {
         return booked;
     }
@@ -130,17 +121,4 @@ public class Appointment {
         this.booked = booked;
     }
 
-    @Override
-    public String toString() {
-        return "Appointment{" +
-                "id=" + id +
-                ", appointment_reason='" + appointment_reason + '\'' +
-                ", appointment_description='" + appointment_description + '\'' +
-                ", start_time=" + start_time +
-                ", end_time=" + end_time +
-                ", dateBooking=" + dateBooking +
-                ", booked=" + booked +
-                ", user=" + user +
-                '}';
-    }
 }
