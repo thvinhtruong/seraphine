@@ -30,7 +30,7 @@ public class RegistrationController {
     /**
      * Handle the confirmation link.
      *
-     * @param confirmationToken unique token for the new user
+     * @param token for the new user
      */
     @GetMapping(path = "/confirm")
     public String confirm(@RequestParam("token") String token) {

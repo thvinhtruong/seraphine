@@ -87,24 +87,24 @@ public class User implements UserDetails {
     }
 
     /**
-     * Set user's last name.
-     * @param firstName user's last name
+     * Get user's last name.
+     * @return user's last name
      */
     public String getLastName() {
         return lastName;
     }
 
     /**
-     * Set user's email.
-     * @param lastName user's email
+     * Get user's email.
+     * @return user's email
      */
     public String getEmail() {
         return email;
     }
 
     /**
-     * Set user's username.
-     * @param email user's username
+     * Get user's username.
+     * @return user's username
      */
     public String getUsername() {
         return username;
@@ -147,10 +147,10 @@ public class User implements UserDetails {
      * Set user's first name.
      * @param firstName user's first name
      */
-    public void setFistName(String fistName) {
-        this.firstName = fistName;
+    public void setFistName(String firstName) {
+        this.firstName = firstName;
     }
-
+    
     /**
      * Set user's last name.
      * @param lastName user's last name

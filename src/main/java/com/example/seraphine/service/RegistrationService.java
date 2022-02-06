@@ -65,8 +65,8 @@ public class RegistrationService {
      * Confirm the registration.
      *
      * @param token the token
-     * @thows IllegalStateException if the token is invalid
-     * @thows IllegalStateException if the token is expired
+     * @thows "IllegalStateException if the token is invalid"
+     * @thows "IllegalStateException if the token is expired"
      * @return CONFIRMED if the token is valid
      */
     @Transactional
