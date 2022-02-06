@@ -5,6 +5,11 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
+/**
+ * The request for the registration service.
+ * <p>
+ * @author Loc Bui Nhien
+ */
 @Getter
 @AllArgsConstructor
 @EqualsAndHashCode

@@ -17,6 +17,10 @@ import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
 
+/**
+ * Service for User, which includes authentication, registration, and reset password.
+ * @author Loc Bui Nhien
+ */
 @Service
 @AllArgsConstructor
 public class UserService implements UserDetailsService{

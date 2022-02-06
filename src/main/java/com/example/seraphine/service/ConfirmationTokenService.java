@@ -9,6 +9,10 @@ import java.util.Optional;
 import com.example.seraphine.model.ConfirmationToken;
 import com.example.seraphine.repository.ConfirmationTokenRepo;
 
+/**
+ * Service for ConfirmationToken.
+ * @author Loc Bui Nhien
+ */
 @Service
 @AllArgsConstructor
 public class ConfirmationTokenService {
