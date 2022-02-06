@@ -4,13 +4,12 @@
     }
   
 .App {
-    text-align: center;
-    background-color:rgb(255, 255, 255);
-    }
+        text-align: center;
+}
 
 .label{
     text-align: center;
-    display: block;
+    /* display: block; */
     font-size: larger;
     color: white;
     padding: 5px;
@@ -24,7 +23,7 @@
 
 .btn{
     color: white;
-    background-color: red;
+    background-color: rgb(247, 240, 240);
     border-radius: 5px;
     font-size: larger;
     display: block;
@@ -47,8 +46,7 @@
     
 .success{
     display: block;
-    background-color: lightblue;
-    color: black;
+    color: rgb(255, 255, 255);
     width: fit-content;
     height: 50px;
     padding: 5px;
@@ -86,3 +84,7 @@
         font-weight: 700;
       }
     }
+
+form {
+    text-align: center;
+} 
