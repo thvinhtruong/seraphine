@@ -1,11 +1,12 @@
 package com.example.seraphine.service;
 
-import java.util.HashSet;
-import java.util.Optional;
+import java.util.*;
 
+import com.example.seraphine.model.Doctor;
+import com.example.seraphine.repository.DoctorRepo;
+import com.example.seraphine.model.User;
 import java.util.*;
 import com.example.seraphine.model.*;
-import com.example.seraphine.repository.DoctorRepo;
 import com.example.seraphine.repository.UserRepo;
 
 import java.io.IOException;
@@ -22,8 +23,7 @@ import org.springframework.stereotype.Service;
 import com.example.seraphine.repository.AppointmentRepo;
 import com.example.seraphine.model.Appointment;
 
-import java.util.List;
-import java.util.Set;
+import javax.print.Doc;
 
 @AllArgsConstructor
 @Service
@@ -73,32 +73,41 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
-    public Appointment bookAppointment(Long user_id, Appointment new_appointment) {
-        new_appointment.setStatus(true);
-        Set<Appointment> appointment_list = new HashSet<>();
+    public void bookAppointment(Long user_id, Long appointment_id) {
         Optional<User> user_obj = this.userRepo.findById(user_id);
         if (user_obj.isEmpty()) {
+            // will throw exception here
             System.out.println("user not found");
         }
         User user = user_obj.get();
-        Appointment user_appointment =  this.appointmentRepo.save(new_appointment);
-        appointment_list.add(user_appointment);
-        user.setMyAppointment(appointment_list);
-        return user_appointment;
+
+        Optional<Appointment> appointment_obj = this.appointmentRepo.findById(appointment_id);
+        if (appointment_obj.isEmpty()) {
+            System.out.println("doctor not found");
+        }
+        Appointment appointment = appointment_obj.get();
+
+        if (appointment.getDoctor_id() == null) {
+            System.out.println("Appointment is not available due to lack of doctor");
+        } else {
+            appointment.setStatus(true);
+            user.getMyAppointment().add(appointment);
+        }
     }
 
     @Override
-    public Appointment addDoctorAppointment(Long doctor_id, Appointment appointment) {
-        Set<Appointment> appointments_list = new HashSet<>();
+    public Appointment addAppointmentToDoctor(Long doctor_id, Appointment new_appointment) {
+        List<Appointment> appointments_ls = new ArrayList<>();
         Optional<Doctor> doctor_obj = this.doctorRepo.findById(doctor_id);
         if (doctor_obj.isEmpty()) {
             System.out.println("doctor not found");
         }
         Doctor doctor = doctor_obj.get();
-        Appointment doctor_appointment = this.appointmentRepo.save(appointment);
-        appointments_list.add(doctor_appointment);
-        doctor.setAppointments(appointments_list);
-        return doctor_appointment;
+        Appointment booking = this.appointmentRepo.save(new_appointment);
+        appointments_ls.add(booking);
+        doctor.setAppointments(appointments_ls);
+
+        return booking;
     }
 
     @Override
@@ -117,6 +126,27 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
+    public Set<Appointment> showUserAppointments(Long user_id) {
+        Optional<User> user_obj = this.userRepo.findById(user_id);
+        if (user_obj.isEmpty()) {
+            // will throw exception here
+            System.out.println("user not found");
+        }
+        User user = user_obj.get();
+        return user.getMyAppointment();
+    }
+
+    @Override
+    public List<Appointment> showDoctorsAppointments(Long doctor_id) {
+        Optional<Doctor> doctor_obj = this.doctorRepo.findById(doctor_id);
+        if (doctor_obj.isEmpty()) {
+            System.out.println("doctor not found");
+        }
+        Doctor doctor = doctor_obj.get();
+        return doctor.getAppointments();
+    }
+
+
     public void remindAppointment(Long appointment_id, String option) {
         Optional<Appointment> appointment_obj = this.appointmentRepo.findById(appointment_id);
         if (appointment_obj.isEmpty()) {

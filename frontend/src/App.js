@@ -6,25 +6,23 @@ import Homepage from "./component/homepage/Homepage"
 import Login from "./page/landingpage/login/Login"
 import Register from "./page/landingpage/register/Register"
 
-import './App.css';
-
 function App() {
     return (
-    <div>
-        <div className = "App-background"/>
-        <Navbar/>
-        <Homepage/>
-        <Switch>
-            <Route path="/page/landingpage/login/Login">
-                <Login />
-            </Route>
+        <div className = "App-background">
+            <Navbar/>
+            <Switch>
+                <Route path="/page/landingpage/login/Login">
+                    <Login className="App-background"/>
+                </Route>
 
-            <Route path="/page/landingpage/register/Register">
-                <Register/>
-            </Route>
-                    
-            <Route path="/"></Route>
-        </Switch>
+                <Route path="/page/landingpage/register/Register">
+                    <Register className="App-background"/>
+                </Route>    
+
+                <Route path="/">
+                    <Homepage className="App-background"/> 
+                </Route>
+            </Switch>
         </div>
     );
 }

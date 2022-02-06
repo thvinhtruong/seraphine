@@ -2,6 +2,7 @@ package com.example.seraphine.controller;
 
 import com.example.seraphine.model.Doctor;
 import com.example.seraphine.service.DoctorService;
+import com.example.seraphine.model.Appointment;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,5 +48,10 @@ public class DoctorController {
     @GetMapping("/search/query")
     public List<Doctor> displayAllDoctorsWithQuery(@RequestParam String issue_covered, @RequestParam String address, @RequestParam int distance_to_user) {
         return this.doctorService.findDoctorWithCriteria(issue_covered, address, distance_to_user);
+    }
+
+    @GetMapping("/appointment/{id}/all")
+    public List<Appointment> displayAllAppointments(@PathVariable(value = "id") Long id) {
+        return this.doctorService.showAvailableAppointments(id);
     }
 }

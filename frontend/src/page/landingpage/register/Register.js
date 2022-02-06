@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import './Register.css';
 
 export default function Form() {
 
@@ -102,7 +103,8 @@ const errorMessage = () => {
 };
 
 return (
-	<div className = "App-background">
+	// <div className = "App-background">
+	<div>
 		<div className="form">
 		<p className = "App-title">REGISTRATION</p> 
 
@@ -111,55 +113,54 @@ return (
 			{errorMessage()}
 			{successMessage()}
 		</div>
-
-			<form>
-				{/* Labels and inputs for form data */}
-				<div>
-					<label className="label">First Name</label>
-					<input onChange={handlefirstName} className="input"
-					value={firstName} type="text" />
-				</div>
-				<div>
-					<label className="label">Last Name</label>
-					<input onChange={handlelastName} className="input"
-					value={lastName} type="text" />
-				</div>
-				<div>
-					<label className="label">User Name</label>
-					<input onChange={handleUserName} className="input"
-					value={lastName} type="text" />
-				</div>
-				<div>
-					<label className="label">Email</label>
-					<input onChange={handleEmail} className="input"
-					value={email} type="email" />
-				</div>
-				<div>
-					<label className="label">Password</label>
-					<input onChange={handlePassword} className="input"
-					value={password} type="password" />
-				</div>
-				<div>
-					<label className="label">Date of Birth</label>
-					<input onChange={handleDateofBirth} className="input"
-					value={dateofbirth} type="date" />
-				</div>
-				<div>
-					<label className="label">Insurance Name</label>
-					<input onChange={handleInsuranceName} className="input"
-					value={insuranceName} type="text" />
-				</div>
-				<div>
-					<label className="label">Insurance Type</label>
-					<input onChange={handleInsuranceType} className="input"
-					value={insuranceType} type="text" />
-				</div>
-				<div>
-					<button className = "App-button"
+		<form>
+			{/* Labels and inputs for form data */}
+			<div>
+				<label className="label">First Name</label>
+				<input onChange={handlefirstName} className="input"
+				value={firstName} type="text" />
+			</div>
+			<div>
+				<label className="label">Last Name</label>
+				<input onChange={handlelastName} className="input"
+				value={lastName} type="text" />
+			</div>
+			<div>
+				<label className="label">User Name</label>
+				<input onChange={handleUserName} className="input"
+				value={userName} type="text" />
+			</div>
+			<div>
+				<label className="label">Email</label>
+				<input onChange={handleEmail} className="input"
+				value={email} type="email" />
+			</div>
+			<div>
+				<label className="label">Password</label>
+				<input onChange={handlePassword} className="input"
+				value={password} type="password" />
+			</div>
+			<div>
+				<label className="label">Date of Birth</label>
+				<input onChange={handleDateofBirth} className="input"
+				value={dateofbirth} type="date" />
+			</div>
+			<div>
+				<label className="label">Insurance Name</label>
+				<input onChange={handleInsuranceName} className="input"
+				value={insuranceName} type="text" />
+			</div>
+			<div>
+				<label className="label">Insurance Type</label>
+				<input onChange={handleInsuranceType} className="input"
+				value={insuranceType} type="text" />
+			</div>
+			<div>
+				<button className = "App-button"
 					onClick={handleSubmit} className="btn" type="submit">SUBMIT
-					</button>
-				</div>
-			</form>
+				</button>
+			</div>
+		</form>
 		</div>
 	</div>
 );

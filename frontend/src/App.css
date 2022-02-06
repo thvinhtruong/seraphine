@@ -1,5 +1,8 @@
 .App-background {
     background-image: url(./Background/background.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
 }
 
 .App-logo {
@@ -13,7 +16,6 @@
 }
 
 .App-header {
-    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -30,7 +32,6 @@
 }
 .App-link {
     color: white;
-    
 }
 
 .App-logocontact {
@@ -44,14 +45,16 @@
     font-family: Arial, Helvetica, sans-serif;
     color: #0a566b;
     padding: 25px 50px;
-    text-align: center;
-    text-decoration: none;
-    /*display: inline-block;*/
     font-size: 12px;
     margin: 4px 2px;
     width: 80px;
     height: 15px;
     cursor: pointer;
     border-radius: 12px;
+}
+
+.link-style {
+    text-decoration: none;
     font-weight: 700;
-  }
+    font-size: medium;
+}

@@ -35,6 +35,7 @@ public class Appointment {
     private LocalDate dateBooking;
 
     private boolean booked = false;
+
     private Long doctor_id;
     private Long user_id;
 
