@@ -23,7 +23,7 @@ public class AdminServiceImpl implements AdminService{
     public Optional<User> getUserById(Long id) { return userRepo.findById(id); }
 
     @Override
-    public void deleteUser(Long id) { this.userRepo.findById(id); }
+    public void deleteUser(Long id) { this.userRepo.deleteById(id); }
 
     @Override
     public void updateUser(Long id, User newUser) {

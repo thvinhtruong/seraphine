@@ -2,31 +2,25 @@ package com.example.seraphine.service;
 
 import java.util.HashSet;
 import java.util.Optional;
+import java.util.List;
+import java.util.Set;
 
-import java.util.*;
+
 import com.example.seraphine.model.*;
 import com.example.seraphine.repository.DoctorRepo;
 import com.example.seraphine.repository.UserRepo;
+import com.example.seraphine.repository.AppointmentRepo;
 
 import java.io.IOException;
 
 import lombok.AllArgsConstructor;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.example.seraphine.repository.AppointmentRepo;
-import java.io.IOException;
 
-import com.example.seraphine.model.PDFDownloader;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import com.example.seraphine.repository.AppointmentRepo;
-import com.example.seraphine.model.Appointment;
 
-import java.util.List;
-import java.util.Set;
-
-@AllArgsConstructor
 @Service
+@AllArgsConstructor
 public class AppointmentServiceImpl implements AppointmentService {
     @Autowired
     private AppointmentRepo appointmentRepo;
@@ -39,6 +33,9 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Autowired
     private EmailSender senderService;
+
+    @Autowired
+    private PDFDownloader pdfDownloader;
 
     @Override
     public void saveAppointment(Appointment appointment) {
@@ -103,14 +100,13 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     public void exportAppointmentInfo(Long id) {
-        PDFDownloader downloader = new PDFDownloader();
         Optional<Appointment> appointment_obj = this.appointmentRepo.findById(id);
         if (appointment_obj.isEmpty()) System.out.println("Appointment not found");
         Appointment appointment = appointment_obj.get();
         String title = "Appointment Information - Seraphine EHealth Service Team";
         String body = appointment.toString();
         try {
-            downloader.export(title, body);
+            pdfDownloader.export(title, body);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -133,9 +129,7 @@ public class AppointmentServiceImpl implements AppointmentService {
             System.out.println("user not found");
         }
         User user = user_obj.get();
-
-        String user_email = user.getEmail();
-        senderService.sendScheduledMail(user_email, appointment, option);
+        senderService.sendScheduledMail(user.getEmail(), appointment, option);
     }
 }
 

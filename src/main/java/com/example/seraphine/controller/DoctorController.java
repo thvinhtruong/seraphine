@@ -2,6 +2,8 @@ package com.example.seraphine.controller;
 
 import com.example.seraphine.model.Doctor;
 import com.example.seraphine.service.DoctorService;
+import lombok.AllArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import java.util.Optional;
 
 
 @RestController
+@AllArgsConstructor
 @RequestMapping("api/v1/doctor")
 public class DoctorController {
     @Autowired
@@ -45,7 +48,9 @@ public class DoctorController {
     }
 
     @GetMapping("/search/query")
-    public List<Doctor> displayAllDoctorsWithQuery(@RequestParam String issue_covered, @RequestParam String address, @RequestParam int distance_to_user) {
+    public List<Doctor> displayAllDoctorsWithQuery(@RequestParam String issue_covered,
+                                                   @RequestParam String address,
+                                                   @RequestParam int distance_to_user) {
         return this.doctorService.findDoctorWithCriteria(issue_covered, address, distance_to_user);
     }
 }

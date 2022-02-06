@@ -34,19 +34,24 @@ public class User implements UserDetails {
     private String dateOfBirth;
     private String insuranceType;
     private String insuranceName;
+    private String userRole;
 
     @OneToMany(targetEntity = Appointment.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name ="appointments",referencedColumnName = "id")
     private Set<Appointment> myAppointment = new HashSet<>();
 
-    @Enumerated(EnumType.STRING)
-    private UserRole userRole;
-
     private Boolean locked = false;
     private Boolean enabled = false;
     private String resetPasswordToken;
 
-    public User(String firstName, String lastName, String email, String username, String password, String dateOfBirth, String insuranceType, String insuranceName) {
+    public User(String firstName,
+                String lastName,
+                String email,
+                String username,
+                String password,
+                String dateOfBirth,
+                String insuranceType,
+                String insuranceName) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -169,17 +174,17 @@ public class User implements UserDetails {
         this.resetPasswordToken = resetPasswordToken;
     }
 
-    public UserRole getUserRole() {
+    public String getUserRole() {
         return userRole;
     }
 
-    public void setUserRole(UserRole userRole) {
+    public void setUserRole(String userRole) {
         this.userRole = userRole;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return Collections.singleton(new SimpleGrantedAuthority(this.getUserRole()));
     }
 
     @Override

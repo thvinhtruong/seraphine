@@ -2,8 +2,9 @@ package com.example.seraphine.controller;
 
 import lombok.AllArgsConstructor;
 
-import com.example.seraphine.service.ForgotPasswordRequest;
+import com.example.seraphine.model.ForgotPasswordRequest;
 import com.example.seraphine.service.ForgotPasswordService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

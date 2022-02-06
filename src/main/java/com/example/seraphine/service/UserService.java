@@ -22,33 +22,33 @@ import lombok.AllArgsConstructor;
 public class UserService implements UserDetailsService{
     
     @Autowired
-    private final UserRepo appUserRepository;
+    private final UserRepo userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final ConfirmationTokenService confirmationTokenService;
     private final ForgotPasswordTokenService forgotPasswordTokenService;
-    private final static String USER_NOT_FOUND_MSG = "user with email %s not found";
+    private final static String USER_NOT_FOUND_MSG = "User with email %s not found";
     
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return appUserRepository.findByEmail(email)
+        return userRepository.findByEmail(email)
         .orElseThrow(() -> 
-        new UsernameNotFoundException(String.format(USER_NOT_FOUND_MSG)));
+        new UsernameNotFoundException(USER_NOT_FOUND_MSG));
     }
 
     public String signUpUser(User appUser)
     {
-        boolean userExists = appUserRepository.findByEmail(appUser.getEmail()).isPresent();
+        boolean userExists = userRepository.findByEmail(appUser.getEmail()).isPresent();
 
         if (userExists){
-            throw new IllegalStateException("email already taken");
+            throw new IllegalStateException("Email already taken");
         }
 
         String encodedPassword = bCryptPasswordEncoder.encode(appUser.getPassword());
 
         appUser.setPassword(encodedPassword);
 
-        appUserRepository.save(appUser);
+        userRepository.save(appUser);
 
         String token  = UUID.randomUUID().toString();
         ConfirmationToken confirmationToken = new ConfirmationToken(token, LocalDateTime.now(), LocalDateTime.now().plusMinutes(15),appUser);
@@ -60,11 +60,14 @@ public class UserService implements UserDetailsService{
 
     public String Forgot(String email, String password)
     {
-        boolean userExists = appUserRepository.findByEmail(email).isPresent();
+        boolean userExists = userRepository.findByEmail(email).isPresent();
 
         if (userExists){
             String token  = UUID.randomUUID().toString();
-            ForgotPasswordToken forgotPasswordToken = new ForgotPasswordToken(token, LocalDateTime.now(), LocalDateTime.now().plusMinutes(15),password);
+            ForgotPasswordToken forgotPasswordToken = new ForgotPasswordToken(token,
+                                    LocalDateTime.now(),
+                                    LocalDateTime.now().plusMinutes(15),
+                                    password);
             forgotPasswordTokenService.saveForgotPasswordToken(forgotPasswordToken);
             
             return token;
@@ -73,7 +76,7 @@ public class UserService implements UserDetailsService{
     }
     
     public int enableAppUser(String email){
-        return appUserRepository.enableAppUser(email);
+        return userRepository.enableAppUser(email);
     }
 
     public void updatePassword(User user, String password){
