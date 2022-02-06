@@ -87,7 +87,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         }
         Appointment appointment = appointment_obj.get();
 
-        if (appointment.getDoctorId() == null) {
+        if (appointment.getDoctor_id() == null) {
             System.out.println("Appointment is not available due to lack of doctor");
         } else {
             appointment.setStatus(true);
