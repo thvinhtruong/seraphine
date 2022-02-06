@@ -6,19 +6,26 @@ import com.example.seraphine.model.ForgotPasswordToken;
 
 import lombok.AllArgsConstructor;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
 @Service
-@AllArgsConstructor
 public class ForgotPasswordService {
 
     private final UserService appUserService;
     private final EmailValidator emailValidator;
     private final ForgotPasswordTokenService forgotPasswordTokenService;
+
+    public ForgotPasswordService(UserService appUserService, EmailValidator emailValidator, ForgotPasswordTokenService forgotPasswordTokenService) {
+        this.appUserService = appUserService;
+        this.emailValidator = emailValidator;
+        this.forgotPasswordTokenService = forgotPasswordTokenService;
+    }
 
     @Autowired
 	private EmailSender senderService;

@@ -16,9 +16,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 
 @AllArgsConstructor
-public class UserServiceImpl implements UserDetailsService, UserService {
+@Component
+public class UserServiceImpl implements UserService {
     
     @Autowired
     private final UserRepo appUserRepository;

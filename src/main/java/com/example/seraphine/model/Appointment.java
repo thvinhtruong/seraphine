@@ -35,15 +35,9 @@ public class Appointment {
     private LocalDate dateBooking;
 
     private boolean booked = false;
-<<<<<<< HEAD
 
-    private Long userId;
-    private Long doctorId;
-
-=======
     private Long doctor_id;
     private Long user_id;
->>>>>>> refs/remotes/origin/main
 
     public Appointment(String appointment_reason, String appointment_description, LocalTime start_time,
                        LocalTime end_time, LocalDate dateBooking, boolean booked) {
@@ -77,22 +71,6 @@ public class Appointment {
         this.appointment_description = appointment_description;
     }
 
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public Long getDoctorId() {
-        return doctorId;
-    }
-
-    public void setDoctorId(Long doctorId) {
-        this.doctorId = doctorId;
-    }
-
     public LocalTime getStart_time() {
         return start_time;
     }
@@ -119,8 +97,6 @@ public class Appointment {
 
     public boolean isBooked() {
         return booked;
-<<<<<<< HEAD
-=======
     }
 
     public void setStatus(boolean booked) {
@@ -141,7 +117,6 @@ public class Appointment {
 
     public void setUser_id(Long user_id) {
         this.user_id = user_id;
->>>>>>> refs/remotes/origin/main
     }
 
     public String getReminder_option() {
@@ -152,8 +127,6 @@ public class Appointment {
         this.reminder_option = reminder_option;
     }
 
-<<<<<<< HEAD
-=======
     @Override
     public String toString() {
         return "Appointment{" +
@@ -166,5 +139,4 @@ public class Appointment {
                 ", booked=" + booked +
                 '}';
     }
->>>>>>> refs/remotes/origin/main
 }

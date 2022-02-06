@@ -13,6 +13,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
+/**Service for registering new user.
+ * @author Loc Bui Nhien
+ */
 @Service
 @AllArgsConstructor
 public class RegistrationService {
@@ -24,6 +27,12 @@ public class RegistrationService {
     @Autowired
     private EmailSender senderService;
 
+    /**
+     * Register a new user and send confirmation link through email.
+     *
+     * @param request the request
+     * @return the confirmation token
+     */
     public String register(RegistrationRequest request) {
         boolean isValidEmail = emailValidator.
                 test(request.getEmail());
@@ -52,6 +61,14 @@ public class RegistrationService {
         return token;
     }
 
+    /**
+     * Confirm the registration.
+     *
+     * @param token the token
+     * @thows "IllegalStateException if the token is invalid"
+     * @thows "IllegalStateException if the token is expired"
+     * @return CONFIRMED if the token is valid
+     */
     @Transactional
     public String confirmToken(String token) {
         ConfirmationToken confirmationToken = confirmationTokenService

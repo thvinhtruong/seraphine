@@ -15,6 +15,11 @@ import java.util.Collections;
 import java.util.Set;
 import java.util.HashSet;
 
+/**
+ * The class is a model for the User entity.
+ * <p>
+ * @author Vinh Truong Canh Thanh, Loc Bui Nhien, Tri Nguyen Minh
+ */
 @Getter
 @Setter
 @NoArgsConstructor
@@ -57,84 +62,149 @@ public class User implements UserDetails {
         this.insuranceName = insuranceName;
     }
 
+    /**
+     * Get user's ID.
+     * @return user's ID
+     */
     public Long getId(){
         return id;
     }
 
+    /**
+     * Set user's ID.
+     * @param id
+     */
     public void setId(Long id){
         this.id = id;
     }
 
+    /**
+     * Get user's first name.
+     * @return user's first name
+     */
     public String getFistName() {
         return firstName;
     }
 
+    /**
+     * Get user's last name.
+     * @return user's last name
+     */
     public String getLastName() {
         return lastName;
     }
 
+    /**
+     * Get user's email.
+     * @return user's email
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     * Get user's username.
+     * @return user's username
+     */
     public String getUsername() {
         return username;
     }
 
+
+    /**
+     * Get user's password.
+     * @return user's password
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     * Get user's date of birth.
+     * @return user's date of birth
+     */
     public String getDateOfBirth() {
         return dateOfBirth;
     }
 
+    /**
+     * Get user's insurance type.
+     * @return user's insurance type
+     */
     public String getInsuranceType() {
         return insuranceType;
     }
 
+    /**
+     * Get user's insurance name.
+     * @return user's insurance name
+     */
     public String getInsuranceName() {
         return insuranceName;
     }
 
-    public void setFistName(String fistName) {
-        this.firstName = fistName;
+    /**
+     * Set user's first name.
+     * @param firstName user's first name
+     */
+    public void setFistName(String firstName) {
+        this.firstName = firstName;
     }
-
+    
+    /**
+     * Set user's last name.
+     * @param lastName user's last name
+     */
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
+    /**
+     * Set user's email.
+     * @param email user's email
+     */
     public void setEmail(String email) {
         this.email = email;
     }
 
+    /**
+     * Set user's username.
+     * @param username user's username
+     */
     public void setUsername(String username) {
         this.username = username;
     }
 
+    /**
+     * Set user's password.
+     * @param password user's password
+     */
     public void setPassword(String password) {
         this.password = password;
     }
 
+    /**
+     * Set user's date of birth.
+     * @param dateOfBirth user's date of birth
+     */
     public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
+    /**
+     * Set user's insurance type.
+     * @param insuranceType user's insurance type
+     */
     public void setInsuranceType(String insuranceType) {
         this.insuranceType = insuranceType;
     }
 
+    /**
+     * Set user's insurance name.
+     * @param insuranceName user's insurance name
+     */
     public void setInsuranceName(String insuranceName) {
         this.insuranceName = insuranceName;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
     }
 
     public Set<Appointment> getMyAppointment() {
@@ -144,10 +214,12 @@ public class User implements UserDetails {
     public Boolean getLocked() {
         return locked;
     }
+    
 
     public void setLocked(Boolean locked) {
         this.locked = locked;
     }
+
 
     public Boolean getEnabled() {
         return enabled;
@@ -169,10 +241,18 @@ public class User implements UserDetails {
         this.resetPasswordToken = resetPasswordToken;
     }
 
+    /**
+     * Get user's role.
+     * @return user's role.
+     */
     public UserRole getUserRole() {
         return userRole;
     }
 
+    /**
+     * Set user's role.
+     * @param userRole user's role
+     */
     public void setUserRole(UserRole userRole) {
         this.userRole = userRole;
     }

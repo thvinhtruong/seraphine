@@ -11,6 +11,10 @@ import java.util.Optional;
 
 import com.example.seraphine.model.ConfirmationToken;
 
+/**
+ * Repository for ConfirmationToken.
+ * @author Loc Bui Nhien
+ */
 @Repository
 @Transactional(readOnly = true)
 public interface ConfirmationTokenRepo
