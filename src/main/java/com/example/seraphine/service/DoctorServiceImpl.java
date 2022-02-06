@@ -1,14 +1,9 @@
 package com.example.seraphine.service;
 
-import com.example.seraphine.model.Doctor;
-import com.example.seraphine.model.QueryBuilder;
-import com.example.seraphine.model.SearchCriteria;
-import com.example.seraphine.model.SearchOperation;
-import com.example.seraphine.model.Location;
+import com.example.seraphine.model.*;
 import com.example.seraphine.repository.DoctorRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -67,6 +62,11 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
+    public void addAppointmentToDoctor(Long doctor_id, Appointment appointment) {
+
+    }
+
+    @Override
     public List<Doctor> findDoctorWithCriteria(String issues, String address, int distance_to_user) {
         this.calculateDistanceToUser(address);
         String issue_criteria = "issue_covered";
@@ -76,7 +76,17 @@ public class DoctorServiceImpl implements DoctorService {
         newQuery.add(new SearchCriteria(issue_criteria, issues, SearchOperation.MATCH));
         newQuery.add(new SearchCriteria(address_criteria, address, SearchOperation.MATCH));
         newQuery.add(new SearchCriteria(distance_criteria, distance_to_user, SearchOperation.LESS_THAN_EQUAL));
-
         return doctorRepo.findAll(newQuery);
     }
+
+    @Override
+    public List<Appointment> showAvailableAppointments(Long doctor_id) {
+        Optional<Doctor> doctor_obj = this.doctorRepo.findById(doctor_id);
+        if (doctor_obj.isEmpty()) {
+            System.out.println("doctor not found");
+        }
+        Doctor doctor = doctor_obj.get();
+        return doctor.getAppointments();
+    }
+
 }

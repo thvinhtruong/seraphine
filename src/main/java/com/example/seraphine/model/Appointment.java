@@ -23,6 +23,7 @@ public class Appointment {
     private Long id;
     private String appointment_reason;
     private String appointment_description;
+    private String reminder_option;
 
     @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="HH-mm")
     private LocalTime start_time;
@@ -34,19 +35,15 @@ public class Appointment {
     private LocalDate dateBooking;
 
     private boolean booked = false;
+<<<<<<< HEAD
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
-    @JoinColumn(name = "user_id", nullable = false)
-    @JsonProperty("user_id")
-    private User user;
+    private Long userId;
+    private Long doctorId;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
-    @JoinColumn(name = "doctor_id", nullable = false)
-    @JsonProperty("doctor_id")
-    private Doctor doctor;
-
+=======
+    private Long doctor_id;
+    private Long user_id;
+>>>>>>> refs/remotes/origin/main
 
     public Appointment(String appointment_reason, String appointment_description, LocalTime start_time,
                        LocalTime end_time, LocalDate dateBooking, boolean booked) {
@@ -58,9 +55,7 @@ public class Appointment {
         this.booked = booked;
     }
 
-    public Long getId() {
-        return id;
-    }
+    public Long getId() { return id; }
 
     public void setId(Long id) {
         this.id = id;
@@ -80,6 +75,22 @@ public class Appointment {
 
     public void setAppointment_description(String appointment_description) {
         this.appointment_description = appointment_description;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public Long getDoctorId() {
+        return doctorId;
+    }
+
+    public void setDoctorId(Long doctorId) {
+        this.doctorId = doctorId;
     }
 
     public LocalTime getStart_time() {
@@ -106,30 +117,43 @@ public class Appointment {
         this.dateBooking = dateBooking;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Doctor getDoctor() {
-        return doctor;
-    }
-
-    public void setDoctor(Doctor doctor) {
-        this.doctor = doctor;
-    }
-
     public boolean isBooked() {
         return booked;
+<<<<<<< HEAD
+=======
     }
 
     public void setStatus(boolean booked) {
         this.booked = booked;
     }
 
+    public Long getDoctor_id() {
+        return doctor_id;
+    }
+
+    public void setDoctor_id(Long doctor_id) {
+        this.doctor_id = doctor_id;
+    }
+
+    public Long getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(Long user_id) {
+        this.user_id = user_id;
+>>>>>>> refs/remotes/origin/main
+    }
+
+    public String getReminder_option() {
+        return reminder_option;
+    }
+
+    public void setReminder_option(String reminder_option) {
+        this.reminder_option = reminder_option;
+    }
+
+<<<<<<< HEAD
+=======
     @Override
     public String toString() {
         return "Appointment{" +
@@ -140,7 +164,7 @@ public class Appointment {
                 ", end_time=" + end_time +
                 ", dateBooking=" + dateBooking +
                 ", booked=" + booked +
-                ", user=" + user +
                 '}';
     }
+>>>>>>> refs/remotes/origin/main
 }
