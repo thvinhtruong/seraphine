@@ -2,15 +2,11 @@ package com.example.seraphine.service;
 
 import java.util.*;
 
-<<<<<<< HEAD
 import com.example.seraphine.model.Doctor;
 import com.example.seraphine.repository.DoctorRepo;
 import com.example.seraphine.model.User;
-=======
 import java.util.*;
 import com.example.seraphine.model.*;
-import com.example.seraphine.repository.DoctorRepo;
->>>>>>> refs/remotes/origin/main
 import com.example.seraphine.repository.UserRepo;
 
 import java.io.IOException;
@@ -107,8 +103,6 @@ public class AppointmentServiceImpl implements AppointmentService {
             System.out.println("doctor not found");
         }
         Doctor doctor = doctor_obj.get();
-
-<<<<<<< HEAD
         Appointment booking = this.appointmentRepo.save(new_appointment);
         appointments_ls.add(booking);
         doctor.setAppointments(appointments_ls);
@@ -116,8 +110,6 @@ public class AppointmentServiceImpl implements AppointmentService {
         return booking;
     }
 
-=======
->>>>>>> refs/remotes/origin/main
     @Override
     public void exportAppointmentInfo(Long id) {
         PDFDownloader downloader = new PDFDownloader();
@@ -134,7 +126,6 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
-<<<<<<< HEAD
     public Set<Appointment> showUserAppointments(Long user_id) {
         Optional<User> user_obj = this.userRepo.findById(user_id);
         if (user_obj.isEmpty()) {
@@ -153,7 +144,9 @@ public class AppointmentServiceImpl implements AppointmentService {
         }
         Doctor doctor = doctor_obj.get();
         return doctor.getAppointments();
-=======
+    }
+
+
     public void remindAppointment(Long appointment_id, String option) {
         Optional<Appointment> appointment_obj = this.appointmentRepo.findById(appointment_id);
         if (appointment_obj.isEmpty()) {
@@ -173,7 +166,6 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         String user_email = user.getEmail();
         senderService.sendScheduledMail(user_email, appointment, option);
->>>>>>> refs/remotes/origin/main
     }
 }
 

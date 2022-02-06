@@ -46,7 +46,6 @@ public class AppointmentController {
         return ResponseEntity.ok().body(appointment);
     }
 
-<<<<<<< HEAD
     @GetMapping("user/appointment/all/{id}")
     public Set<Appointment> getAllUserAppointments(@PathVariable(value = "id") Long id) {
         return this.appointmentService.showUserAppointments(id);
@@ -58,9 +57,6 @@ public class AppointmentController {
     }
 
     @PutMapping("appointment/{id}")
-=======
-    @PutMapping("/{id}")
->>>>>>> refs/remotes/origin/main
     public String shiftAppointment(@PathVariable(value = "id") Long id, @RequestBody Appointment new_appointment) {
         this.appointmentService.updateAppointment(id, new_appointment);
         return "all changes about appointment have been saved";
@@ -78,7 +74,7 @@ public class AppointmentController {
         return "Printed successfully";
     }
 
-    @GetMapping("/remind/{id}")
+    @GetMapping("appointment/remind/{id}")
     public String remindAppointment(@PathVariable(value = "id") Long id, @RequestParam String remind_option) {
         this.appointmentService.remindAppointment(id, remind_option);
         return "Remind appointment successfully!";
