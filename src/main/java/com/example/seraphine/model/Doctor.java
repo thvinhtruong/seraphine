@@ -2,8 +2,8 @@ package com.example.seraphine.model;
 
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
-import java.util.Set;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "Doctor")
@@ -23,12 +23,10 @@ public class Doctor {
     private String specialization;
     private double distance_to_user;
     private String issue_covered;
-    private long longitude;
-    private long latitude;
-
     @OneToMany(targetEntity = Appointment.class,cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name ="appointments", referencedColumnName = "id")
-    Set<Appointment> appointments = new HashSet<>();
+    List<Appointment> appointments = new ArrayList<>();
+
 
     public Doctor(String firstName, String lastName, String gender, String emails, String address, String specialization, double distance_to_user, String issue_covered) {
         this.firstName = firstName;
@@ -97,14 +95,6 @@ public class Doctor {
         this.emails = emails;
     }
 
-    public Set<Appointment> getAppointments() {
-        return appointments;
-    }
-
-    public void setAppointments(Set<Appointment> appointments) {
-        this.appointments = appointments;
-    }
-
     public double getDistance_to_user() {
         return distance_to_user;
     }
@@ -121,20 +111,12 @@ public class Doctor {
         this.issue_covered = issue_covered;
     }
 
-    public long getLongitude() {
-        return longitude;
+    public List<Appointment> getAppointments() {
+        return appointments;
     }
 
-    public void setLongitude(long longitude) {
-        this.longitude = longitude;
-    }
-
-    public long getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(long latitude) {
-        this.latitude = latitude;
+    public void setAppointments(List<Appointment> appointments) {
+        this.appointments = appointments;
     }
 
     @Override
@@ -149,9 +131,6 @@ public class Doctor {
                 ", specialization='" + specialization + '\'' +
                 ", distance_to_user=" + distance_to_user +
                 ", issue_covered='" + issue_covered + '\'' +
-                ", longitude=" + longitude +
-                ", latitude=" + latitude +
-                ", appointments=" + appointments +
                 '}';
     }
 }

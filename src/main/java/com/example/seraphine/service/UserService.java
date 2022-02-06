@@ -1,23 +1,18 @@
 package com.example.seraphine.service;
 
-import java.time.LocalDateTime;
-import java.util.UUID;
-
-import com.example.seraphine.model.ConfirmationToken;
-import com.example.seraphine.model.ForgotPasswordToken;
-import com.example.seraphine.model.User;
-import com.example.seraphine.repository.UserRepo;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import com.example.seraphine.model.User;
 
-import lombok.AllArgsConstructor;
-
+/**
+ * Service for User, which includes authentication, registration, and reset password.
+ * @author Loc Bui Nhien
+ */
 @Service
+<<<<<<< HEAD
 @AllArgsConstructor
 public class UserService implements UserDetailsService{
     
@@ -85,4 +80,16 @@ public class UserService implements UserDetailsService{
 
         user.setPassword(encodePassword);
     }
+=======
+public interface UserService extends UserDetailsService {
+    String signUpUser(User appUser);
+    String Forgot(String email, String password);
+    void enableAppUser(String email);
+    void updatePassword(User user, String password);
+    User showPersonalInfor(Long id);
+    User editPersonalInfor(Long id, User newUser);
+
+    @Override
+    UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
+>>>>>>> refs/remotes/origin/main
 }

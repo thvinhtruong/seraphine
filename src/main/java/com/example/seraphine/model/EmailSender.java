@@ -13,6 +13,9 @@ import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.*;
 
+/**
+ * @author Tri Nguyen Minh
+ */
 @Service
 @AllArgsConstructor
 public class EmailSender {
@@ -23,6 +26,12 @@ public class EmailSender {
         return LocalDateTime.of(localDate, localTime);
     }
 
+    /**
+     * Calculate the time to send the reminder email based on the appointment time and the appointment option. 
+     * @param option
+     * @param appointment
+     * @return
+     */
     public LocalDateTime setupDateToSend(String option, Appointment appointment){
         LocalTime time_send = null; //HH-mm
         LocalDate date_send = null; //yyyy-MM-dd
@@ -46,6 +55,12 @@ public class EmailSender {
         return convertToDate(date_send, time_send);
     }
 
+    /**
+     * Compile an email to user.
+     * @param recipient_mail
+     * @param subject
+     * @param body
+     */
     public void sendEmail(String recipient_mail,
                                  String subject,
                                  String body){

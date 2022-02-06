@@ -37,12 +37,6 @@ public class Point {
         return Double.compare(point.getLongitude(), getLongitude()) == 0 && Double.compare(point.getLatitude(), getLatitude()) == 0;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(getLongitude(), getLatitude());
-    }
-
-
     public double calculateDistance(Point p) {
         // use Haversin formula
         double delta_p1 = ((p.getLongitude() - this.longitude)*Math.PI)/180;
