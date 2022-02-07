@@ -5,24 +5,58 @@ import com.example.seraphine.repository.DoctorRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Optional;
+
+/**
+ * Operation / logic for doctor
+ * @author Vinh Truong Canh Thanh
+ */
 
 @Service
 public class DoctorServiceImpl implements DoctorService {
     @Autowired
     private DoctorRepo doctorRepo;
+
+    /**
+     * Save doctor to database
+     * @param doctor Doctor
+     * @author Vinh Truong Canh Thanh
+     */
+
     @Override
     public void saveDoctor(Doctor doctor){
         doctorRepo.save(doctor);
     }
+
+    /**
+     * Display all doctor
+     * @author Vinh Truong Canh Thanh
+     */
+
     @Override
     public List<Doctor> getAllDoctors() {
         return doctorRepo.findAll();
     }
+
+    /**
+     * Get a doctor based on id
+     * @param id Long
+     * @author Vinh Truong Canh Thanh
+     */
+
     @Override
     public Optional<Doctor> getDoctorById(long id) {
         return doctorRepo.findById(id);
     }
+
+    /**
+     * Update information for a doctor
+     * @param id Long
+     * @param newdoctor Doctor
+     * @author Vinh Truong Canh Thanh
+     */
+
     @Override
     public void updateDoctor(long id, Doctor newdoctor) {
         this.doctorRepo.findById(id).map(doctor -> {
@@ -40,10 +74,23 @@ public class DoctorServiceImpl implements DoctorService {
             return this.doctorRepo.save(newdoctor);
         });
     }
+
+    /**
+     * Delete doctor from database
+     * @param id Long
+     * @author Vinh Truong Canh Thanh
+     */
+
     @Override
     public void deleteDoctor(long id) {
         doctorRepo.deleteById(id);
     }
+
+    /**
+     * calculate distance between doctor to user
+     * @param address String
+     * @author Vinh Truong Canh Thanh
+     */
 
     @Override
     public void calculateDistanceToUser(String address) {
@@ -61,10 +108,13 @@ public class DoctorServiceImpl implements DoctorService {
         }
     }
 
-    @Override
-    public void addAppointmentToDoctor(Long doctor_id, Appointment appointment) {
-
-    }
+    /**
+     * Find all doctors that satisfied the condition (query search for doctor)
+     * @param issues String
+     * @param address String
+     * @param distance_to_user int
+     * @author Vinh Truong Canh Thanh
+     */
 
     @Override
     public List<Doctor> findDoctorWithCriteria(String issues, String address, int distance_to_user) {
@@ -79,14 +129,26 @@ public class DoctorServiceImpl implements DoctorService {
         return doctorRepo.findAll(newQuery);
     }
 
+    /**
+     * Show all doctor appointment that available for user
+     * @param doctor_id Long
+     * @author Vinh Truong Canh Thanh
+     */
+
     @Override
     public List<Appointment> showAvailableAppointments(Long doctor_id) {
+        List<Appointment> results = new ArrayList<Appointment>();
         Optional<Doctor> doctor_obj = this.doctorRepo.findById(doctor_id);
         if (doctor_obj.isEmpty()) {
             System.out.println("doctor not found");
         }
         Doctor doctor = doctor_obj.get();
-        return doctor.getAppointments();
+        for (int i = 0; i < doctor.getAppointments().size(); i++) {
+            if (!doctor.getAppointments().get(i).isBooked()) {
+                results.add(doctor.getAppointments().get(i));
+            }
+        }
+        return results;
     }
 
 }

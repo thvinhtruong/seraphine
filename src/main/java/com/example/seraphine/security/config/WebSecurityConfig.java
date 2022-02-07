@@ -13,6 +13,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import lombok.AllArgsConstructor;
 
+/**
+ * Security config to manage access to api for security purpose and also for admin service security
+ * @author Loc Bui Nhien, Vinh Truong Canh Thanh
+ */
+
 @Configuration
 @AllArgsConstructor
 @EnableWebSecurity

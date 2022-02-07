@@ -2,6 +2,11 @@ package com.example.seraphine.model;
 
 import java.util.Objects;
 
+/**
+ * Create criteria to search for doctor, example: search doctor based on health problem, and places
+ * @author Vinh Truong Canh Thanh
+ */
+
 public class SearchCriteria {
     private String key;
     private Object value;

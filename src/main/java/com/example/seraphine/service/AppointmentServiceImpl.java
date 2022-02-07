@@ -5,25 +5,21 @@ import java.util.*;
 import com.example.seraphine.model.Doctor;
 import com.example.seraphine.repository.DoctorRepo;
 import com.example.seraphine.model.User;
-import java.util.*;
 import com.example.seraphine.model.*;
 import com.example.seraphine.repository.UserRepo;
-
 import java.io.IOException;
-
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.seraphine.repository.AppointmentRepo;
-import java.io.IOException;
-
 import com.example.seraphine.model.PDFDownloader;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import com.example.seraphine.repository.AppointmentRepo;
 import com.example.seraphine.model.Appointment;
 
-import javax.print.Doc;
+
+/**
+ * Appointment service for appointment logic / operation between client - business
+ * @author Vinh Truong Canh Thanh, Tri Nguyen Minh
+ */
 
 @AllArgsConstructor
 @Service
@@ -40,18 +36,42 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Autowired
     private EmailSender senderService;
 
+    /**
+     * save appointment to database
+     * @param appointment Appointment
+     * @author Vinh Truong Canh Thanh
+     */
+
     @Override
     public void saveAppointment(Appointment appointment) {
         this.appointmentRepo.save(appointment);
     }
+
+    /**
+     * get all appointment from database
+     * @author Vinh Truong Canh Thanh
+     */
     @Override
     public List<Appointment> getAllAppointments() {
         return this.appointmentRepo.findAll();
     }
+
+    /**
+     * get appointment based on its id in database
+     * @param id Long
+     * @author Vinh Truong Canh Thanh
+     */
     @Override
     public Optional<Appointment> getAppointmentById(Long id) {
         return this.appointmentRepo.findById(id);
     }
+
+    /**
+     * edit appointment based on id
+     * @param id Long
+     * @param new_appointment Appointment
+     * @author Vinh Truong Canh Thanh
+     */
     @Override
     public Appointment updateAppointment(Long id, Appointment new_appointment) {
         return (Appointment) this.appointmentRepo.findById(id).map(appointment -> {
@@ -67,10 +87,24 @@ public class AppointmentServiceImpl implements AppointmentService {
             return this.appointmentRepo.save(new_appointment);
         });
     }
+
+    /**
+     * delete appointment based on id
+     * @param id Long
+     * @author Vinh Truong Canh Thanh
+     */
+
     @Override
     public void deleteAppointment(Long id) {
         this.appointmentRepo.deleteById(id);
     }
+
+    /**
+     * user books appointment
+     * @param user_id Long
+     * @param appointment_id Long
+     * @author Vinh Truong Canh Thanh
+     */
 
     @Override
     public void bookAppointment(Long user_id, Long appointment_id) {
@@ -95,6 +129,13 @@ public class AppointmentServiceImpl implements AppointmentService {
         }
     }
 
+    /**
+     * add appointmet to doctor
+     * @param doctor_id Long
+     * @param new_appointment Appointment
+     * @author Vinh Truong Canh Thanh
+     */
+
     @Override
     public Appointment addAppointmentToDoctor(Long doctor_id, Appointment new_appointment) {
         List<Appointment> appointments_ls = new ArrayList<>();
@@ -109,6 +150,12 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         return booking;
     }
+
+    /**
+     * export PDF file / data for appointment based on its id
+     * @param id Long
+     * @author Tri Nguyen Minh, Vinh Truong Canh Thanh
+     */
 
     @Override
     public void exportAppointmentInfo(Long id) {
@@ -125,6 +172,12 @@ public class AppointmentServiceImpl implements AppointmentService {
         }
     }
 
+    /**
+     * Display all user appointments (appointments that user has booked)
+     * @param user_id Long
+     * @author Vinh Truong Canh Thanh
+     */
+
     @Override
     public Set<Appointment> showUserAppointments(Long user_id) {
         Optional<User> user_obj = this.userRepo.findById(user_id);
@@ -136,6 +189,12 @@ public class AppointmentServiceImpl implements AppointmentService {
         return user.getMyAppointment();
     }
 
+    /**
+     * Display all appointments of a doctor
+     * @param doctor_id Long
+     * @author Vinh Truong Canh Thanh
+     */
+
     @Override
     public List<Appointment> showDoctorsAppointments(Long doctor_id) {
         Optional<Doctor> doctor_obj = this.doctorRepo.findById(doctor_id);
@@ -146,6 +205,12 @@ public class AppointmentServiceImpl implements AppointmentService {
         return doctor.getAppointments();
     }
 
+    /**
+     * Remind user before the appointment
+     * @param appointment_id Long
+     * @param option String
+     * @author Tri Nguyen Minh
+     */
 
     public void remindAppointment(Long appointment_id, String option) {
         Optional<Appointment> appointment_obj = this.appointmentRepo.findById(appointment_id);

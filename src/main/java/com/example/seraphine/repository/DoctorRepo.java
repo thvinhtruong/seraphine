@@ -8,6 +8,11 @@ import org.springframework.stereotype.Repository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import java.util.List;
 
+/**
+ * Repository interface to access from data and model, also create entity for doctor
+ * @author Vinh Truong Canh Thanh
+ */
+
 @Repository
 public interface DoctorRepo extends JpaRepository<Doctor, Long>, JpaSpecificationExecutor<Doctor> {
 }

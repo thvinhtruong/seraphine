@@ -10,11 +10,24 @@ import java.util.List;
 import java.util.Optional;
 
 
+/**
+ * The controller for the doctor operations.
+ * <p>
+ * @author Vinh Truong Canh Thanh
+ */
+
 @RestController
 @RequestMapping("api/v1/doctor")
 public class DoctorController {
     @Autowired
     private DoctorService doctorService;
+
+    /**
+     * Add a doctor to database
+     * <p>
+     * @param doctor Doctor
+     * @return String
+     */
 
     @PostMapping("/post")
     public String createDoctor(@RequestBody Doctor doctor) {
@@ -22,10 +35,23 @@ public class DoctorController {
         return "new doctor is successfully added";
     }
 
+    /**
+     * List all doctors
+     * <p>
+     * @return list of all doctor
+     */
+
     @GetMapping("/all")
     public List<Doctor> showAllDoctors() {
         return doctorService.getAllDoctors();
     }
+
+    /**
+     * Get a doctor based on id
+     * <p>
+     * @param id Long
+     * @return doctor JSON data based on id
+     */
 
     @GetMapping("/{id}")
     public ResponseEntity<Optional<Doctor>> getDoctor(@PathVariable(value = "id") Long id) {
@@ -33,11 +59,26 @@ public class DoctorController {
         return ResponseEntity.ok().body(doctor);
     }
 
+    /**
+     * Edit doctor information
+     * <p>
+     * @param id Long
+     * @param newDoctor Doctor
+     * @return String
+     */
+
     @PutMapping("/{id}")
     public String updateDoctor(@PathVariable(value = "id") Long id, @RequestBody Doctor newDoctor) {
         this.doctorService.updateDoctor(id, newDoctor);
         return "all changes about doctor have been saved";
     }
+
+    /**
+     * Delete a doctor based on id
+     * <p>
+     * @param id long
+     * @return status for empty doctor
+     */
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteDoctor(@PathVariable(value = "id") Long id) {
@@ -45,10 +86,26 @@ public class DoctorController {
         return ResponseEntity.ok().build();
     }
 
+    /**
+     * Search query doctor in database
+     * <p>
+     * @param issue_covered String
+     * @param address String
+     * @param distance_to_user int
+     * @return list of doctor satisfied the condition
+     */
+
     @GetMapping("/search/query")
     public List<Doctor> displayAllDoctorsWithQuery(@RequestParam String issue_covered, @RequestParam String address, @RequestParam int distance_to_user) {
         return this.doctorService.findDoctorWithCriteria(issue_covered, address, distance_to_user);
     }
+
+    /**
+     * Show all available appointment for doctor based on id
+     * <p>
+     * @param id Long
+     * @return List of appointment
+     */
 
     @GetMapping("/appointment/{id}/all")
     public List<Appointment> displayAllAppointments(@PathVariable(value = "id") Long id) {

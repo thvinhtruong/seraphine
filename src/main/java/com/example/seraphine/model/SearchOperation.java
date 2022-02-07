@@ -1,5 +1,10 @@
 package com.example.seraphine.model;
 
+/**
+ * Enum that generate the operation to query search for doctors
+ * @author Vinh Truong Canh Thanh
+ */
+
 public enum SearchOperation {
     GREATER_THAN,
     LESS_THAN,

@@ -10,20 +10,48 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Basic operation / logic for admin
+ * @author Tri Nguyen Minh
+ */
+
 @Service
 @AllArgsConstructor
 public class AdminServiceImpl implements AdminService{
     @Autowired
     private UserRepo userRepo;
 
+    /**
+     * get all user from database
+     * @author Tri Nguyen Minh
+     */
+
     @Override
     public List<User> getAllUsers() { return userRepo.findAll(); }
+
+    /**
+     * get specific user by id
+     * @param id Long
+     * @author Tri Nguyen Minh
+     */
 
     @Override
     public Optional<User> getUserById(Long id) { return userRepo.findById(id); }
 
+    /**
+     * delete user from database
+     * @param id Long
+     * @author Tri Nguyen Minh
+     */
     @Override
     public void deleteUser(Long id) { this.userRepo.findById(id); }
+
+    /**
+     * update user information by id
+     * @param id Long
+     * @param newUser User
+     * @author Tri Nguyen Minh
+     */
 
     @Override
     public void updateUser(Long id, User newUser) {

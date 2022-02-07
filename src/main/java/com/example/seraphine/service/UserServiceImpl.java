@@ -11,7 +11,6 @@ import com.example.seraphine.repository.UserRepo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -28,7 +27,6 @@ public class UserServiceImpl implements UserService {
     private final ConfirmationTokenService confirmationTokenService;
     private final ForgotPasswordTokenService forgotPasswordTokenService;
     private final static String USER_NOT_FOUND_MSG = "user with email %s not found";
-    
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -76,7 +74,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    // Nhien Loc, please review this!!!
     public void enableAppUser(String email){
         appUserRepository.enableAppUser(email);
     }

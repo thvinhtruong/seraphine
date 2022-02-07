@@ -5,6 +5,11 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Doctor object, which is the second object for the web app
+ * @author Vinh Truong Canh Thanh
+ */
+
 @Entity
 @Table(name = "Doctor")
 @NoArgsConstructor
@@ -27,6 +32,10 @@ public class Doctor {
     @JoinColumn(name ="appointments", referencedColumnName = "id")
     List<Appointment> appointments = new ArrayList<>();
 
+    /**
+     * Contructor
+     * @author Vinh Truong Canh Thanh
+     */
 
     public Doctor(String firstName, String lastName, String gender, String emails, String address, String specialization, double distance_to_user, String issue_covered) {
         this.firstName = firstName;
@@ -38,6 +47,11 @@ public class Doctor {
         this.distance_to_user = distance_to_user;
         this.issue_covered = issue_covered;
     }
+
+    /**
+     * Getter and Setter
+     * @author Vinh Truong Canh Thanh
+     */
 
     public Long getId() {
         return id;
@@ -118,6 +132,11 @@ public class Doctor {
     public void setAppointments(List<Appointment> appointments) {
         this.appointments = appointments;
     }
+
+    /**
+     * To String function, format: JSON
+     * @author Vinh Truong Canh Thanh
+     */
 
     @Override
     public String toString() {

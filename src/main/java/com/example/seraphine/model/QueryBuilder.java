@@ -8,6 +8,10 @@ import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Query Builder class to create some operations to search doctor based on the input value
+ * @author Vinh Truong Canh Thanh
+ */
 
 public class QueryBuilder<T> implements Specification<T> {
     private List<SearchCriteria> criteria_list;
@@ -19,6 +23,11 @@ public class QueryBuilder<T> implements Specification<T> {
     public void add(SearchCriteria criteria) {
         criteria_list.add(criteria);
     }
+
+    /**
+     * Using predicate to query the satisfied data in the database
+     * @author Vinh Truong Canh Thanh
+     */
 
     @Override
     public Predicate toPredicate(Root<T> root, CriteriaQuery<?> query, CriteriaBuilder builder) {

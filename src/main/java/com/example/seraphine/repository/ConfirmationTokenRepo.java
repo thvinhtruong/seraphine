@@ -11,6 +11,11 @@ import java.util.Optional;
 
 import com.example.seraphine.model.ConfirmationToken;
 
+/**
+ * Repository interface to access from data and model, also create entity for confirmation token
+ * @author Loc Bui Nhien
+ */
+
 @Repository
 @Transactional(readOnly = true)
 public interface ConfirmationTokenRepo

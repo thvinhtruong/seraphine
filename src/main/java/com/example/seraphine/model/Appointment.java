@@ -5,9 +5,11 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+/**
+ * Appointment is a model for our main service, which is booking an appointment for a doctor.
+ * @author Vinh Truong Canh Thanh
+ */
 
 @Entity
 @Table(name = "Appointment")
@@ -23,7 +25,6 @@ public class Appointment {
     private Long id;
     private String appointment_reason;
     private String appointment_description;
-    private String reminder_option;
 
     @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="HH-mm")
     private LocalTime start_time;
@@ -39,6 +40,11 @@ public class Appointment {
     private Long doctor_id;
     private Long user_id;
 
+    /**
+     * Contructor
+     * @author Vinh Truong Canh Thanh
+     */
+
     public Appointment(String appointment_reason, String appointment_description, LocalTime start_time,
                        LocalTime end_time, LocalDate dateBooking, boolean booked) {
         this.appointment_reason = appointment_reason;
@@ -48,6 +54,11 @@ public class Appointment {
         this.dateBooking = dateBooking;
         this.booked = booked;
     }
+
+    /**
+     * Getter and Setter
+     * @author Vinh Truong Canh Thanh
+     */
 
     public Long getId() { return id; }
 
@@ -119,13 +130,10 @@ public class Appointment {
         this.user_id = user_id;
     }
 
-    public String getReminder_option() {
-        return reminder_option;
-    }
-
-    public void setReminder_option(String reminder_option) {
-        this.reminder_option = reminder_option;
-    }
+    /**
+     * To String function
+     * @author Vinh Truong Canh Thanh
+     */
 
     @Override
     public String toString() {

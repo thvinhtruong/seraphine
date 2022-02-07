@@ -6,11 +6,15 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 
-
-import javax.mail.MessagingException;
 import java.util.Optional;
 import java.util.List;
 import java.util.Set;
+
+/**
+ * The controller for the appointment operations.
+ * <p>
+ * @author Vinh Truong Canh Thanh, Tri Nguyen Minh
+ */
 
 @RestController
 @RequestMapping("api/v1/")
@@ -18,16 +22,38 @@ public class AppointmentController {
     @Autowired
     private AppointmentService appointmentService;
 
+    /**
+     * Create an appointment and return a string for creating successfully
+     * <p>
+     * @return String
+     */
+
     @PostMapping("appointment/post")
     public String createAppointment(@RequestBody Appointment appointment) {
         appointmentService.saveAppointment(appointment);
         return "new appointment has been successfully made";
     }
 
+    /**
+     * Add a new appointment to doctor list.
+     * <p>
+     * @param id Long
+     * @param appointment Appointment
+     * @return an appointment of a doctor
+     */
+
     @PostMapping("doctor/appointment/add/{id}")
     public Appointment addAppointmentToDoctor(@PathVariable(value = "id") Long id, @RequestBody Appointment appointment) {
         return this.appointmentService.addAppointmentToDoctor(id, appointment);
     }
+
+    /**
+     * User book an appointment
+     * <p>
+     * @param userId Long
+     * @param appointmentId Long
+     * @return a status for booking successfully
+     */
 
     @GetMapping("user/appointment/{userId}/{appointmentId}")
     public ResponseEntity<Void> bookAppointment(@PathVariable(value = "userId") Long userId, @PathVariable(value = "appointmentId") Long appointmentId) {
@@ -35,10 +61,23 @@ public class AppointmentController {
         return ResponseEntity.ok().build();
     }
 
+    /**
+     * Show all available appointment.
+     * <p>
+     * @return list of appointment
+     */
+
     @GetMapping("appointment/all")
     public List<Appointment> showAllAppointments() {
         return this.appointmentService.getAllAppointments();
     }
+
+    /**
+     * Get an appointment based on its id.
+     * <p>
+     * @param id Long
+     * @return an appointment
+     */
 
     @GetMapping("appointment/{id}")
     public ResponseEntity<Optional<Appointment>> getAppointment(@PathVariable(value = "id") Long id) {
@@ -46,15 +85,37 @@ public class AppointmentController {
         return ResponseEntity.ok().body(appointment);
     }
 
+    /**
+     * Get all appointment of a specific user based in user id.
+     * <p>
+     * @param id Long
+     * @return set of appointment for that user
+     */
+
     @GetMapping("user/appointment/all/{id}")
     public Set<Appointment> getAllUserAppointments(@PathVariable(value = "id") Long id) {
         return this.appointmentService.showUserAppointments(id);
     }
 
+    /**
+     * Get all appointment of a specific doctor based on doctor id.
+     * <p>
+     * @param id Long
+     * @return list of appointment for that doctor
+     */
+
     @GetMapping("doctor/appointment/all/{id}")
     public List<Appointment> getAllDoctorAppointment(@PathVariable(value = "id") Long id) {
         return this.appointmentService.showDoctorsAppointments(id);
     }
+
+    /**
+     * Shift an appointment
+     * <p>
+     * @param id Long
+     * @param new_appointment Appointment
+     * @return String
+     */
 
     @PutMapping("appointment/{id}")
     public String shiftAppointment(@PathVariable(value = "id") Long id, @RequestBody Appointment new_appointment) {
@@ -62,17 +123,39 @@ public class AppointmentController {
         return "all changes about appointment have been saved";
     }
 
+    /**
+     * Delete an appointment
+     * <p>
+     * @param id Long
+     * @return status for empty appointment
+     */
+
     @DeleteMapping("appointment/{id}")
     public ResponseEntity<Void> cancelAppointment(@PathVariable(value = "id") Long id) {
         this.appointmentService.deleteAppointment(id);
         return ResponseEntity.ok().build();
     }
 
+    /**
+     * Create pdf and download for an appointment based on id.
+     * <p>
+     * @param id Long
+     * @return String
+     */
+
     @GetMapping("appointment/pdf/generate/{id}")
     public String exportAppointment(@PathVariable(value = "id") Long id) {
         this.appointmentService.exportAppointmentInfo(id);
         return "Printed successfully";
     }
+
+    /**
+     * Remind user for the coming appointment
+     * <p>
+     * @param id Long
+     * @param remind_option String
+     * @return String
+     */
 
     @GetMapping("appointment/remind/{id}")
     public String remindAppointment(@PathVariable(value = "id") Long id, @RequestParam String remind_option) {

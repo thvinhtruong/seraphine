@@ -2,16 +2,30 @@ package com.example.seraphine.model;
 
 import java.util.Objects;
 
+/**
+ * Point class to get the precise longitude and latitude of user / doctor on Earth
+ * @author Vinh Truong Canh Thanh
+ */
+
 public class Point {
     private double longitude;
     private double latitude;
 
-    public Point(){}
+    /**
+     * Contructor
+     * @author Vinh Truong Canh Thanh
+     */
 
+    public Point(){}
     public Point(double longitude, double latitude) {
         this.longitude = longitude;
         this.latitude = latitude;
     }
+
+    /**
+     * Getter and Setter
+     * @author Vinh Truong Canh Thanh
+     */
 
     public double getLongitude() {
         return longitude;
@@ -29,6 +43,11 @@ public class Point {
         this.latitude = latitude;
     }
 
+    /**
+     * Check 2 points equal or not
+     * @author Vinh Truong Canh Thanh
+     */
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -36,6 +55,11 @@ public class Point {
         Point point = (Point) o;
         return Double.compare(point.getLongitude(), getLongitude()) == 0 && Double.compare(point.getLatitude(), getLatitude()) == 0;
     }
+
+    /**
+     * Distance between 2 points using Haversin's Formula
+     * @author Vinh Truong Canh Thanh
+     */
 
     public double calculateDistance(Point p) {
         // use Haversin formula

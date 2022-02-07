@@ -15,6 +15,11 @@ import java.util.Collections;
 import java.util.Set;
 import java.util.HashSet;
 
+/**
+ * Main object for the project
+ * @author Loc Bui Nhien, Vinh Truong Canh Thanh
+ */
+
 @Getter
 @Setter
 @NoArgsConstructor

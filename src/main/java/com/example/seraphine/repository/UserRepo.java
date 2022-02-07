@@ -11,6 +11,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * Repository interface to access from data and model, also create entity for user
+ * @author Loc Bui Nhien
+ */
+
 @Transactional(readOnly = true)
 @Repository
 public interface UserRepo extends JpaRepository<User, Long>{
