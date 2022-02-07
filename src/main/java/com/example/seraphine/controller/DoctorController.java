@@ -2,7 +2,9 @@ package com.example.seraphine.controller;
 
 import com.example.seraphine.model.Doctor;
 import com.example.seraphine.service.DoctorService;
+import lombok.AllArgsConstructor;
 import com.example.seraphine.model.Appointment;
+
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import java.util.Optional;
  * @authur Vinh Truong Canh Thanh
  * */
 @RestController
+@AllArgsConstructor
 @RequestMapping("api/v1/doctor")
 public class DoctorController {
     @Autowired
@@ -49,12 +52,14 @@ public class DoctorController {
     }
 
     @GetMapping("/search/query")
-    public List<Doctor> displayAllDoctorsWithQuery(@RequestParam String issue_covered, @RequestParam String address, @RequestParam int distance_to_user) {
+    public List<Doctor> displayAllDoctorsWithQuery(@RequestParam String issue_covered,
+                                                   @RequestParam String address,
+                                                   @RequestParam int distance_to_user) {
         return this.doctorService.findDoctorWithCriteria(issue_covered, address, distance_to_user);
     }
 
     @GetMapping("/appointment/{id}/all")
-    public List<Appointment> displayAllAppointments(@PathVariable(value = "id") Long id) {
-        return this.doctorService.showAvailableAppointments(id);
+    public List<Appointment> displayAllAppointments(@PathVariable(value = "id") Long doctor_id) {
+        return this.doctorService.showAvailableAppointments(doctor_id);
     }
 }

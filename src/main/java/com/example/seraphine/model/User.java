@@ -39,17 +39,16 @@ public class User implements UserDetails {
     private String dateOfBirth;
     private String insuranceType;
     private String insuranceName;
+    private String userRole;
 
     @OneToMany(targetEntity = Appointment.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name ="appointments",referencedColumnName = "id")
     private Set<Appointment> myAppointment = new HashSet<>();
 
-    @Enumerated(EnumType.STRING)
-    private UserRole userRole;
-
     private Boolean locked = false;
     private Boolean enabled = false;
     private String resetPasswordToken;
+
 
     /**
      * The method is used to create a new User object.
@@ -94,7 +93,7 @@ public class User implements UserDetails {
      * Get user's first name.
      * @return user's first name
      */
-    public String getFistName() {
+    public String getFirstName() {
         return firstName;
     }
 
@@ -289,21 +288,20 @@ public class User implements UserDetails {
      * Get user's role.
      * @return user's role.
      */
-    public UserRole getUserRole() {
+    public String getUserRole() {
         return userRole;
     }
-
     /**
      * Set user's role.
      * @param userRole user's role
      */
-    public void setUserRole(UserRole userRole) {
+    public void setUserRole(String userRole) {
         this.userRole = userRole;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return Collections.singleton(new SimpleGrantedAuthority(this.getUserRole()));
     }
 
     @Override

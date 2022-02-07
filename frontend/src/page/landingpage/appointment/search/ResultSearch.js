@@ -1,6 +1,7 @@
-import React, { useState, useCallback, Fragment } from "react";
-import Data from "./data.json";
-import Pagination from "../Pagination/Paginations";
+import React, { useState, useCallback, Fragment } from "react"
+import Data from "./data.json"
+import {Switch, Route} from "react-router-dom"
+import Pagination from "../Pagination/Paginations"
 
 const ResultSearchInput = () => { /** States */
   const [visible, setVisible] = useState(10);
@@ -69,13 +70,11 @@ const ResultSearchInput = () => { /** States */
                   <li className="result-list-down">
                         Address: {item.address} - {item.postalcode}
                   </li>
+                  <li>
+                  <Link style={{ textDecoration: 'none' }} to="/result-page">
+                    <button className="form-btn ">Show More</button>
+                  </li>
                   <hr className="result-form-hr"></hr>
-                  <button className="order-btn-2" onClick={() => onSort("asc")}>
-                    Name Ascending
-                  </button>
-                  <button className="order-btn" onClick={() => onSort("desc")}>
-                    Name Descending
-                  </button>
                 </Fragment>
               );
             })}

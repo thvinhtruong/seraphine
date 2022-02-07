@@ -1,4 +1,4 @@
-package com.example.seraphine.controller;
+package com.example.seraphine.model;
 
 import java.util.function.Predicate;
 

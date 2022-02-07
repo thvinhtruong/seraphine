@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 
 import com.example.seraphine.service.ForgotPasswordRequest;
 import com.example.seraphine.service.ForgotPasswordService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(path = "api/v1/forgot_password")
 @AllArgsConstructor
 public class ForgotPasswordController {
+    @Autowired
     private final ForgotPasswordService forgotPasswordService;
 
 

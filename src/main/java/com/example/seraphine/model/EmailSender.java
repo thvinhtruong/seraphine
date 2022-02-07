@@ -2,22 +2,18 @@ package com.example.seraphine.model;
 
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.FileSystemResource;
+
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
-import java.io.File;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.*;
 
-/**
+/** Email sender with scheduled or non-scheduled email sending method
  * @author Tri Nguyen Minh
  */
 @Service
@@ -60,7 +56,7 @@ public class EmailSender {
     }
 
     /**
-     * Compile an email to user.
+     * Send an email immediately to the user's email
      * @param recipient_mail
      * @param subject
      * @param body
@@ -80,13 +76,11 @@ public class EmailSender {
         //Prompting the message
         System.out.println("Mail sent successfully!");
     }
-
     /**
-     * Using scheduled email as a reminder.
+     * Schedule to email the user based on the start time of the appointment
      * @param recipient_mail
-     * @param subject
-     * @param body
-     * @param file
+     * @param appointment
+     * @param option
      */
     public void sendScheduledMail(String recipient_mail, Appointment appointment, String option){
         String subject = "Reminder from Seraphine team";

@@ -2,12 +2,11 @@ package com.example.seraphine.controller;
 
 import com.example.seraphine.model.*;
 import com.example.seraphine.service.AppointmentService;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 
-
-import javax.mail.MessagingException;
 import java.util.Optional;
 import java.util.List;
 import java.util.Set;
@@ -17,6 +16,7 @@ import java.util.Set;
  * @authur Vinh Truong Canh Thanh, Tri Nguyen Minh
  * */
 @RestController
+@AllArgsConstructor
 @RequestMapping("api/v1/")
 public class AppointmentController {
     @Autowired
@@ -29,12 +29,13 @@ public class AppointmentController {
     }
 
     @PostMapping("doctor/appointment/add/{id}")
-    public Appointment addAppointmentToDoctor(@PathVariable(value = "id") Long id, @RequestBody Appointment appointment) {
-        return this.appointmentService.addAppointmentToDoctor(id, appointment);
+    public Appointment addAppointmentToDoctor(@PathVariable(value = "id") Long doctor_id, @RequestBody Appointment appointment) {
+        return this.appointmentService.addAppointmentToDoctor(doctor_id, appointment);
     }
 
     @GetMapping("user/appointment/{userId}/{appointmentId}")
-    public ResponseEntity<Void> bookAppointment(@PathVariable(value = "userId") Long userId, @PathVariable(value = "appointmentId") Long appointmentId) {
+    public ResponseEntity<Void> bookAppointment(@PathVariable(value = "userId") Long userId,
+                                                @PathVariable(value = "appointmentId") Long appointmentId) {
         this.appointmentService.bookAppointment(userId, appointmentId);
         return ResponseEntity.ok().build();
     }
@@ -50,6 +51,7 @@ public class AppointmentController {
         return ResponseEntity.ok().body(appointment);
     }
 
+
     @GetMapping("user/appointment/all/{id}")
     public Set<Appointment> getAllUserAppointments(@PathVariable(value = "id") Long id) {
         return this.appointmentService.showUserAppointments(id);
@@ -61,10 +63,12 @@ public class AppointmentController {
     }
 
     @PutMapping("appointment/{id}")
-    public String shiftAppointment(@PathVariable(value = "id") Long id, @RequestBody Appointment new_appointment) {
+    public String shiftAppointment(@PathVariable(value = "id") Long id,
+                                    @RequestBody Appointment new_appointment) {
         this.appointmentService.updateAppointment(id, new_appointment);
         return "all changes about appointment have been saved";
     }
+
 
     @DeleteMapping("appointment/{id}")
     public ResponseEntity<Void> cancelAppointment(@PathVariable(value = "id") Long id) {
@@ -77,6 +81,7 @@ public class AppointmentController {
         this.appointmentService.exportAppointmentInfo(id);
         return "Printed successfully";
     }
+
 
     @GetMapping("appointment/remind/{id}")
     public String remindAppointment(@PathVariable(value = "id") Long id, @RequestParam String remind_option) {

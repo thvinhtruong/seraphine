@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import com.example.seraphine.model.Doctor;
 import com.example.seraphine.service.DoctorService;
+import org.springframework.context.annotation.Bean;
 
 @DataJpaTest
 public class DoctorTest {
