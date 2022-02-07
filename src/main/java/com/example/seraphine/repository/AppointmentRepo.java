@@ -7,6 +7,10 @@ import org.springframework.stereotype.Repository;
 import com.example.seraphine.model.Appointment;
 import java.util.List;
 
+/**
+ * Repository for Appointment.
+ * @authur Vinh Truong Canh Thanh
+ */
 @Repository
 public interface AppointmentRepo extends JpaRepository<Appointment, Long>, PagingAndSortingRepository<Appointment, Long> {
 }

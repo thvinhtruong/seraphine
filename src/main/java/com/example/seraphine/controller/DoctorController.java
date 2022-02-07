@@ -9,7 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 import java.util.Optional;
 
-
+/**
+ * Controller for Doctor.
+ * @authur Vinh Truong Canh Thanh
+ * */
 @RestController
 @RequestMapping("api/v1/doctor")
 public class DoctorController {

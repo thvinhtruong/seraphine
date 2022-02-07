@@ -81,6 +81,13 @@ public class EmailSender {
         System.out.println("Mail sent successfully!");
     }
 
+    /**
+     * Using scheduled email as a reminder.
+     * @param recipient_mail
+     * @param subject
+     * @param body
+     * @param file
+     */
     public void sendScheduledMail(String recipient_mail, Appointment appointment, String option){
         String subject = "Reminder from Seraphine team";
         String body = "You have an appointment on " + appointment.getDateBooking()

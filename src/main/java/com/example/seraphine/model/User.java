@@ -51,6 +51,18 @@ public class User implements UserDetails {
     private Boolean enabled = false;
     private String resetPasswordToken;
 
+    /**
+     * The method is used to create a new User object.
+     * <p>
+     * @param firstName The first name of the user.
+     * @param lastName The last name of the user.
+     * @param email The email of the user.
+     * @param username The username of the user.
+     * @param password The password of the user.
+     * @param dateOfBirth The date of birth of the user.
+     * @param insuranceType The insurance type of the user.
+     * @param insuranceName The insurance name of the user.
+    */
     public User(String firstName, String lastName, String email, String username, String password, String dateOfBirth, String insuranceType, String insuranceName) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -150,7 +162,7 @@ public class User implements UserDetails {
     public void setFistName(String firstName) {
         this.firstName = firstName;
     }
-    
+
     /**
      * Set user's last name.
      * @param lastName user's last name
@@ -207,36 +219,68 @@ public class User implements UserDetails {
         this.insuranceName = insuranceName;
     }
 
+    /**
+     * Get user's appointment.
+     * @return user's appointment
+     */
     public Set<Appointment> getMyAppointment() {
         return myAppointment;
     }
 
+    /**
+     * Get user's locked status.
+     * @return is the user locked
+     */
     public Boolean getLocked() {
         return locked;
     }
     
 
+    /**
+     * Set user's locked status.
+     * @param locked is the user locked
+     */
     public void setLocked(Boolean locked) {
         this.locked = locked;
     }
 
 
+    /**
+     * Get user's enabled status.
+     * @return is the user enabled
+     */
     public Boolean getEnabled() {
         return enabled;
     }
 
+    /**
+     * Set user's enabled status.
+     * @param enabled is the user enabled
+     */
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
     }
 
+    /**
+     * Ger user's reset password token.
+     * @return user's reset password token
+     */
     public String getResetPasswordToken(){
         return resetPasswordToken;
     }
 
+    /**
+     * Set user's appointment.
+     * @param myAppointment user's appointment
+     */
     public void setMyAppointment(Set<Appointment> myAppointment) {
         this.myAppointment = myAppointment;
     }
 
+    /**
+     * Set user's reset password token.
+     * @param resetPasswordToken user's reset password token
+     */
     public void setResetPasswordToken(String resetPasswordToken) {
         this.resetPasswordToken = resetPasswordToken;
     }

@@ -11,6 +11,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class EmailValidator implements Predicate<String>
 {
+    /**
+     * Validate email using regular expression.
+     * @param email
+     * @return
+     */
     @Override
     public boolean test(String email) {
         String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";

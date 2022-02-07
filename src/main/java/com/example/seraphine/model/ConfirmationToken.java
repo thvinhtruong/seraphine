@@ -18,6 +18,9 @@ import java.time.LocalDateTime;
 @Entity
 public class ConfirmationToken {
 
+    /**
+     * The id of the token.
+     */
     @SequenceGenerator(
             name = "confirmation_token_sequence",
             sequenceName = "confirmation_token_sequence",

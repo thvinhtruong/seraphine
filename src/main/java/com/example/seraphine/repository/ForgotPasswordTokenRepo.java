@@ -11,6 +11,10 @@ import java.util.Optional;
 
 import com.example.seraphine.model.ForgotPasswordToken;
 
+/**
+ * Repository for ForgotPasswordToken.
+ * @author Loc Bui Nhien
+ */
 @Repository
 @Transactional(readOnly = true)
 public interface ForgotPasswordTokenRepo

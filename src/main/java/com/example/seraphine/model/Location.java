@@ -8,6 +8,9 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 
+/**
+ * 
+ */
 public class Location {
     String address;
 

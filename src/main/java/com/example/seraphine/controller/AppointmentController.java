@@ -12,6 +12,10 @@ import java.util.Optional;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Controller for Appointment.
+ * @authur Vinh Truong Canh Thanh, Tri Nguyen Minh
+ * */
 @RestController
 @RequestMapping("api/v1/")
 public class AppointmentController {

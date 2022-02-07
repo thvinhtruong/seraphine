@@ -5,6 +5,11 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The class is a model for the Doctor entity.
+ * <p>
+ * @author Vinh Truong Canh Thanh
+ */
 @Entity
 @Table(name = "Doctor")
 @NoArgsConstructor

@@ -7,12 +7,20 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+/**
+ * The class is a model for the Forgot Password Token entity.
+ * <p>
+ * @author Loc Bui Nhien
+ */
 @Getter
 @Setter
 @NoArgsConstructor
 @Entity
 public class ForgotPasswordToken {
 
+    /**
+     * The id of the token.
+     */
     @SequenceGenerator(
             name = "forgot_password_token_sequence",
             sequenceName = "forgot_password_token_sequence",
@@ -42,6 +50,13 @@ public class ForgotPasswordToken {
     @JoinColumn(nullable = false, name = "app_user_id")
     private User appUser;
 
+    /**
+     * Create  token for reseting password.
+     * @param token
+     * @param createdAt
+     * @param expiresAt
+     * @param password
+     */
     public ForgotPasswordToken(String token, LocalDateTime createdAt, LocalDateTime expiresAt, String password) {
         this.token = token;
         this.createdAt = createdAt;

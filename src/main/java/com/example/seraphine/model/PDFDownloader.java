@@ -9,9 +9,8 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 /**
- * 
+ * Service for PDF.
  */
 @Service
 public class PDFDownloader {

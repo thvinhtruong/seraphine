@@ -8,6 +8,10 @@ import org.springframework.stereotype.Repository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import java.util.List;
 
+/**
+ * Repository for Appointment.
+ * @authur Vinh Truong Canh Thanh
+ */
 @Repository
 public interface DoctorRepo extends JpaRepository<Doctor, Long>, JpaSpecificationExecutor<Doctor> {
 }
