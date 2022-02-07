@@ -17,12 +17,12 @@ import java.time.LocalDateTime;
 @Service
 @AllArgsConstructor
 public class RegistrationServiceImpl implements RegistrationService{
+    @Autowired
     private final UserService userService;
     @Autowired
     private final EmailValidator emailValidator;
     @Autowired
     private final ConfirmationTokenService confirmationTokenService;
-
     @Autowired
     private EmailSender senderService;
 

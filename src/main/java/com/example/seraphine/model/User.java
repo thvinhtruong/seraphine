@@ -246,27 +246,18 @@ public class User implements UserDetails {
         this.resetPasswordToken = resetPasswordToken;
     }
 
-<<<<<<< HEAD
-    public String getUserRole() {
-        return userRole;
-    }
-
-    public void setUserRole(String userRole) {
-=======
     /**
      * Get user's role.
      * @return user's role.
      */
-    public UserRole getUserRole() {
+    public String getUserRole() {
         return userRole;
     }
-
     /**
      * Set user's role.
      * @param userRole user's role
      */
-    public void setUserRole(UserRole userRole) {
->>>>>>> refs/remotes/origin/main
+    public void setUserRole(String userRole) {
         this.userRole = userRole;
     }
 

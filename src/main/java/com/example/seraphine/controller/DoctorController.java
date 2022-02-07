@@ -2,12 +2,9 @@ package com.example.seraphine.controller;
 
 import com.example.seraphine.model.Doctor;
 import com.example.seraphine.service.DoctorService;
-<<<<<<< HEAD
 import lombok.AllArgsConstructor;
-import org.springframework.security.access.prepost.PreAuthorize;
-=======
 import com.example.seraphine.model.Appointment;
->>>>>>> refs/remotes/origin/main
+
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;

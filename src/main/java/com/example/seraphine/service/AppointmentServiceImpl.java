@@ -1,20 +1,14 @@
 package com.example.seraphine.service;
 
-<<<<<<< HEAD
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.List;
 import java.util.Set;
 
 
-=======
-import java.util.*;
-
 import com.example.seraphine.model.Doctor;
 import com.example.seraphine.repository.DoctorRepo;
 import com.example.seraphine.model.User;
-import java.util.*;
->>>>>>> refs/remotes/origin/main
 import com.example.seraphine.model.*;
 import com.example.seraphine.repository.UserRepo;
 import com.example.seraphine.repository.AppointmentRepo;
@@ -26,13 +20,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
-<<<<<<< HEAD
-=======
-import javax.print.Doc;
-
-@AllArgsConstructor
->>>>>>> refs/remotes/origin/main
 @Service
 @AllArgsConstructor
 public class AppointmentServiceImpl implements AppointmentService {

@@ -1,9 +1,6 @@
 package com.example.seraphine.model;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
 /**
  * The request for the registration service.
@@ -11,8 +8,8 @@ import lombok.ToString;
  * @author Loc Bui Nhien
  */
 @Getter
+@Setter
 @AllArgsConstructor
-@EqualsAndHashCode
 @ToString
 public class RegistrationRequest {
     private final String firstName;
