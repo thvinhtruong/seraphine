@@ -2,7 +2,7 @@ package com.example.seraphine.controller;
 
 import lombok.AllArgsConstructor;
 
-import com.example.seraphine.model.ForgotPasswordRequest;
+import com.example.seraphine.service.ForgotPasswordRequest;
 import com.example.seraphine.service.ForgotPasswordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

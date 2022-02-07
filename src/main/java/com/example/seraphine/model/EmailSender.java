@@ -13,7 +13,7 @@ import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.*;
 
-/**
+/** Email sender with scheduled or non-scheduled email sending method
  * @author Tri Nguyen Minh
  */
 @Service
@@ -56,7 +56,7 @@ public class EmailSender {
     }
 
     /**
-     * Compile an email to user.
+     * Send an email immediately to the user's email
      * @param recipient_mail
      * @param subject
      * @param body
@@ -76,7 +76,12 @@ public class EmailSender {
         //Prompting the message
         System.out.println("Mail sent successfully!");
     }
-
+    /**
+     * Schedule to email the user based on the start time of the appointment
+     * @param recipient_mail
+     * @param appointment
+     * @param option
+     */
     public void sendScheduledMail(String recipient_mail, Appointment appointment, String option){
         String subject = "Reminder from Seraphine team";
         String body = "You have an appointment on " + appointment.getDateBooking()

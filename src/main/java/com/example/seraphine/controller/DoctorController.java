@@ -56,7 +56,7 @@ public class DoctorController {
     }
 
     @GetMapping("/appointment/{id}/all")
-    public List<Appointment> displayAllAppointments(@PathVariable(value = "id") Long id) {
-        return this.doctorService.showAvailableAppointments(id);
+    public List<Appointment> displayAllAppointments(@PathVariable(value = "id") Long doctor_id) {
+        return this.doctorService.showAvailableAppointments(doctor_id);
     }
 }

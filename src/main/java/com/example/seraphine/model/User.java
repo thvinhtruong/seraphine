@@ -87,7 +87,7 @@ public class User implements UserDetails {
      * Get user's first name.
      * @return user's first name
      */
-    public String getFistName() {
+    public String getFirstName() {
         return firstName;
     }
 

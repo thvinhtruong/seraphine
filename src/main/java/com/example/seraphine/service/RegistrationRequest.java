@@ -1,4 +1,4 @@
-package com.example.seraphine.model;
+package com.example.seraphine.service;
 
 import lombok.*;
 
@@ -8,8 +8,8 @@ import lombok.*;
  * @author Loc Bui Nhien
  */
 @Getter
-@Setter
 @AllArgsConstructor
+@EqualsAndHashCode
 @ToString
 public class RegistrationRequest {
     private final String firstName;

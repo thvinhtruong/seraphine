@@ -97,10 +97,12 @@ public class AppointmentServiceImpl implements AppointmentService {
     public Appointment addAppointmentToDoctor(Long doctor_id, Appointment new_appointment) {
         List<Appointment> appointments_ls = new ArrayList<>();
         Optional<Doctor> doctor_obj = this.doctorRepo.findById(doctor_id);
+
         if (doctor_obj.isEmpty()) {
             System.out.println("doctor not found");
         }
         Doctor doctor = doctor_obj.get();
+
         Appointment booking = this.appointmentRepo.save(new_appointment);
         appointments_ls.add(booking);
         doctor.setAppointments(appointments_ls);

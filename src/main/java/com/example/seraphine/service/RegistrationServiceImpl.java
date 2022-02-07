@@ -1,10 +1,6 @@
 package com.example.seraphine.service;
 
-import com.example.seraphine.model.RegistrationRequest;
-import com.example.seraphine.model.User;
-import com.example.seraphine.model.EmailValidator;
-import com.example.seraphine.model.ConfirmationToken;
-import com.example.seraphine.model.EmailSender;
+import com.example.seraphine.model.*;
 
 import lombok.AllArgsConstructor;
 

@@ -2,7 +2,6 @@ package com.example.seraphine.service;
 
 import com.example.seraphine.model.EmailValidator;
 import com.example.seraphine.model.EmailSender;
-import com.example.seraphine.model.ForgotPasswordRequest;
 import com.example.seraphine.model.ForgotPasswordToken;
 
 import lombok.AllArgsConstructor;
@@ -25,6 +24,7 @@ public class ForgotPasswordServiceImpl implements ForgotPasswordService {
     @Autowired
 	private EmailSender senderService;
 
+    @Override
     public String forgot_password(ForgotPasswordRequest request) {
         boolean isValidEmail = emailValidator.
                 test(request.getEmail());
@@ -50,6 +50,7 @@ public class ForgotPasswordServiceImpl implements ForgotPasswordService {
 
 
     @Transactional
+    @Override
     public String forgotPasswordToken(String token) {
         ForgotPasswordToken forgotPasswordToken = forgotPasswordTokenService
                 .getToken(token)

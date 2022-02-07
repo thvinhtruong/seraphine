@@ -25,8 +25,8 @@ public class AppointmentController {
     }
 
     @PostMapping("doctor/appointment/add/{id}")
-    public Appointment addAppointmentToDoctor(@PathVariable(value = "id") Long id, @RequestBody Appointment appointment) {
-        return this.appointmentService.addAppointmentToDoctor(id, appointment);
+    public Appointment addAppointmentToDoctor(@PathVariable(value = "id") Long doctor_id, @RequestBody Appointment appointment) {
+        return this.appointmentService.addAppointmentToDoctor(doctor_id, appointment);
     }
 
     @GetMapping("user/appointment/{userId}/{appointmentId}")

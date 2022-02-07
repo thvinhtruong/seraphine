@@ -1,4 +1,4 @@
-package com.example.seraphine.model;
+package com.example.seraphine.service;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
