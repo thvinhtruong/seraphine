@@ -2,6 +2,7 @@ package com.example.seraphine.controller;
 
 import com.example.seraphine.model.*;
 import com.example.seraphine.service.AppointmentService;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import java.util.Set;
  */
 
 @RestController
+@AllArgsConstructor
 @RequestMapping("api/v1/")
 public class AppointmentController {
     @Autowired
@@ -37,14 +39,14 @@ public class AppointmentController {
     /**
      * Add a new appointment to doctor list.
      * <p>
-     * @param id Long
+     * @param doctor_id Long
      * @param appointment Appointment
      * @return an appointment of a doctor
      */
 
     @PostMapping("doctor/appointment/add/{id}")
-    public Appointment addAppointmentToDoctor(@PathVariable(value = "id") Long id, @RequestBody Appointment appointment) {
-        return this.appointmentService.addAppointmentToDoctor(id, appointment);
+    public Appointment addAppointmentToDoctor(@PathVariable(value = "id") Long doctor_id, @RequestBody Appointment appointment) {
+        return this.appointmentService.addAppointmentToDoctor(doctor_id, appointment);
     }
 
     /**
@@ -56,7 +58,8 @@ public class AppointmentController {
      */
 
     @GetMapping("user/appointment/{userId}/{appointmentId}")
-    public ResponseEntity<Void> bookAppointment(@PathVariable(value = "userId") Long userId, @PathVariable(value = "appointmentId") Long appointmentId) {
+    public ResponseEntity<Void> bookAppointment(@PathVariable(value = "userId") Long userId,
+                                                @PathVariable(value = "appointmentId") Long appointmentId) {
         this.appointmentService.bookAppointment(userId, appointmentId);
         return ResponseEntity.ok().build();
     }
@@ -118,7 +121,8 @@ public class AppointmentController {
      */
 
     @PutMapping("appointment/{id}")
-    public String shiftAppointment(@PathVariable(value = "id") Long id, @RequestBody Appointment new_appointment) {
+    public String shiftAppointment(@PathVariable(value = "id") Long id,
+                                    @RequestBody Appointment new_appointment) {
         this.appointmentService.updateAppointment(id, new_appointment);
         return "all changes about appointment have been saved";
     }

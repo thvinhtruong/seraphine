@@ -3,17 +3,22 @@ package com.example.seraphine.model;
 import javax.servlet.http.HttpServletResponse;
 import com.lowagie.text.*;
 import com.lowagie.text.pdf.PdfWriter;
+import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
+/**
+ * Service for PDF.
+ */
 @Service
+@AllArgsConstructor
 public class PDFDownloader {
+    @Autowired
     private HttpServletResponse response;
-    public PDFDownloader(){}
 
     public void setHttpResponse() {
         this.response.setContentType("application/pdf");

@@ -1,7 +1,6 @@
 package com.example.seraphine.service;
 
 import com.example.seraphine.model.User;
-import com.example.seraphine.model.UserRole;
 import com.example.seraphine.repository.UserRepo;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,16 +42,17 @@ public class AdminServiceImpl implements AdminService{
      * @param id Long
      * @author Tri Nguyen Minh
      */
+
     @Override
-    public void deleteUser(Long id) { this.userRepo.findById(id); }
+    public void deleteUser(Long id) {
+        this.userRepo.deleteById(id); }
 
     /**
-     * update user information by id
+     * Update specific user using user's id
+     * @author Tri Nguyen Minh
      * @param id Long
      * @param newUser User
-     * @author Tri Nguyen Minh
      */
-
     @Override
     public void updateUser(Long id, User newUser) {
         this.userRepo.findById(id).map(user -> {

@@ -7,12 +7,20 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+/**
+ * The class is a model for the ConfirmationToken entity.
+ * <p>
+ * @author Loc Bui Nhien
+ */
 @Getter
 @Setter
 @NoArgsConstructor
 @Entity
 public class ConfirmationToken {
 
+    /**
+     * The id of the token.
+     */
     @SequenceGenerator(
             name = "confirmation_token_sequence",
             sequenceName = "confirmation_token_sequence",
@@ -40,6 +48,14 @@ public class ConfirmationToken {
     @JoinColumn(nullable = false, name = "app_user_id")
     private User appUser;
 
+    /**
+     * Create a new confirmation token unique for the user. 
+     *  
+     * @param token
+     * @param createdAt
+     * @param expiresAt
+     * @param appUser
+     */
     public ConfirmationToken(String token, LocalDateTime createdAt, LocalDateTime expiresAt, User appUser) {
         this.token = token;
         this.createdAt = createdAt;

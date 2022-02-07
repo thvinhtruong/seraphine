@@ -1,10 +1,12 @@
 package com.example.seraphine.service;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
+/**
+ * The request for the registration service.
+ * <p>
+ * @author Loc Bui Nhien
+ */
 @Getter
 @AllArgsConstructor
 @EqualsAndHashCode

@@ -2,6 +2,7 @@ package com.example.seraphine.service;
 
 import com.example.seraphine.model.*;
 import com.example.seraphine.repository.DoctorRepo;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.Optional;
  */
 
 @Service
+@AllArgsConstructor
 public class DoctorServiceImpl implements DoctorService {
     @Autowired
     private DoctorRepo doctorRepo;
@@ -96,15 +98,15 @@ public class DoctorServiceImpl implements DoctorService {
     public void calculateDistanceToUser(String address) {
         Location location_criteria = new Location(address); // address of user
         String address_criteria = "address";
-        QueryBuilder newQuery = new QueryBuilder<Doctor>();
+        QueryBuilder<Doctor> newQuery = new QueryBuilder<Doctor>();
         newQuery.add(new SearchCriteria(address_criteria, address, SearchOperation.MATCH));
         List<Doctor> accepted_doctor = doctorRepo.findAll(newQuery);
 
         // add try catch later
-        for (int i=0; i<accepted_doctor.size(); i++) {
-            Location doctor_location = new Location(accepted_doctor.get(i).getAddress());
+        for (Doctor doctor : accepted_doctor) {
+            Location doctor_location = new Location(doctor.getAddress());
             double distance = doctor_location.distanceCalculator(location_criteria.locationConverter());
-            accepted_doctor.get(i).setDistance_to_user(distance);
+            doctor.setDistance_to_user(distance);
         }
     }
 
@@ -122,7 +124,7 @@ public class DoctorServiceImpl implements DoctorService {
         String issue_criteria = "issue_covered";
         String distance_criteria = "distance_to_user";
         String address_criteria = "address";
-        QueryBuilder newQuery = new QueryBuilder<Doctor>();
+        QueryBuilder<Doctor> newQuery = new QueryBuilder<Doctor>();
         newQuery.add(new SearchCriteria(issue_criteria, issues, SearchOperation.MATCH));
         newQuery.add(new SearchCriteria(address_criteria, address, SearchOperation.MATCH));
         newQuery.add(new SearchCriteria(distance_criteria, distance_to_user, SearchOperation.LESS_THAN_EQUAL));
