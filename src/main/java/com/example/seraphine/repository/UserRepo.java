@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public interface UserRepo extends JpaRepository<User, Long>{
     Optional<User> findByEmail(String email);
+    Optional<User> findByUsername(String username);
 
     /**Enable this user to login.
      * @param email
@@ -37,4 +38,10 @@ public interface UserRepo extends JpaRepository<User, Long>{
     @Query("SELECT c FROM User c WHERE c.email = ?1")
     User FindByEmail(String email);
 
+    /**Find this user by username.
+     * @param email
+     * @return
+     */
+    @Query("SELECT c FROM User c WHERE c.username = ?1")
+    User FindByUsername(String username);
 }

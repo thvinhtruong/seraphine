@@ -6,7 +6,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import com.example.seraphine.model.User;
-
+/** 
+ * Service for User.
+ * @author Vinh Truong Canh Thanh, Loc Bui Nhien
+*/
 @Service
 public interface UserService extends UserDetailsService {
     String signUpUser(User appUser);
@@ -16,6 +19,11 @@ public interface UserService extends UserDetailsService {
     User showPersonalInfor(Long id);
     User editPersonalInfor(Long id, User newUser);
 
+    /**
+     * Load user by username
+     * @param username
+     * @thorws UsernameNotFoundException
+     */
     @Override
     UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
 }
