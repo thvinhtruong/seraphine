@@ -5,6 +5,10 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
+/**
+ * Request object to send to user to reset password
+ * @author Loc Bui Nhien
+ */
 @Getter
 @AllArgsConstructor
 @EqualsAndHashCode

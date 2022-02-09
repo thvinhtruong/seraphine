@@ -10,6 +10,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
+/**
+ * Implementation of RegistrationService.
+ * @author Loc Bui Nhien
+ */
 @Service
 @AllArgsConstructor
 public class RegistrationServiceImpl implements RegistrationService{
@@ -22,6 +26,10 @@ public class RegistrationServiceImpl implements RegistrationService{
     @Autowired
     private EmailSender senderService;
 
+    /**
+     * Register new user.
+     * @param request
+     */
     public String register(RegistrationRequest request) {
         boolean isValidEmail = emailValidator.
                 test(request.getEmail());

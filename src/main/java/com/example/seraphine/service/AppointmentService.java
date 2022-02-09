@@ -8,6 +8,10 @@ import java.util.Optional;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Service interface to access from data and model, also create entity for appointment
+ * @author Vinh Truong Canh Thanh, Tri Nguyen Minh
+ */
 public interface AppointmentService {
     void saveAppointment(Appointment appointment);
     List<Appointment> getAllAppointments();

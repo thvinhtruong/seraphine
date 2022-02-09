@@ -17,10 +17,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
+/**
+ * Service for User.
+ * @author Vinh Truong Canh Thanh, Loc Bui Nhien, Tri Nguyen Minh
+ */
 @AllArgsConstructor
 @Component
 public class UserServiceImpl implements UserService {
-    
     @Autowired
     private final UserRepo appUserRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -28,6 +31,11 @@ public class UserServiceImpl implements UserService {
     private final ForgotPasswordTokenService forgotPasswordTokenService;
     private final static String USER_NOT_FOUND_MSG = "user with username %s not found";
 
+    /**
+     * Login for user using username.
+     * @param user
+     * @return
+     */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return appUserRepository.findByUsername(username)
@@ -35,6 +43,11 @@ public class UserServiceImpl implements UserService {
                                 new UsernameNotFoundException(USER_NOT_FOUND_MSG));
     }
 
+    /**
+     * Sign up for user.
+     * @param user
+     * @return
+     */
     @Override
     public String signUpUser(User appUser)
     {
@@ -65,6 +78,11 @@ public class UserServiceImpl implements UserService {
         return token;
     }
 
+    /** 
+     * Forgot password for user.
+     * @param email
+     * @param password
+    */
     @Override
     public String Forgot(String email, String password)
     {
@@ -83,11 +101,20 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
+    /**
+     * Enable user.
+     * @param email
+     */
     @Override
     public void enableAppUser(String email){
         appUserRepository.enableAppUser(email);
     }
 
+    /**
+     * Update password for user.
+     * @param user
+     * @param password
+     */
     @Override
     public void updatePassword(User user, String password){
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -96,6 +123,11 @@ public class UserServiceImpl implements UserService {
         user.setPassword(encodePassword);
     }
 
+    /**
+     * Show personal information for user.
+     * @param id
+     * @return
+     */
     @Override
     public User showPersonalInfor(Long id) {
         Optional<User> user = this.appUserRepository.findById(id);
@@ -107,6 +139,12 @@ public class UserServiceImpl implements UserService {
         return user.get();
     }
 
+    /**
+     * Edit personal information for user.
+     * @param id
+     * @param newUser
+     * @return
+     */
     @Override
     public User editPersonalInfor(Long id, User newUser) {
         return (User) this.appUserRepository.findById(id).map(user -> {

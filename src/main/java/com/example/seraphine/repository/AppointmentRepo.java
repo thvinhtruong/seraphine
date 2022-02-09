@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.example.seraphine.model.Appointment;
 
 /**
-<<<<<<< HEAD
  * Repository interface to access from data and model, also create entity for appointment
  * @author Vinh Truong Canh Thanh
  */

@@ -35,7 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .antMatchers("/api/v*/**", "/").permitAll()
                 .and().formLogin();
     }
-//PROJECT TUỔI LỒN
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception{
         auth.authenticationProvider(daoAuthenticationProvider());
