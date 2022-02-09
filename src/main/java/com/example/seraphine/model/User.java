@@ -36,7 +36,8 @@ public class User implements UserDetails {
     private String dateOfBirth;
     private String insuranceType;
     private String insuranceName;
-    private String userRole;
+    private String userRole = "ADMIN"; //MUỐN TEST THÌ ĐỔI SANG HOẶC ADMIN HOẶC USER, KHI REGISTER THÌ NGƯỜI ĐÓ SẼ
+    //MẶC ĐỊNH LÀ ROLE MÌNH SET Ở ĐÂY ĐỂ DỄ TEST
 
     @OneToMany(targetEntity = Appointment.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name ="appointments", referencedColumnName = "id")
@@ -155,7 +156,7 @@ public class User implements UserDetails {
      * Set user's first name.
      * @param firstName user's first name
      */
-    public void setFistName(String firstName) {
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
@@ -298,7 +299,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return Collections.singleton(new SimpleGrantedAuthority(this.getUserRole()));
     }
 
     @Override

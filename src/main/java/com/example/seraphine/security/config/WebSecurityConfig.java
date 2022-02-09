@@ -10,17 +10,13 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import lombok.AllArgsConstructor;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 /**
  * Security config to manage access to api for security purpose and also for admin service security
- * @author Loc Bui Nhien, Vinh Truong Canh Thanh
+ * @author Loc Bui Nhien, Vinh Truong Canh Thanh, Tri Nguyen Minh
  */
 
 @Configuration
@@ -33,16 +29,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/api/v*/**")
-                .permitAll()
-                .anyRequest()
-                .authenticated()
-                .and()
-                .formLogin();
+        http.csrf().disable().authorizeRequests()
+                .antMatchers("/api/v1/admin/**").hasAuthority("ADMIN")
+                .antMatchers("/api/v1/user/**", "/api/v1/doctor/**", "/api/v1/appointment/**").hasAuthority("USER")
+                .antMatchers("/api/v*/**", "/").permitAll()
+                .and().formLogin();
     }
-
+//PROJECT TUỔI LỒN
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception{
         auth.authenticationProvider(daoAuthenticationProvider());
@@ -55,4 +48,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
         provider.setUserDetailsService(userService);
         return provider;
     }
+
 }

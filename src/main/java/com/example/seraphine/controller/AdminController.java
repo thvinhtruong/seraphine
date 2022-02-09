@@ -21,7 +21,7 @@ import lombok.AllArgsConstructor;
  * */
 @RestController
 @AllArgsConstructor
-@RequestMapping("api/v1/user")
+@RequestMapping("api/v1/admin")
 public class AdminController {
     @Autowired
     private AdminService adminService;
