@@ -2,6 +2,7 @@ package com.example.seraphine.security.config;
 
 
 import com.example.seraphine.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -9,9 +10,13 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import lombok.AllArgsConstructor;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 /**
  * Security config to manage access to api for security purpose and also for admin service security
@@ -22,7 +27,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
-    
+    @Autowired
     private final UserService userService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 

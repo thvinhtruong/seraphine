@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
-<<<<<<< HEAD
  * Repository interface to access from data and model, also create entity for user
  * @author Loc Bui Nhien
  */
@@ -33,14 +32,14 @@ public interface UserRepo extends JpaRepository<User, Long>{
 
     /**Find this user by email.
      * @param email
-     * @return
+     * @return user object found using email
      */
     @Query("SELECT c FROM User c WHERE c.email = ?1")
     User FindByEmail(String email);
 
     /**Find this user by username.
-     * @param email
-     * @return
+     * @param username
+     * @return user object found using username
      */
     @Query("SELECT c FROM User c WHERE c.username = ?1")
     User FindByUsername(String username);

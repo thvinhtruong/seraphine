@@ -51,40 +51,40 @@ public class DoctorController {
     /**
      * Get a doctor based on id
      * <p>
-     * @param id Long
+     * @param doctor_id Long
      * @return doctor JSON data based on id
      */
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Doctor>> getDoctor(@PathVariable(value = "id") Long id) {
-        Optional<Doctor> doctor = this.doctorService.getDoctorById(id);
+    public ResponseEntity<Optional<Doctor>> getDoctor(@PathVariable(value = "id") Long doctor_id) {
+        Optional<Doctor> doctor = this.doctorService.getDoctorById(doctor_id);
         return ResponseEntity.ok().body(doctor);
     }
 
     /**
      * Edit doctor information
      * <p>
-     * @param id Long
+     * @param doctor_id Long
      * @param newDoctor Doctor
      * @return String
      */
 
     @PutMapping("/{id}")
-    public String updateDoctor(@PathVariable(value = "id") Long id, @RequestBody Doctor newDoctor) {
-        this.doctorService.updateDoctor(id, newDoctor);
+    public String updateDoctor(@PathVariable(value = "id") Long doctor_id, @RequestBody Doctor newDoctor) {
+        this.doctorService.updateDoctor(doctor_id, newDoctor);
         return "all changes about doctor have been saved";
     }
 
     /**
      * Delete a doctor based on id
      * <p>
-     * @param id long
+     * @param doctor_id long
      * @return status for empty doctor
      */
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteDoctor(@PathVariable(value = "id") Long id) {
-        this.doctorService.deleteDoctor(id);
+    public ResponseEntity<Void> deleteDoctor(@PathVariable(value = "id") Long doctor_id) {
+        this.doctorService.deleteDoctor(doctor_id);
         return ResponseEntity.ok().build();
     }
 

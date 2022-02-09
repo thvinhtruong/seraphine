@@ -1,6 +1,9 @@
 package com.example.seraphine.model;
 
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,11 +12,11 @@ import java.util.List;
  * Doctor object, which is the second object for the web app
  * @author Vinh Truong Canh Thanh
  */
-
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "Doctor")
-@NoArgsConstructor
-
 public class Doctor {
 
     @Id
@@ -28,16 +31,19 @@ public class Doctor {
     private String specialization;
     private double distance_to_user;
     private String issue_covered;
-    @OneToMany(targetEntity = Appointment.class,cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+
+    @OneToMany(targetEntity = Appointment.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name ="appointments", referencedColumnName = "id")
-    List<Appointment> appointments = new ArrayList<>();
+    private List<Appointment> appointments = new ArrayList<>();
 
     /**
      * Contructor
      * @author Vinh Truong Canh Thanh
      */
 
-    public Doctor(String firstName, String lastName, String gender, String emails, String address, String specialization, double distance_to_user, String issue_covered) {
+    public Doctor(String firstName, String lastName, String gender,
+                  String emails, String address, String specialization,
+                  double distance_to_user, String issue_covered) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.gender = gender;
@@ -47,7 +53,6 @@ public class Doctor {
         this.distance_to_user = distance_to_user;
         this.issue_covered = issue_covered;
     }
-
     /**
      * Getter and Setter
      * @author Vinh Truong Canh Thanh

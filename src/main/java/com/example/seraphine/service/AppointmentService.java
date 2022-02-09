@@ -15,9 +15,9 @@ public interface AppointmentService {
     Appointment updateAppointment(Long id, Appointment appointment);
     void deleteAppointment(Long id);
     void bookAppointment(Long user_id, Long appointment_id);
-    Appointment addAppointmentToDoctor(Long doctor_id, Appointment new_appointment);
+    void addAppointmentToDoctor(Long doctor_id, Long appointment_id);
     void exportAppointmentInfo(Long id);
-    Set<Appointment> showUserAppointments(Long user_id);
+    List<Appointment> showUserAppointments(Long user_id);
     List<Appointment> showDoctorsAppointments(Long doctor_id);
     void remindAppointment(Long appointment_id, String option);
 }

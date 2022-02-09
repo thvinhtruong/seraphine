@@ -55,10 +55,13 @@ public class Appointment {
         this.booked = booked;
     }
 
+
     /**
      * Getter and Setter
      * @author Vinh Truong Canh Thanh
      */
+
+
 
     public Long getId() { return id; }
 
