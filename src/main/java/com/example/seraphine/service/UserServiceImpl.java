@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * Login for user using username.
-     * @param user
+     * @param username
      * @return
      */
     @Override
@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * Sign up for user.
-     * @param user
+     * @param appUser
      * @return
      */
     @Override

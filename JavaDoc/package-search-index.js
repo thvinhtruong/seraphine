@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"com.example.seraphine"},{"l":"com.example.seraphine.controller"},{"l":"com.example.seraphine.model"},{"l":"com.example.seraphine.repository"},{"l":"com.example.seraphine.security"},{"l":"com.example.seraphine.security.config"},{"l":"com.example.seraphine.service"}];updateSearchResults();
