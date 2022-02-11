@@ -39,14 +39,14 @@ public class AppointmentController {
     /**
      * Add a new appointment to doctor list.
      * <p>
-     * @param doctor_id Long
+     * @param id Long
      * @param appointment Appointment
      * @return an appointment of a doctor
      */
 
     @PostMapping("doctor/appointment/add/{id}")
-    public Appointment addAppointmentToDoctor(@PathVariable(value = "id") Long doctor_id, @RequestBody Appointment appointment) {
-        return this.appointmentService.addAppointmentToDoctor(doctor_id, appointment);
+    public Appointment addAppointmentToDoctor(@RequestBody Appointment appointment, @PathVariable(value = "id") Long id) {
+        return this.appointmentService.addAppointmentToDoctor(id, appointment);
     }
 
     /**

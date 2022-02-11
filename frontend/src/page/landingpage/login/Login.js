@@ -1,8 +1,7 @@
 import './Login.css'
 import React, { useState } from "react"
-import {Switch, Route} from "react-router-dom"
-import {Form, 
-        Button} from "react-bootstrap";
+import {Switch, Route, Redirect} from "react-router-dom"
+import {Form, Button} from "react-bootstrap";
 
 export default function Login() {
   const [userName, setUserName] = useState("");
@@ -41,24 +40,9 @@ export default function Login() {
           LOGIN
         </Button>
         <p></p>
-<<<<<<< HEAD
-        <a href="#">Forgot your password</a>
-=======
-        <a href="#"> Forget password</a>
->>>>>>> refs/remotes/origin/main
+        <a href="/">Forgot your password</a>
       </Form>
-    </div>
-    <div>
-        <Switch>
-        <Route path="/page/landingpage/appointment/Appointment">
-            <Register className="App-background"/>
-        </Route>    
-
-        <Route path="/">
-            {Login ? <Login /> : <Redirect to="/" />}
-        </Route>
-        </Switch>
-        </div>
+      </div>
     </div>
   );
 };

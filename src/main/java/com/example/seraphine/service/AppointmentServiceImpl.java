@@ -17,7 +17,6 @@ import java.io.IOException;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.example.seraphine.repository.AppointmentRepo;
 import com.example.seraphine.model.PDFDownloader;
 import com.example.seraphine.model.Appointment;
 
@@ -147,7 +146,6 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     public Appointment addAppointmentToDoctor(Long doctor_id, Appointment new_appointment) {
-        List<Appointment> appointments_ls = new ArrayList<>();
         Optional<Doctor> doctor_obj = this.doctorRepo.findById(doctor_id);
 
         if (doctor_obj.isEmpty()) {
@@ -156,8 +154,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         Doctor doctor = doctor_obj.get();
 
         Appointment booking = this.appointmentRepo.save(new_appointment);
-        appointments_ls.add(booking);
-        doctor.setAppointments(appointments_ls);
+        doctor.getAppointments().add(booking);
 
         return booking;
     }

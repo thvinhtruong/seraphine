@@ -23,7 +23,6 @@ public class ForgotPasswordController {
     /**
      * Handle the forgot password request.
      * @param request
-     * @return
      */
     @PostMapping
     public String forgot_password(@RequestBody ForgotPasswordRequest request) {
