@@ -10,20 +10,38 @@ import java.util.Optional;
 import com.example.seraphine.model.ForgotPasswordToken;
 import com.example.seraphine.repository.ForgotPasswordTokenRepo;
 
+/**
+ * Implementation of ForgotPasswordService.
+ * @author Loc Bui Nhien
+ */
 @Service
 @AllArgsConstructor
 public class ForgotPasswordTokenServiceImpl implements ForgotPasswordTokenService{
     @Autowired
     private final ForgotPasswordTokenRepo confirmationTokenRepository;
 
+    /**
+     * Save forgot password token.
+     * @param token
+     */
     public void saveForgotPasswordToken(ForgotPasswordToken token) {
         confirmationTokenRepository.save(token);
     }
 
+    /**
+     * Get forgot password token by token.
+     * @param token
+     * @return
+     */
     public Optional<ForgotPasswordToken> getToken(String token) {
         return confirmationTokenRepository.findByToken(token);
     }
 
+    /**
+     * Set confirmedAt for forgot password token.
+     * @param token
+     * @return
+     */
     public int setConfirmedAt(String token) {
         return confirmationTokenRepository.updateConfirmedAt(
                 token, LocalDateTime.now());

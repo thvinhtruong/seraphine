@@ -111,52 +111,94 @@ public class AppointmentServiceImpl implements AppointmentService {
      * user books appointment
      * @param user_id Long
      * @param appointment_id Long
-     * @author Vinh Truong Canh Thanh
+     * @author Vinh Truong Canh Thanh, Tri Nguyen Minh
      */
-
     @Override
+    //This method works well now, since table User connects with table Appointment
+    //by OneToMany relationship, now can use method showUserAppointments(Long) to double-check
+    //Everyone can review this now
     public void bookAppointment(Long user_id, Long appointment_id) {
         Optional<User> user_obj = this.userRepo.findById(user_id);
         if (user_obj.isEmpty()) {
             // will throw exception here
-            System.out.println("user not found");
+            System.out.println("User not found");
         }
-        User user = user_obj.get();
+        User new_user = user_obj.get();
 
         Optional<Appointment> appointment_obj = this.appointmentRepo.findById(appointment_id);
         if (appointment_obj.isEmpty()) {
-            System.out.println("doctor not found");
+            System.out.println("Appointment not found");
         }
         Appointment appointment = appointment_obj.get();
 
         if (appointment.getDoctor_id() == null) {
             System.out.println("Appointment is not available due to lack of doctor");
-        } else {
-            appointment.setStatus(true);
-            user.getMyAppointment().add(appointment);
         }
+        appointment.setStatus(true);
+        new_user.getMyAppointment().add(appointment);
+
+        this.userRepo.findById(user_id).map(user -> {
+            user.setFirstName(new_user.getFirstName());
+            user.setLastName(new_user.getLastName());
+            user.setEmail(new_user.getEmail());
+            user.setDateOfBirth(new_user.getDateOfBirth());
+            user.setInsuranceName(new_user.getInsuranceName());
+            user.setInsuranceType(new_user.getInsuranceType());
+            user.setMyAppointment(new_user.getMyAppointment());
+            return null;
+        }).orElseGet(()->{
+            new_user.setId(user_id);
+            return this.userRepo.save(new_user);
+        });
     }
 
     /**
      * add appointmet to doctor
      * @param doctor_id Long
-     * @param new_appointment Appointment
+     * @param appointment_id Appointment
      * @author Vinh Truong Canh Thanh
      */
-
     @Override
-    public Appointment addAppointmentToDoctor(Long doctor_id, Appointment new_appointment) {
+    //Why this method the same with bookAppointment but cannot add Appointment to
+    //Doctor? It said "Referential integrity constraint violation: "FKGD3A27T30CV4L72F3RHEMDI98:
+    //PUBLIC.APPOINTMENT FOREIGN KEY(APPOINTMENTS) REFERENCES PUBLIC.USER(ID) (1)"; SQL statement"
+    //==> table Appointment does not reference table Doctor, so cannot fetch appointment
+    //data inside Doctor, but User is configured the same and do really well
+    //==> Check @OneToMany
+    public void addAppointmentToDoctor(Long doctor_id, Long appointment_id) {
         Optional<Doctor> doctor_obj = this.doctorRepo.findById(doctor_id);
-
         if (doctor_obj.isEmpty()) {
-            System.out.println("doctor not found");
+            System.out.println("Doctor not found");
         }
-        Doctor doctor = doctor_obj.get();
+        Doctor new_doctor = doctor_obj.get();
 
-        Appointment booking = this.appointmentRepo.save(new_appointment);
-        doctor.getAppointments().add(booking);
+        Optional<Appointment> appointment_obj = this.appointmentRepo.findById(appointment_id);
+        if (appointment_obj.isEmpty()) {
+            System.out.println("Appointment not found");
+        }
+        Appointment appointment = appointment_obj.get();
 
-        return booking;
+        if (new_doctor.getAppointments().contains(appointment)) {
+            System.out.println("Appointment exists in doctor profile with ID " + doctor_id);
+        }
+        appointment.setDoctor_id(doctor_id);
+        new_doctor.getAppointments().add(appointment);
+
+        this.doctorRepo.findById(doctor_id).map(doctor -> {
+            doctor.setFirstName(new_doctor.getFirstName());
+            doctor.setLastName(new_doctor.getLastName());
+            doctor.setGender(new_doctor.getGender());
+            doctor.setEmails(new_doctor.getEmails());
+            doctor.setAddress(new_doctor.getAddress());
+            doctor.setSpecialization(new_doctor.getSpecialization());
+            doctor.setDistance_to_user(new_doctor.getDistance_to_user());
+            doctor.setIssue_covered(new_doctor.getIssue_covered());
+            doctor.setAppointments(new_doctor.getAppointments());
+            return null;
+        }).orElseGet(() -> {
+            new_doctor.setId(doctor_id);
+            return this.doctorRepo.save(new_doctor);
+        });
     }
 
     /**
@@ -186,14 +228,13 @@ public class AppointmentServiceImpl implements AppointmentService {
      */
 
     @Override
-    public Set<Appointment> showUserAppointments(Long user_id) {
+    public List<Appointment> showUserAppointments(Long user_id) {
         Optional<User> user_obj = this.userRepo.findById(user_id);
         if (user_obj.isEmpty()) {
             // will throw exception here
             System.out.println("user not found");
         }
-        User user = user_obj.get();
-        return user.getMyAppointment();
+        return user_obj.get().getMyAppointment();
     }
 
     /**
@@ -205,11 +246,10 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Override
     public List<Appointment> showDoctorsAppointments(Long doctor_id) {
         Optional<Doctor> doctor_obj = this.doctorRepo.findById(doctor_id);
-        if (doctor_obj.isEmpty()) {
-            System.out.println("doctor not found");
+        if (doctor_obj.isEmpty()){
+            System.out.println("No doctor found");
         }
-        Doctor doctor = doctor_obj.get();
-        return doctor.getAppointments();
+        return doctor_obj.get().getAppointments();
     }
 
     /**

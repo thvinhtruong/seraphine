@@ -8,6 +8,10 @@ import java.util.Optional;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Service interface to access from data and model, also create entity for appointment
+ * @author Vinh Truong Canh Thanh, Tri Nguyen Minh
+ */
 public interface AppointmentService {
     void saveAppointment(Appointment appointment);
     List<Appointment> getAllAppointments();
@@ -15,9 +19,9 @@ public interface AppointmentService {
     Appointment updateAppointment(Long id, Appointment appointment);
     void deleteAppointment(Long id);
     void bookAppointment(Long user_id, Long appointment_id);
-    Appointment addAppointmentToDoctor(Long doctor_id, Appointment new_appointment);
+    void addAppointmentToDoctor(Long doctor_id, Long appointment_id);
     void exportAppointmentInfo(Long id);
-    Set<Appointment> showUserAppointments(Long user_id);
+    List<Appointment> showUserAppointments(Long user_id);
     List<Appointment> showDoctorsAppointments(Long doctor_id);
     void remindAppointment(Long appointment_id, String option);
 }

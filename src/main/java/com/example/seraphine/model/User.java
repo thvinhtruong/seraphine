@@ -10,10 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Set;
-import java.util.HashSet;
+import java.util.*;
 
 /**
  * Main object for the project
@@ -39,11 +36,11 @@ public class User implements UserDetails {
     private String dateOfBirth;
     private String insuranceType;
     private String insuranceName;
-    private String userRole;
+    private String userRole = "ADMIN";
 
     @OneToMany(targetEntity = Appointment.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name ="appointments",referencedColumnName = "id")
-    private Set<Appointment> myAppointment = new HashSet<>();
+    @JoinColumn(name ="appointments", referencedColumnName = "id")
+    private List<Appointment> myAppointment = new ArrayList<>();
 
     private Boolean locked = false;
     private Boolean enabled = false;
@@ -158,7 +155,7 @@ public class User implements UserDetails {
      * Set user's first name.
      * @param firstName user's first name
      */
-    public void setFistName(String firstName) {
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
@@ -222,7 +219,7 @@ public class User implements UserDetails {
      * Get user's appointment.
      * @return user's appointment
      */
-    public Set<Appointment> getMyAppointment() {
+    public List<Appointment> getMyAppointment() {
         return myAppointment;
     }
 
@@ -272,7 +269,7 @@ public class User implements UserDetails {
      * Set user's appointment.
      * @param myAppointment user's appointment
      */
-    public void setMyAppointment(Set<Appointment> myAppointment) {
+    public void setMyAppointment(List<Appointment> myAppointment) {
         this.myAppointment = myAppointment;
     }
 

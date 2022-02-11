@@ -13,6 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+/**
+ * Implementation of ForgotPasswordService.
+ * @author Loc Bui Nhien
+ */
 @Service
 @AllArgsConstructor
 public class ForgotPasswordServiceImpl implements ForgotPasswordService {

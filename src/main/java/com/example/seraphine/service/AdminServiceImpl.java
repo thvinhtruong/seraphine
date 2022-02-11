@@ -26,7 +26,9 @@ public class AdminServiceImpl implements AdminService{
      */
 
     @Override
-    public List<User> getAllUsers() { return userRepo.findAll(); }
+    public List<User> getAllUsers() {
+        return userRepo.findAll();
+    }
 
     /**
      * get specific user by id

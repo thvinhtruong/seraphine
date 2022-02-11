@@ -6,6 +6,10 @@ import java.util.Optional;
 import com.example.seraphine.model.Appointment;
 import com.example.seraphine.model.Doctor;
 
+/**
+ * Service interface to access from data and model, also create entity for appointment
+ * @author Vinh Truong Canh Thanh
+ */
 public interface DoctorService {
     void saveDoctor(Doctor doctor);
     List<Doctor> getAllDoctors();

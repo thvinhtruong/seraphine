@@ -12,7 +12,6 @@ import java.util.Optional;
 import com.example.seraphine.model.ForgotPasswordToken;
 
 /**
-<<<<<<< HEAD
  * Repository interface to access from data and model, also create entity for password token
  * @author Loc Bui Nhien
  */

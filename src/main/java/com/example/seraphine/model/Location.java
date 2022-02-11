@@ -77,7 +77,6 @@ public class Location {
      * Convert input user / doctor address into longitude and latitude
      * @author Vinh Truong Canh Thanh
      */
-
     public Point locationConverter() {
         RestTemplate restTemplate = new RestTemplate();
 

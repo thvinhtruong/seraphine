@@ -39,14 +39,16 @@ public class AppointmentController {
     /**
      * Add a new appointment to doctor list.
      * <p>
-     * @param id Long
-     * @param appointment Appointment
+     * @param doctor_id Long
+     * @param appointment_id Appointment
      * @return an appointment of a doctor
      */
-
-    @PostMapping("doctor/appointment/add/{id}")
-    public Appointment addAppointmentToDoctor(@RequestBody Appointment appointment, @PathVariable(value = "id") Long id) {
-        return this.appointmentService.addAppointmentToDoctor(id, appointment);
+    @GetMapping("doctor/appointment/add/{doctorId}/{appointmentId}")
+    //Need to be fixed
+    public ResponseEntity<Void> addAppointmentToDoctor(@PathVariable(value = "doctorId") Long doctor_id,
+                                                       @PathVariable(value = "appointmentId") Long appointment_id) {
+        this.appointmentService.addAppointmentToDoctor(doctor_id, appointment_id);
+        return ResponseEntity.ok().build();
     }
 
     /**
@@ -57,7 +59,8 @@ public class AppointmentController {
      * @return a status for booking successfully
      */
 
-    @GetMapping("user/appointment/{userId}/{appointmentId}")
+    @GetMapping("user/appointment/add/{userId}/{appointmentId}")
+    //Requirement: create appointment and user, so we can get appointment id and user id
     public ResponseEntity<Void> bookAppointment(@PathVariable(value = "userId") Long userId,
                                                 @PathVariable(value = "appointmentId") Long appointmentId) {
         this.appointmentService.bookAppointment(userId, appointmentId);
@@ -91,52 +94,52 @@ public class AppointmentController {
     /**
      * Get all appointment of a specific user based in user id.
      * <p>
-     * @param id Long
+     * @param user_id Long
      * @return set of appointment for that user
      */
 
     @GetMapping("user/appointment/all/{id}")
-    public Set<Appointment> getAllUserAppointments(@PathVariable(value = "id") Long id) {
-        return this.appointmentService.showUserAppointments(id);
+    public List<Appointment> getAllUserAppointments(@PathVariable(value = "id") Long user_id) {
+        return this.appointmentService.showUserAppointments(user_id);
     }
 
     /**
      * Get all appointment of a specific doctor based on doctor id.
      * <p>
-     * @param id Long
+     * @param doctor_id Long
      * @return list of appointment for that doctor
      */
 
     @GetMapping("doctor/appointment/all/{id}")
-    public List<Appointment> getAllDoctorAppointment(@PathVariable(value = "id") Long id) {
-        return this.appointmentService.showDoctorsAppointments(id);
+    public List<Appointment> getAllDoctorAppointment(@PathVariable(value = "id") Long doctor_id) {
+        return this.appointmentService.showDoctorsAppointments(doctor_id);
     }
 
     /**
      * Shift an appointment
      * <p>
-     * @param id Long
+     * @param appointment_id Long
      * @param new_appointment Appointment
      * @return String
      */
 
     @PutMapping("appointment/{id}")
-    public String shiftAppointment(@PathVariable(value = "id") Long id,
+    public String shiftAppointment(@PathVariable(value = "id") Long appointment_id,
                                     @RequestBody Appointment new_appointment) {
-        this.appointmentService.updateAppointment(id, new_appointment);
+        this.appointmentService.updateAppointment(appointment_id, new_appointment);
         return "all changes about appointment have been saved";
     }
 
     /**
      * Delete an appointment
      * <p>
-     * @param id Long
+     * @param appointment_id Long
      * @return status for empty appointment
      */
 
     @DeleteMapping("appointment/{id}")
-    public ResponseEntity<Void> cancelAppointment(@PathVariable(value = "id") Long id) {
-        this.appointmentService.deleteAppointment(id);
+    public ResponseEntity<Void> cancelAppointment(@PathVariable(value = "id") Long appointment_id) {
+        this.appointmentService.deleteAppointment(appointment_id);
         return ResponseEntity.ok().build();
     }
 

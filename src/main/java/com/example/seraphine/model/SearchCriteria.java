@@ -12,12 +12,22 @@ public class SearchCriteria {
     private Object value;
     private SearchOperation operation;
 
+    /**
+     * Search criteria.
+     * @param key
+     * @param value
+     * @param operation
+     */
     public SearchCriteria(String key, Object value, SearchOperation operation) {
         this.key = key;
         this.value = value;
         this.operation = operation;
     }
 
+    /**
+     * Getter and Setter
+     * @author Vinh Truong Canh Thanh
+     */
     public String getKey() {
         return key;
     }
