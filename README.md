@@ -12,6 +12,13 @@
 📧 Email address: luckyandvinh@gmail.com
 
 ---
+# 📖 Documentation
+
+- Our requirement from teacher: [eHealth Requirement](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/cfb0e689-56ee-4a8a-b0a8-0a1acfeab3ac/eHealth.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220211%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220211T013353Z&X-Amz-Expires=86400&X-Amz-Signature=088a867061010ccc6be63c006e92e72a4e1442ce597752b2eadddf2bd9c213df&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22eHealth.pdf%22&x-id=GetObject)
+- **Our API document (generated with Javadoc): [API Doc](https://javadoc-seraphine.netlify.app)**
+- Our main document for the project: currently in development.
+
+---
 
 # **👩🏻‍💻** Installation
 
@@ -26,14 +33,6 @@ You need to install java with latest version (we use Java 17) to run the applica
 [https://reactjs.org](https://reactjs.org/)
 
 Install Node and npm (we use Node version 16.9.1 and npm version 7.21.1 to run the frontend. We still not gather all the stuffs 🙂 so sorry for that :
-
----
-
-# 📖 Documentation
-
-- Our requirement from teacher: [eHealth Requirement](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/cfb0e689-56ee-4a8a-b0a8-0a1acfeab3ac/eHealth.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220211%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220211T013353Z&X-Amz-Expires=86400&X-Amz-Signature=088a867061010ccc6be63c006e92e72a4e1442ce597752b2eadddf2bd9c213df&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22eHealth.pdf%22&x-id=GetObject)
-- Our API document (generated with Javadoc): [API Doc](https://javadoc-seraphine.netlify.app)
-- Our main document for the project: currently in development.
 
 ---
 
