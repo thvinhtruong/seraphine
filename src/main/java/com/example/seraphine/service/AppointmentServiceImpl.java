@@ -66,23 +66,120 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     /**
      * get appointment based on its id in database
-     * @param id Long
+     * @param user_id Long
+     * @param appointment_id Long
      * @author Vinh Truong Canh Thanh
      */
     @Override
-    public Optional<Appointment> getAppointmentById(Long id) {
-        return this.appointmentRepo.findById(id);
+    public Optional<Appointment> getAppointmentById(Long user_id, Long appointment_id) {
+        Optional<User> user_obj = this.userRepo.findById(user_id);
+        if (user_obj.isEmpty()){
+            System.out.println("User not found!");
+        }
+        User user = user_obj.get();
+
+        Optional<Appointment> appointment_obj = this.appointmentRepo.findById(appointment_id);
+        if (appointment_obj.isEmpty()){
+            System.out.println("Appointment not found!");
+        }
+        Appointment appointment = appointment_obj.get();
+        List<Appointment> appointments = user.getMyAppointment();
+        if (!appointments.contains(appointment)){
+            throw new IllegalStateException("User " + user_id + " don't have permission to access appointment " + appointment_id);
+        }
+
+        return Optional.of(appointment);
     }
 
     /**
      * edit appointment based on id
-     * @param id Long
+     * @param user_id Long
+     * @param appointment_id Long
      * @param new_appointment Appointment
      * @author Vinh Truong Canh Thanh
      */
     @Override
-    public Appointment updateAppointment(Long id, Appointment new_appointment) {
-        return (Appointment) this.appointmentRepo.findById(id).map(appointment -> {
+    public void updateAppointment(Long user_id, Long appointment_id, Appointment new_appointment) {
+        Optional<User> user_obj = this.userRepo.findById(user_id);
+        if (user_obj.isEmpty()){
+            System.out.println("User not found!");
+        }
+        User user = user_obj.get();
+        List<Appointment> appointments = user.getMyAppointment();
+        boolean appointmentExists = false;
+        for (Appointment a : appointments){
+            if (a.getId().equals(appointment_id)) {
+                appointmentExists = true;
+                break;
+            }
+        }
+        if (!appointmentExists){
+            System.out.println("User " + user_id + " don't have permission to access appointment " + appointment_id);
+        }
+        new_appointment.setStatus(true);
+
+        this.appointmentRepo.findById(appointment_id).map(appointment -> {
+            appointment.setAppointment_reason(new_appointment.getAppointment_reason());
+            appointment.setStart_time(new_appointment.getStart_time());
+            appointment.setEnd_time(new_appointment.getEnd_time());
+            appointment.setDateBooking(new_appointment.getDateBooking());
+            appointment.setStatus(true);
+            return null;
+        }).orElseGet(() -> {
+            new_appointment.setId(appointment_id);
+            return this.appointmentRepo.save(new_appointment);
+        });
+        senderService.sendEmail(user.getEmail(), "[SERAPHINE] Appointment shifting - Seraphine EHealth Service Team", "" +
+                "Hi " + user.getUsername() + ",\nYour appointment " + appointment_id + " has shifted successfully" +
+                "\nYour health care service\nSeraphine");
+    }
+
+    /**
+     * delete appointment based on id
+     * @param user_id Long
+     * @param appointment_id Long
+     * @author Vinh Truong Canh Thanh
+     */
+    @Override
+    public void deleteAppointment(Long user_id, Long appointment_id) {
+        Optional<User> user_obj = this.userRepo.findById(user_id);
+        if (user_obj.isEmpty()){
+            System.out.println("User not found!");
+        }
+        User new_user = user_obj.get();
+
+        Optional<Appointment> appointment_obj = this.appointmentRepo.findById(appointment_id);
+        if (appointment_obj.isEmpty()){
+            System.out.println("Appointment not found!");
+        }
+        Appointment new_appointment = appointment_obj.get();
+        List<Appointment> appointments = new_user.getMyAppointment();
+        if (!appointments.contains(new_appointment)){
+            throw new IllegalStateException("User " + user_id + " don't have permission to access appointment " + appointment_id);
+        }
+        appointments.removeIf(appointment ->
+                appointment.getAppointment_reason().equals(new_appointment.getAppointment_reason()) &&
+                appointment.getStart_time().equals(new_appointment.getStart_time()) &&
+                appointment.getEnd_time().equals(new_appointment.getEnd_time()) &&
+                appointment.getDateBooking().equals(new_appointment.getDateBooking()));
+
+        new_appointment.setStatus(false);
+
+        this.userRepo.findById(user_id).map(user -> {
+            user.setFirstName(new_user.getFirstName());
+            user.setLastName(new_user.getLastName());
+            user.setEmail(new_user.getEmail());
+            user.setDateOfBirth(new_user.getDateOfBirth());
+            user.setInsuranceName(new_user.getInsuranceName());
+            user.setInsuranceType(new_user.getInsuranceType());
+            user.setMyAppointment(new_user.getMyAppointment());
+            return null;
+        }).orElseGet(() -> {
+            new_user.setId(user_id);
+            return this.userRepo.save(new_user);
+        });
+
+        this.appointmentRepo.findById(appointment_id).map(appointment -> {
             appointment.setAppointment_reason(new_appointment.getAppointment_reason());
             appointment.setStart_time(new_appointment.getStart_time());
             appointment.setEnd_time(new_appointment.getEnd_time());
@@ -90,20 +187,12 @@ public class AppointmentServiceImpl implements AppointmentService {
             appointment.setStatus(new_appointment.isBooked());
             return null;
         }).orElseGet(() -> {
-            new_appointment.setId(id);
+            new_appointment.setId(appointment_id);
             return this.appointmentRepo.save(new_appointment);
         });
-    }
-
-    /**
-     * delete appointment based on id
-     * @param id Long
-     * @author Vinh Truong Canh Thanh
-     */
-
-    @Override
-    public void deleteAppointment(Long id) {
-        this.appointmentRepo.deleteById(id);
+        senderService.sendEmail(new_user.getEmail(), "[SERAPHINE] Appointment cancellation - Seraphine EHealth Service Team", "" +
+                "Hi " + new_user.getUsername() + ",\nYour appointment " + appointment_id + " has successfully been cancelled." +
+                "\nYour health care service\nSeraphine");
     }
 
     /**
@@ -114,9 +203,11 @@ public class AppointmentServiceImpl implements AppointmentService {
      */
     @Override
     public void bookAppointment(Long user_id, Long appointment_id) {
+        if (user_id.equals(1L)){
+            throw new IllegalStateException("No permission!");
+        }
         Optional<User> user_obj = this.userRepo.findById(user_id);
         if (user_obj.isEmpty()) {
-            // will throw exception here
             System.out.println("User not found");
         }
         User new_user = user_obj.get();
@@ -126,11 +217,12 @@ public class AppointmentServiceImpl implements AppointmentService {
             System.out.println("Appointment not found");
         }
         Appointment appointment = appointment_obj.get();
-
+        /*
         if (appointment.getDoctor_id() == null) {
             System.out.println("Appointment is not available due to lack of doctor");
-        }
+        }*/
         appointment.setStatus(true);
+        appointment.setDoctor_id(null);
         new_user.getMyAppointment().add(appointment);
 
         this.userRepo.findById(user_id).map(user -> {
@@ -149,7 +241,7 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     /**
-     * add appointmet to doctor
+     * add appointment to doctor
      * @param doctor_id Long
      * @param appointment_id Appointment
      * @author Vinh Truong Canh Thanh
@@ -169,7 +261,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         Appointment appointment = appointment_obj.get();
 
         if (new_doctor.getAppointments().contains(appointment)) {
-            System.out.println("Appointment exists in doctor profile with ID " + doctor_id);
+            throw new IllegalStateException("Appointment exists in doctor profile with ID " + doctor_id);
         }
         appointment.setDoctor_id(doctor_id);
         new_doctor.getAppointments().add(appointment);
@@ -193,17 +285,34 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     /**
      * export PDF file / data for appointment based on its id
-     * @param id Long
+     * @param user_id Long
+     * @param appointment_id Long
      * @author Tri Nguyen Minh, Vinh Truong Canh Thanh
      */
 
     @Override
-    public void exportAppointmentInfo(Long id) {
-        Optional<Appointment> appointment_obj = this.appointmentRepo.findById(id);
-        if (appointment_obj.isEmpty()) System.out.println("Appointment not found");
+    public void exportAppointmentInfo(Long user_id, Long appointment_id) {
+        Optional<User> user_obj = this.userRepo.findById(user_id);
+        if (user_obj.isEmpty()) {
+            System.out.println("user not found");
+        }
+        User user = user_obj.get();
+
+        Optional<Appointment> appointment_obj = this.appointmentRepo.findById(appointment_id);
+        if (appointment_obj.isEmpty()) {
+            System.out.println("Appointment not found");
+        }
         Appointment appointment = appointment_obj.get();
+        List<Appointment> appointments = user.getMyAppointment();
+        if (!appointments.contains(appointment)){
+            throw new IllegalStateException("User " + user_id + " don't have permission to access information about appointment "
+                    + appointment_id);
+        }
         String title = "Appointment Information - Seraphine EHealth Service Team";
-        String body = appointment.toString();
+        String body = "Appointment ID: " + appointment_id + "\nAppointment reason: " + appointment.getAppointment_reason() +
+                "\nAppointment description: " + "\nAppointment start time: " +
+                appointment.getStart_time() + "\nAppointment end time: " + appointment.getEnd_time() + "\nDate booking: "
+                + appointment.getDateBooking();
         try {
             pdfDownloader.export(title, body);
         } catch (IOException e) {
@@ -221,7 +330,6 @@ public class AppointmentServiceImpl implements AppointmentService {
     public List<Appointment> showUserAppointments(Long user_id) {
         Optional<User> user_obj = this.userRepo.findById(user_id);
         if (user_obj.isEmpty()) {
-            // will throw exception here
             System.out.println("user not found");
         }
         return user_obj.get().getMyAppointment();
@@ -249,23 +357,24 @@ public class AppointmentServiceImpl implements AppointmentService {
      * @author Tri Nguyen Minh
      */
 
-    public void remindAppointment(Long appointment_id, String option) {
-        Optional<Appointment> appointment_obj = this.appointmentRepo.findById(appointment_id);
-        if (appointment_obj.isEmpty()) {
-            System.out.println("Appointment not found");
-        }
-        Appointment appointment = appointment_obj.get();
-
-        if (appointment.getUser_id() == null) {
-            System.out.println("no available user");
-        }
-
-        Optional<User> user_obj = this.userRepo.findById(appointment.getUser_id());
+    public void remindAppointment(Long user_id, Long appointment_id, String option) {
+        Optional<User> user_obj = this.userRepo.findById(user_id);
         if (user_obj.isEmpty()) {
-            System.out.println("user not found");
+            System.out.println("User not found");
         }
         User user = user_obj.get();
-        senderService.sendScheduledMail(user.getEmail(), appointment, option);
+        boolean appointmentExists = false;
+        List<Appointment> appointments = user.getMyAppointment();
+        for (Appointment appointment : appointments){
+            if (appointment.getId().equals(appointment_id)){
+                senderService.sendScheduledMail(user.getUsername(), user.getEmail(), appointment, option);
+                appointmentExists = true;
+                break;
+            }
+        }
+        if (!appointmentExists){
+            System.out.println("User " + user_id + " don't have permission to access appointment " + appointment_id);
+        }
     }
 }
 

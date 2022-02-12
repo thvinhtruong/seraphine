@@ -36,7 +36,7 @@ public class User implements UserDetails {
     private String dateOfBirth;
     private String insuranceType;
     private String insuranceName;
-    private String userRole = "ADMIN";
+    private String userRole = "USER";
 
     @OneToMany(targetEntity = Appointment.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name ="appointments", referencedColumnName = "id")

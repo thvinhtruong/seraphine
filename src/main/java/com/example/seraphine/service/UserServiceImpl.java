@@ -134,8 +134,6 @@ public class UserServiceImpl implements UserService {
         if (user.isEmpty()) {
             System.out.println("User not found");
         }
-
-        // can we use string with the json format? because maybe we dont want user to see something.
         return user.get();
     }
 
@@ -146,8 +144,8 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public User editPersonalInfor(Long id, User newUser) {
-        return (User) this.appUserRepository.findById(id).map(user -> {
+    public void editPersonalInfor(Long id, User newUser) {
+        this.appUserRepository.findById(id).map(user -> {
             user.setFirstName(newUser.getFirstName());
             user.setLastName(newUser.getLastName());
             user.setEmail(newUser.getEmail());

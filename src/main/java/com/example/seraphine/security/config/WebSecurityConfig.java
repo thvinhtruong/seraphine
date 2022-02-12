@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -29,7 +30,9 @@ import java.util.List;
 @Configuration
 @AllArgsConstructor
 @EnableWebSecurity
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+@EnableGlobalMethodSecurity(prePostEnabled = true)
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     @Autowired
     private final UserService userService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -39,8 +42,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable().authorizeRequests()
                 .antMatchers("/api/v1/admin/**").hasAuthority("ADMIN")
                 .antMatchers("/api/v1/user/**", "/api/v1/doctor/**", "/api/v1/appointment/**").hasAuthority("USER")
-                .antMatchers("/api/v*/**", "/").permitAll().
-                and().formLogin();
+                .antMatchers("/api/v1/user/**", "/api/v1/appointment/**").hasAuthority("USER")
+                .antMatchers("/api/v1/doctor/**").hasAnyAuthority("ADMIN", "USER")
+                .antMatchers("/api/v*/**").permitAll()
+                .and().formLogin();
+
     }
 
     @Override

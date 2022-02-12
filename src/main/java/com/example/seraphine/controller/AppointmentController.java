@@ -3,13 +3,13 @@ package com.example.seraphine.controller;
 import com.example.seraphine.model.*;
 import com.example.seraphine.service.AppointmentService;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Optional;
 import java.util.List;
-import java.util.Set;
 
 /**
  * The controller for the appointment operations.
@@ -41,26 +41,27 @@ public class AppointmentController {
      * @param appointment_id Appointment
      * @return an appointment of a doctor
      */
-    @GetMapping("doctor/appointment/add/{doctorId}/{appointmentId}")
+    @GetMapping("doctor/{doctor_id}/appointment/{appointment_id}/add")
     //Need to be fixed
-    public ResponseEntity<Void> addAppointmentToDoctor(@PathVariable(value = "doctorId") Long doctor_id,
-                                                       @PathVariable(value = "appointmentId") Long appointment_id) {
+    public ResponseEntity<Void> addAppointmentToDoctor(@PathVariable(value = "doctor_id") Long doctor_id,
+                                                       @PathVariable(value = "appointment_id") Long appointment_id) {
         this.appointmentService.addAppointmentToDoctor(doctor_id, appointment_id);
         return ResponseEntity.ok().build();
     }
 
     /**
      * User book an appointment
-     * @param userId Long
-     * @param appointmentId Long
+     * @param user_id Long
+     * @param appointment_id Long
      * @return a status for booking successfully
      */
 
-    @GetMapping("user/appointment/add/{userId}/{appointmentId}")
+    @GetMapping("user/{user_id}/appointment/{appointment_id}/book")
+    @PreAuthorize("#user_id == authentication.getPrincipal().getId()")
     //Requirement: create appointment and user, so we can get appointment id and user id
-    public ResponseEntity<Void> bookAppointment(@PathVariable(value = "userId") Long userId,
-                                                @PathVariable(value = "appointmentId") Long appointmentId) {
-        this.appointmentService.bookAppointment(userId, appointmentId);
+    public ResponseEntity<Void> bookAppointment(@PathVariable(value = "user_id") Long user_id,
+                                                @PathVariable(value = "appointment_id") Long appointment_id) {
+        this.appointmentService.bookAppointment(user_id, appointment_id);
         return ResponseEntity.ok().build();
     }
 
@@ -76,13 +77,16 @@ public class AppointmentController {
 
     /**
      * Get an appointment based on its id.
-     * @param id Long
+     * @param user_id Long
+     * @param appointment_id Long
      * @return an appointment
      */
 
-    @GetMapping("appointment/{id}")
-    public ResponseEntity<Optional<Appointment>> getAppointment(@PathVariable(value = "id") Long id) {
-        Optional<Appointment> appointment = this.appointmentService.getAppointmentById(id);
+    @GetMapping("user/{user_id}/appointment/{appointment_id}")
+    @PreAuthorize("#user_id == authentication.getPrincipal().getId()")
+    public ResponseEntity<Optional<Appointment>> getAppointment(@PathVariable(value = "user_id") Long user_id,
+                                                                @PathVariable(value = "appointment_id") Long appointment_id) {
+        Optional<Appointment> appointment = this.appointmentService.getAppointmentById(user_id, appointment_id);
         return ResponseEntity.ok().body(appointment);
     }
 
@@ -92,8 +96,9 @@ public class AppointmentController {
      * @return set of appointment for that user
      */
 
-    @GetMapping("user/appointment/all/{id}")
-    public List<Appointment> getAllUserAppointments(@PathVariable(value = "id") Long user_id) {
+    @GetMapping("user/{user_id}/appointment/all")
+    @PreAuthorize("#user_id == authentication.getPrincipal().getId()")
+    public List<Appointment> getAllUserAppointments(@PathVariable(value = "user_id") Long user_id) {
         return this.appointmentService.showUserAppointments(user_id);
     }
 
@@ -103,8 +108,8 @@ public class AppointmentController {
      * @return list of appointment for that doctor
      */
 
-    @GetMapping("doctor/appointment/all/{id}")
-    public List<Appointment> getAllDoctorAppointment(@PathVariable(value = "id") Long doctor_id) {
+    @GetMapping("doctor/{doctor_id}/appointment/all")
+    public List<Appointment> getAllDoctorAppointment(@PathVariable(value = "doctor_id") Long doctor_id) {
         return this.appointmentService.showDoctorsAppointments(doctor_id);
     }
 
@@ -115,10 +120,12 @@ public class AppointmentController {
      * @return String
      */
 
-    @PutMapping("appointment/{id}")
-    public String shiftAppointment(@PathVariable(value = "id") Long appointment_id,
+    @PutMapping("user/{user_id}/appointment/{appointment_id}/shift")
+    @PreAuthorize("#user_id == authentication.getPrincipal().getId()")
+    public String shiftAppointment( @PathVariable(value = "user_id") Long user_id,
+                                    @PathVariable(value = "appointment_id") Long appointment_id,
                                     @RequestBody Appointment new_appointment) {
-        this.appointmentService.updateAppointment(appointment_id, new_appointment);
+        this.appointmentService.updateAppointment(user_id, appointment_id, new_appointment);
         return "all changes about appointment have been saved";
     }
 
@@ -128,34 +135,42 @@ public class AppointmentController {
      * @return status for empty appointment
      */
 
-    @DeleteMapping("appointment/{id}")
-    public ResponseEntity<Void> cancelAppointment(@PathVariable(value = "id") Long appointment_id) {
-        this.appointmentService.deleteAppointment(appointment_id);
+    @DeleteMapping("user/{user_id}/appointment/{appointment_id}/cancel")
+    @PreAuthorize("#user_id == authentication.getPrincipal().getId()")
+    public ResponseEntity<Void> cancelAppointment(@PathVariable(value = "user_id") Long user_id,
+                                                  @PathVariable(value = "appointment_id") Long appointment_id) {
+        this.appointmentService.deleteAppointment(user_id, appointment_id);
         return ResponseEntity.ok().build();
     }
 
     /**
      * Create pdf and download for an appointment based on id.
-     * @param id Long
+     * @param user_id Long
+     * @param appointment_id Long
      * @return String
      */
 
-    @GetMapping("appointment/pdf/generate/{id}")
-    public String exportAppointment(@PathVariable(value = "id") Long id) {
-        this.appointmentService.exportAppointmentInfo(id);
+    @GetMapping("user/{user_id}/appointment/{appointment_id}/generate_pdf")
+    @PreAuthorize("#user_id == authentication.getPrincipal().getId()")
+    public String exportAppointment(@PathVariable(value = "user_id") Long user_id,
+                                    @PathVariable(value = "appointment_id") Long appointment_id) {
+        this.appointmentService.exportAppointmentInfo(user_id, appointment_id);
         return "Printed successfully";
     }
 
     /**
      * Remind user for the coming appointment
-     * @param id Long
+     * @param user_id Long
+     * @param appointment_id Long
      * @param remind_option String
      * @return String
      */
-
-    @GetMapping("appointment/remind/{id}")
-    public String remindAppointment(@PathVariable(value = "id") Long id, @RequestParam String remind_option) {
-        this.appointmentService.remindAppointment(id, remind_option);
+    @GetMapping("user/{user_id}/appointment/{appointment_id}/remind")
+    @PreAuthorize("#user_id == authentication.getPrincipal().getId()")
+    public String remindAppointment(@PathVariable(value = "user_id") Long user_id,
+                                    @PathVariable(value = "appointment_id") Long appointment_id,
+                                    @RequestParam String remind_option) {
+        this.appointmentService.remindAppointment(user_id, appointment_id, remind_option);
         return "Remind appointment successfully!";
     }
 }

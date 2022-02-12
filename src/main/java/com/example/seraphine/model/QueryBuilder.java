@@ -14,7 +14,7 @@ import java.util.List;
  */
 
 public class QueryBuilder<T> implements Specification<T> {
-    private List<SearchCriteria> criteria_list;
+    private final List<SearchCriteria> criteria_list;
 
     public QueryBuilder() {
         this.criteria_list = new ArrayList<>();

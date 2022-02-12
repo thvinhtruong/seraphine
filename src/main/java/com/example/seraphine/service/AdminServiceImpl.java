@@ -21,10 +21,18 @@ public class AdminServiceImpl implements AdminService{
     private UserRepo userRepo;
 
     /**
+     * create admin
+     * @author Tri Nguyen Minh
+     * @param admin User
+     */
+    public void createAdmin(User admin){
+        this.userRepo.save(admin);
+    }
+
+    /**
      * get all user from database
      * @author Tri Nguyen Minh
      */
-
     @Override
     public List<User> getAllUsers() {
         return userRepo.findAll();

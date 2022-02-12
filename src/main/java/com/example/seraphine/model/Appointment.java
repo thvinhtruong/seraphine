@@ -38,7 +38,6 @@ public class Appointment {
 
     private Long doctor_id;
     private Long user_id;
-
     /**
      * Contructor
      */
