@@ -41,12 +41,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests()
                 .antMatchers("/api/v1/admin/**").hasAuthority("ADMIN")
-                .antMatchers("/api/v1/user/**", "/api/v1/doctor/**", "/api/v1/appointment/**").hasAuthority("USER")
                 .antMatchers("/api/v1/user/**", "/api/v1/appointment/**").hasAuthority("USER")
                 .antMatchers("/api/v1/doctor/**").hasAnyAuthority("ADMIN", "USER")
                 .antMatchers("/api/v*/**").permitAll()
                 .and().formLogin();
-
     }
 
     @Override
