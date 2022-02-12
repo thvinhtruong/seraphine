@@ -72,9 +72,6 @@ public class AppointmentServiceImpl implements AppointmentService {
      */
     @Override
     public Optional<Appointment> getAppointmentById(Long user_id, Long appointment_id) {
-        if (user_id.equals(1L)){
-            throw new IllegalStateException("No permission!");
-        }
         Optional<User> user_obj = this.userRepo.findById(user_id);
         if (user_obj.isEmpty()){
             System.out.println("User not found!");
@@ -143,7 +140,6 @@ public class AppointmentServiceImpl implements AppointmentService {
      * @param appointment_id Long
      * @author Vinh Truong Canh Thanh
      */
-
     @Override
     public void deleteAppointment(Long user_id, Long appointment_id) {
         Optional<User> user_obj = this.userRepo.findById(user_id);
@@ -246,7 +242,7 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     /**
-     * add appointmet to doctor
+     * add appointment to doctor
      * @param doctor_id Long
      * @param appointment_id Appointment
      * @author Vinh Truong Canh Thanh

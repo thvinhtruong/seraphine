@@ -134,9 +134,6 @@ public class UserServiceImpl implements UserService {
         if (user.isEmpty()) {
             System.out.println("User not found");
         }
-        if (id.equals(1L)){
-            throw new IllegalStateException("No permission");
-        }
         return user.get();
     }
 
@@ -148,22 +145,17 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public void editPersonalInfor(Long id, User newUser) {
-        if (id.equals(1L)){
-            throw new IllegalStateException("No permission");
-        }
-        else{
-            this.appUserRepository.findById(id).map(user -> {
-                user.setFirstName(newUser.getFirstName());
-                user.setLastName(newUser.getLastName());
-                user.setEmail(newUser.getEmail());
-                user.setDateOfBirth(newUser.getDateOfBirth());
-                user.setInsuranceName(newUser.getInsuranceName());
-                user.setInsuranceType(newUser.getInsuranceType());
-                return null;
-            }).orElseGet(()->{
-                newUser.setId(id);
-                return this.appUserRepository.save(newUser);
-            });
-        }
+        this.appUserRepository.findById(id).map(user -> {
+            user.setFirstName(newUser.getFirstName());
+            user.setLastName(newUser.getLastName());
+            user.setEmail(newUser.getEmail());
+            user.setDateOfBirth(newUser.getDateOfBirth());
+            user.setInsuranceName(newUser.getInsuranceName());
+            user.setInsuranceType(newUser.getInsuranceType());
+            return null;
+        }).orElseGet(()->{
+            newUser.setId(id);
+            return this.appUserRepository.save(newUser);
+        });
     }
 }
