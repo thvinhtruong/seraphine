@@ -17,7 +17,7 @@ import lombok.AllArgsConstructor;
 
 /** 
  * Controller for Admin.
- * @authur Tri Nguyen Minh
+ * @author Tri Nguyen Minh
  * */
 @RestController
 @AllArgsConstructor
@@ -30,7 +30,7 @@ public class AdminController {
      * Get all users.
      * @return
      */
-    @GetMapping("/all")
+    @GetMapping("/user/get/all")
     public List<User> getAllUsers() {
         return this.adminService.getAllUsers();
     }
@@ -40,7 +40,7 @@ public class AdminController {
      * @param id
      * @return
      */
-    @GetMapping("/{id}")
+    @GetMapping("/user/get/{id}")
     public ResponseEntity<Optional<User>> getUser(@PathVariable(value = "id") Long id) {
         Optional<User> user = this.adminService.getUserById(id);
         return ResponseEntity.ok().body(user);
@@ -52,7 +52,7 @@ public class AdminController {
      * @param newUser
      * @return
      */
-    @PutMapping("/{id}")
+    @PutMapping("/user/edit/{id}")
     public String editUser(@PathVariable(value = "id") Long id, @RequestBody User newUser) {
         this.adminService.updateUser(id, newUser);
         return "All changes to user has been applied";
@@ -63,7 +63,7 @@ public class AdminController {
      * @param id
      * @return
      */
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/user/delete/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable(value = "id") Long id) {
         this.adminService.deleteUser(id);
         return ResponseEntity.ok().build();

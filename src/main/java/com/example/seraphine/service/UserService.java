@@ -17,7 +17,7 @@ public interface UserService extends UserDetailsService {
     void enableAppUser(String email);
     void updatePassword(User user, String password);
     User showPersonalInfor(Long id);
-    User editPersonalInfor(Long id, User newUser);
+    void editPersonalInfor(Long id, User newUser);
 
     /**
      * Load user by username

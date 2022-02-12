@@ -37,4 +37,10 @@ public interface AdminService {
      * @return
      */
     void deleteUser(Long id);
+    /**
+     * create admin
+     * @author Tri Nguyen Minh
+     * @param admin User
+     */
+    void createAdmin(User admin);
 }

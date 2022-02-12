@@ -20,8 +20,8 @@ import java.util.List;
 public class Doctor {
 
     @Id
+    @Column(name = "doctor_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-
     private Long id;
     private String firstName;
     private String lastName;
@@ -33,7 +33,7 @@ public class Doctor {
     private String issue_covered;
 
     @OneToMany(targetEntity = Appointment.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name ="appointments", referencedColumnName = "id")
+    @JoinColumn(name ="appointments", referencedColumnName = "doctor_id")
     private List<Appointment> appointments = new ArrayList<>();
 
     /**

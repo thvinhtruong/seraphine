@@ -134,8 +134,9 @@ public class UserServiceImpl implements UserService {
         if (user.isEmpty()) {
             System.out.println("User not found");
         }
-
-        // can we use string with the json format? because maybe we dont want user to see something.
+        if (id.equals(1L)){
+            throw new IllegalStateException("No permission");
+        }
         return user.get();
     }
 
@@ -146,18 +147,23 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public User editPersonalInfor(Long id, User newUser) {
-        return (User) this.appUserRepository.findById(id).map(user -> {
-            user.setFirstName(newUser.getFirstName());
-            user.setLastName(newUser.getLastName());
-            user.setEmail(newUser.getEmail());
-            user.setDateOfBirth(newUser.getDateOfBirth());
-            user.setInsuranceName(newUser.getInsuranceName());
-            user.setInsuranceType(newUser.getInsuranceType());
-            return null;
-        }).orElseGet(()->{
-            newUser.setId(id);
-            return this.appUserRepository.save(newUser);
-        });
+    public void editPersonalInfor(Long id, User newUser) {
+        if (id.equals(1L)){
+            throw new IllegalStateException("No permission");
+        }
+        else{
+            this.appUserRepository.findById(id).map(user -> {
+                user.setFirstName(newUser.getFirstName());
+                user.setLastName(newUser.getLastName());
+                user.setEmail(newUser.getEmail());
+                user.setDateOfBirth(newUser.getDateOfBirth());
+                user.setInsuranceName(newUser.getInsuranceName());
+                user.setInsuranceType(newUser.getInsuranceType());
+                return null;
+            }).orElseGet(()->{
+                newUser.setId(id);
+                return this.appUserRepository.save(newUser);
+            });
+        }
     }
 }
