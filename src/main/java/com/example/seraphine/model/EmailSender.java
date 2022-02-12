@@ -82,10 +82,10 @@ public class EmailSender {
      * @param appointment
      * @param option
      */
-    public void sendScheduledMail(String recipient_mail, Appointment appointment, String option){
+    public void sendScheduledMail(String username, String recipient_mail, Appointment appointment, String option){
         String subject = "Reminder from Seraphine team";
-        String body = "You have an appointment on " + appointment.getDateBooking()
-                + " from " + appointment.getStart_time() + " to " + appointment.getEnd_time();
+        String body = "Hi " + username + "\nYou have an appointment on " + appointment.getDateBooking()
+                + " from " + appointment.getStart_time() + " to " + appointment.getEnd_time() + "\nYour health care service\nSeraphine";
         Timer timer = new Timer();
         TimerTask task = new TimerTask() {
             @Override

@@ -130,8 +130,9 @@ public class AppointmentServiceImpl implements AppointmentService {
             new_appointment.setId(appointment_id);
             return this.appointmentRepo.save(new_appointment);
         });
-        senderService.sendEmail(user.getEmail(), "Appointment shifting - Seraphine", "" +
-                "Hi " + user.getUsername() + ",\nYour appointment " + appointment_id + " has shifted successfully");
+        senderService.sendEmail(user.getEmail(), "[SERAPHINE] Appointment shifting - Seraphine EHealth Service Team", "" +
+                "Hi " + user.getUsername() + ",\nYour appointment " + appointment_id + " has shifted successfully" +
+                "\nYour health care service\nSeraphine");
     }
 
     /**
@@ -192,8 +193,9 @@ public class AppointmentServiceImpl implements AppointmentService {
             new_appointment.setId(appointment_id);
             return this.appointmentRepo.save(new_appointment);
         });
-        senderService.sendEmail(new_user.getEmail(), "Appointment cancellation - Seraphine", "" +
-                "Hi " + new_user.getUsername() + ",\nYour appointment " + appointment_id + " has successfully been cancelled.");
+        senderService.sendEmail(new_user.getEmail(), "[SERAPHINE] Appointment cancellation - Seraphine EHealth Service Team", "" +
+                "Hi " + new_user.getUsername() + ",\nYour appointment " + appointment_id + " has successfully been cancelled." +
+                "\nYour health care service\nSeraphine");
     }
 
     /**
@@ -310,7 +312,10 @@ public class AppointmentServiceImpl implements AppointmentService {
                     + appointment_id);
         }
         String title = "Appointment Information - Seraphine EHealth Service Team";
-        String body = appointment.toString();
+        String body = "Appointment ID: " + appointment_id + "\nAppointment reason: " + appointment.getAppointment_reason() +
+                "\nAppointment description: " + appointment.getAppointment_description() + "\nAppointment start time: " +
+                appointment.getStart_time() + "\nAppointment end time: " + appointment.getEnd_time() + "\nDate booking: "
+                + appointment.getDateBooking();
         try {
             pdfDownloader.export(title, body);
         } catch (IOException e) {
@@ -358,14 +363,14 @@ public class AppointmentServiceImpl implements AppointmentService {
     public void remindAppointment(Long user_id, Long appointment_id, String option) {
         Optional<User> user_obj = this.userRepo.findById(user_id);
         if (user_obj.isEmpty()) {
-            System.out.println("user not found");
+            System.out.println("User not found");
         }
         User user = user_obj.get();
         boolean appointmentExists = false;
         List<Appointment> appointments = user.getMyAppointment();
         for (Appointment appointment : appointments){
             if (appointment.getId().equals(appointment_id)){
-                senderService.sendScheduledMail(user.getEmail(), appointment, option);
+                senderService.sendScheduledMail(user.getUsername(), user.getEmail(), appointment, option);
                 appointmentExists = true;
                 break;
             }
