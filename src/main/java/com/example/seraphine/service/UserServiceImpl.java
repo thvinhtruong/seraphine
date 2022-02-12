@@ -139,9 +139,8 @@ public class UserServiceImpl implements UserService {
 
     /**
      * Edit personal information for user.
-     * @param id
-     * @param newUser
-     * @return
+     * @param id Long
+     * @param newUser User
      */
     @Override
     public void editPersonalInfor(Long id, User newUser) {
