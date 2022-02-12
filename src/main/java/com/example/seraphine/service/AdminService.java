@@ -12,29 +12,25 @@ public interface AdminService {
     /**
      * Query all user from the repository
      * @author Tri Nguyen Minh
-     * @return
      */
     List<User> getAllUsers();
     /**
      * Query user from the repository using id
      * @author Tri Nguyen Minh
-     * @param id
-     * @return
+     * @param id Long
      */
     Optional<User> getUserById(Long id);
     /**
      * Update specific user using user's id
      * @author Tri Nguyen Minh
-     * @param id
-     * @param newUser
-     * @return
+     * @param id Long
+     * @param newUser User
      */
     void updateUser(Long id, User newUser);
     /**
      * Delete user from the repository using user's id
      * @author Tri Nguyen Minh
-     * @param id
-     * @return
+     * @param id Long
      */
     void deleteUser(Long id);
 }

@@ -26,7 +26,6 @@ public class AppointmentController {
 
     /**
      * Create an appointment and return a string for creating successfully
-     * <p>
      * @return String
      */
 
@@ -38,7 +37,6 @@ public class AppointmentController {
 
     /**
      * Add a new appointment to doctor list.
-     * <p>
      * @param doctor_id Long
      * @param appointment_id Appointment
      * @return an appointment of a doctor
@@ -53,7 +51,6 @@ public class AppointmentController {
 
     /**
      * User book an appointment
-     * <p>
      * @param userId Long
      * @param appointmentId Long
      * @return a status for booking successfully
@@ -69,7 +66,6 @@ public class AppointmentController {
 
     /**
      * Show all available appointment.
-     * <p>
      * @return list of appointment
      */
 
@@ -80,7 +76,6 @@ public class AppointmentController {
 
     /**
      * Get an appointment based on its id.
-     * <p>
      * @param id Long
      * @return an appointment
      */
@@ -93,7 +88,6 @@ public class AppointmentController {
 
     /**
      * Get all appointment of a specific user based in user id.
-     * <p>
      * @param user_id Long
      * @return set of appointment for that user
      */
@@ -105,7 +99,6 @@ public class AppointmentController {
 
     /**
      * Get all appointment of a specific doctor based on doctor id.
-     * <p>
      * @param doctor_id Long
      * @return list of appointment for that doctor
      */
@@ -117,7 +110,6 @@ public class AppointmentController {
 
     /**
      * Shift an appointment
-     * <p>
      * @param appointment_id Long
      * @param new_appointment Appointment
      * @return String
@@ -132,7 +124,6 @@ public class AppointmentController {
 
     /**
      * Delete an appointment
-     * <p>
      * @param appointment_id Long
      * @return status for empty appointment
      */
@@ -145,7 +136,6 @@ public class AppointmentController {
 
     /**
      * Create pdf and download for an appointment based on id.
-     * <p>
      * @param id Long
      * @return String
      */
@@ -158,7 +148,6 @@ public class AppointmentController {
 
     /**
      * Remind user for the coming appointment
-     * <p>
      * @param id Long
      * @param remind_option String
      * @return String

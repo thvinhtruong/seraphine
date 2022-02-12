@@ -53,87 +53,144 @@ public class Doctor {
         this.distance_to_user = distance_to_user;
         this.issue_covered = issue_covered;
     }
+
     /**
-     * Getter and Setter
-     * @author Vinh Truong Canh Thanh
+     * Get doctor id
      */
 
     public Long getId() {
         return id;
     }
 
+    /**
+     * Set corresponding doctor id
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     * Get doctor first name
+     */
     public String getFirstName() {
         return firstName;
     }
 
+    /**
+     * Set doctor first name
+     */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
+    /**
+     * Get doctor last name
+     */
     public String getLastName() {
         return lastName;
     }
 
+    /**
+     * Set doctor last name
+     */
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
+    /**
+     * Get doctor gender
+     */
     public String getGender() {
         return gender;
     }
 
+    /**
+     * Set doctor gender
+     */
     public void setGender(String gender) {
         this.gender = gender;
     }
 
+    /**
+     * Get doctor address
+     */
     public String getAddress() {
         return address;
     }
 
+    /**
+     * Set doctor address
+     */
     public void setAddress(String address) {
         this.address = address;
     }
 
+    /**
+     * Get doctor specialization
+     */
     public String getSpecialization() {
         return specialization;
     }
 
+    /**
+     * Set doctor specialization
+     */
     public void setSpecialization(String specialization) {
         this.specialization = specialization;
     }
 
+    /**
+     * Get doctor email
+     */
     public String getEmails() {
         return emails;
     }
 
+    /**
+     * Set doctor email
+     */
     public void setEmails(String emails) {
         this.emails = emails;
     }
 
+    /**
+     * Get doctor distance to user
+     */
     public double getDistance_to_user() {
         return distance_to_user;
     }
 
+    /**
+     * Set doctor distance to user
+     */
     public void setDistance_to_user(double distance_to_user) {
         this.distance_to_user = distance_to_user;
     }
 
+    /**
+     * Get doctor issue cover
+     */
     public String getIssue_covered() {
         return issue_covered;
     }
 
+    /**
+     * Set doctor issue cover
+     */
     public void setIssue_covered(String issue_covered) {
         this.issue_covered = issue_covered;
     }
 
+    /**
+     * get doctor list of appointment
+     */
     public List<Appointment> getAppointments() {
         return appointments;
     }
 
+    /**
+     * Set doctor list of appointment
+     */
     public void setAppointments(List<Appointment> appointments) {
         this.appointments = appointments;
     }

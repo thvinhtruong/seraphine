@@ -13,20 +13,19 @@ import java.util.Optional;
 
 /**
  * The controller for the doctor operations.
- * <p>
  * @author Vinh Truong Canh Thanh
  */
 
 @RestController
 @AllArgsConstructor
 @RequestMapping("api/v1/doctor")
+@CrossOrigin(origins = "http://localhost:3000/search")
 public class DoctorController {
     @Autowired
     private DoctorService doctorService;
 
     /**
      * Add a doctor to database
-     * <p>
      * @param doctor Doctor
      * @return String
      */
@@ -39,7 +38,6 @@ public class DoctorController {
 
     /**
      * List all doctors
-     * <p>
      * @return list of all doctor
      */
 
@@ -50,7 +48,6 @@ public class DoctorController {
 
     /**
      * Get a doctor based on id
-     * <p>
      * @param doctor_id Long
      * @return doctor JSON data based on id
      */
@@ -63,7 +60,6 @@ public class DoctorController {
 
     /**
      * Edit doctor information
-     * <p>
      * @param doctor_id Long
      * @param newDoctor Doctor
      * @return String
@@ -77,7 +73,6 @@ public class DoctorController {
 
     /**
      * Delete a doctor based on id
-     * <p>
      * @param doctor_id long
      * @return status for empty doctor
      */
@@ -90,14 +85,13 @@ public class DoctorController {
 
     /**
      * Search query doctor in database
-     * <p>
      * @param issue_covered String
      * @param address String
      * @param distance_to_user int
      * @return list of doctor satisfied the condition
      */
 
-    @GetMapping("/search/query")
+    @GetMapping(path = "/search/query")
     public List<Doctor> displayAllDoctorsWithQuery(@RequestParam String issue_covered,
                                                    @RequestParam String address,
                                                    @RequestParam int distance_to_user) {
@@ -106,7 +100,6 @@ public class DoctorController {
 
     /**
      * Show all available appointment for doctor based on id
-     * <p>
      * @param doctor_id Long
      * @return List of appointment
      */

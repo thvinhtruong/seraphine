@@ -22,7 +22,7 @@ public class ConfirmationTokenServiceImpl implements ConfirmationTokenService{
 
     /**
      * Save confirmation token.
-     * @param token
+     * @param token ConfirmationToken
      */
     public void saveConfirmationToken(ConfirmationToken token) {
         confirmationTokenRepository.save(token);
@@ -30,8 +30,8 @@ public class ConfirmationTokenServiceImpl implements ConfirmationTokenService{
 
     /**
      * Get confirmation token by token.
-     * @param token
-     * @return
+     * @param token String
+     * @return Optional
      */
     public Optional<ConfirmationToken> getToken(String token) {
         return confirmationTokenRepository.findByToken(token);
@@ -39,8 +39,8 @@ public class ConfirmationTokenServiceImpl implements ConfirmationTokenService{
 
     /**
      * Set confirmedAt for confirmation token.
-     * @param token
-     * @return
+     * @param token String
+     * @return int
      */
     public int setConfirmedAt(String token) {
         return confirmationTokenRepository.updateConfirmedAt(

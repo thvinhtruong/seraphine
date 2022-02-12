@@ -84,7 +84,6 @@ public class AppointmentServiceImpl implements AppointmentService {
     public Appointment updateAppointment(Long id, Appointment new_appointment) {
         return (Appointment) this.appointmentRepo.findById(id).map(appointment -> {
             appointment.setAppointment_reason(new_appointment.getAppointment_reason());
-            appointment.setAppointment_description(new_appointment.getAppointment_description());
             appointment.setStart_time(new_appointment.getStart_time());
             appointment.setEnd_time(new_appointment.getEnd_time());
             appointment.setDateBooking(new_appointment.getDateBooking());
@@ -114,9 +113,6 @@ public class AppointmentServiceImpl implements AppointmentService {
      * @author Vinh Truong Canh Thanh, Tri Nguyen Minh
      */
     @Override
-    //This method works well now, since table User connects with table Appointment
-    //by OneToMany relationship, now can use method showUserAppointments(Long) to double-check
-    //Everyone can review this now
     public void bookAppointment(Long user_id, Long appointment_id) {
         Optional<User> user_obj = this.userRepo.findById(user_id);
         if (user_obj.isEmpty()) {
@@ -159,12 +155,6 @@ public class AppointmentServiceImpl implements AppointmentService {
      * @author Vinh Truong Canh Thanh
      */
     @Override
-    //Why this method the same with bookAppointment but cannot add Appointment to
-    //Doctor? It said "Referential integrity constraint violation: "FKGD3A27T30CV4L72F3RHEMDI98:
-    //PUBLIC.APPOINTMENT FOREIGN KEY(APPOINTMENTS) REFERENCES PUBLIC.USER(ID) (1)"; SQL statement"
-    //==> table Appointment does not reference table Doctor, so cannot fetch appointment
-    //data inside Doctor, but User is configured the same and do really well
-    //==> Check @OneToMany
     public void addAppointmentToDoctor(Long doctor_id, Long appointment_id) {
         Optional<Doctor> doctor_obj = this.doctorRepo.findById(doctor_id);
         if (doctor_obj.isEmpty()) {

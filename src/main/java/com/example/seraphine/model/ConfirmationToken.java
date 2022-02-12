@@ -49,12 +49,7 @@ public class ConfirmationToken {
     private User appUser;
 
     /**
-     * Create a new confirmation token unique for the user. 
-     *  
-     * @param token
-     * @param createdAt
-     * @param expiresAt
-     * @param appUser
+     * Constructor
      */
     public ConfirmationToken(String token, LocalDateTime createdAt, LocalDateTime expiresAt, User appUser) {
         this.token = token;
