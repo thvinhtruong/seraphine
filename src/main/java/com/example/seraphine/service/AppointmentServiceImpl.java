@@ -96,7 +96,7 @@ public class AppointmentServiceImpl implements AppointmentService {
      * @param user_id Long
      * @param appointment_id Long
      * @param new_appointment Appointment
-     * @author Vinh Truong Canh Thanh
+     * @author Vinh Truong Canh Thanh, Tri Nguyen Minh
      */
     @Override
     public void updateAppointment(Long user_id, Long appointment_id, Appointment new_appointment) {

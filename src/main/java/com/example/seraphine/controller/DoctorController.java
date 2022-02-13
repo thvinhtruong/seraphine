@@ -4,8 +4,6 @@ import com.example.seraphine.model.Doctor;
 import com.example.seraphine.service.DoctorService;
 import lombok.AllArgsConstructor;
 import com.example.seraphine.model.Appointment;
-
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +54,7 @@ public class DoctorController {
     @GetMapping("/{id}")
     public ResponseEntity<Optional<Doctor>> getDoctor(@PathVariable(value = "id") Long doctor_id) {
         Optional<Doctor> doctor = this.doctorService.getDoctorById(doctor_id);
-        return ResponseEntity.ok().body(doctor);
+        return ResponseEntity.ok().body(doctor); // JSON
     }
 
     /**
