@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * The controller for the appointment operations.
  * <p>
- * @author Vinh Truong Canh Thanh, Tri Nguyen Minh
+ * @author Vinh Truong Canh Thanh, Tri Nguyen Minh, Linh Ngo Phuc
  */
 
 @RestController

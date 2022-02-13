@@ -14,13 +14,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import lombok.AllArgsConstructor;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
-import java.util.List;
 
 /**
  * Security config to manage access to api for security purpose and also for admin service security
@@ -41,12 +34,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests()
                 .antMatchers("/api/v1/admin/**").hasAuthority("ADMIN")
-                .antMatchers("/api/v1/user/**", "/api/v1/doctor/**", "/api/v1/appointment/**").hasAuthority("USER")
                 .antMatchers("/api/v1/user/**", "/api/v1/appointment/**").hasAuthority("USER")
                 .antMatchers("/api/v1/doctor/**").hasAnyAuthority("ADMIN", "USER")
                 .antMatchers("/api/v*/**").permitAll()
                 .and().formLogin();
-
     }
 
     @Override
