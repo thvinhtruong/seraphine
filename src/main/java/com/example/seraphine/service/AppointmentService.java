@@ -1,16 +1,13 @@
 package com.example.seraphine.service;
 
 import com.example.seraphine.model.Appointment;
-import com.example.seraphine.model.User;
 
-import javax.mail.MessagingException;
 import java.util.Optional;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Service interface to access from data and model, also create entity for appointment
- * @author Vinh Truong Canh Thanh, Tri Nguyen Minh
+ * @author Vinh Truong Canh Thanh, Tri Nguyen Minh, Linh Ngo Phuc
  */
 public interface AppointmentService {
     void saveAppointment(Appointment appointment);

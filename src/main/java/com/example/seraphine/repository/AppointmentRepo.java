@@ -7,7 +7,7 @@ import com.example.seraphine.model.Appointment;
 
 /**
  * Repository interface to access from data and model, also create entity for appointment
- * @author Vinh Truong Canh Thanh
+ * @author Vinh Truong Canh Thanh, Linh Ngo Phuc
  */
 
 @Repository

@@ -1,6 +1,5 @@
 package com.example.seraphine.model;
 
-import java.util.Objects;
 
 /**
  * Point class to get the precise longitude and latitude of user / doctor on Earth

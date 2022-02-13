@@ -1,9 +1,7 @@
 package com.example.seraphine.service;
 
-import java.util.ArrayList;
 import java.util.Optional;
 import java.util.List;
-import java.util.Set;
 
 
 import com.example.seraphine.model.Doctor;
@@ -23,7 +21,7 @@ import com.example.seraphine.model.Appointment;
 
 /**
  * Appointment service for appointment logic / operation between client - business
- * @author Vinh Truong Canh Thanh, Tri Nguyen Minh
+ * @author Vinh Truong Canh Thanh, Tri Nguyen Minh, Linh Ngo Phuc
  */
 
 @Service
@@ -57,7 +55,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     /**
      * get all appointment from database
-     * @author Vinh Truong Canh Thanh
+     * @author Vinh Truong Canh Thanh, Linh Ngo Phuc
      */
     @Override
     public List<Appointment> getAllAppointments() {
@@ -68,7 +66,7 @@ public class AppointmentServiceImpl implements AppointmentService {
      * get appointment based on its id in database
      * @param user_id Long
      * @param appointment_id Long
-     * @author Vinh Truong Canh Thanh
+     * @author Vinh Truong Canh Thanh, Linh Ngo Phuc
      */
     @Override
     public Optional<Appointment> getAppointmentById(Long user_id, Long appointment_id) {
@@ -96,7 +94,7 @@ public class AppointmentServiceImpl implements AppointmentService {
      * @param user_id Long
      * @param appointment_id Long
      * @param new_appointment Appointment
-     * @author Vinh Truong Canh Thanh
+     * @author Vinh Truong Canh Thanh, Linh Ngo Phuc
      */
     @Override
     public void updateAppointment(Long user_id, Long appointment_id, Appointment new_appointment) {
@@ -138,7 +136,7 @@ public class AppointmentServiceImpl implements AppointmentService {
      * delete appointment based on id
      * @param user_id Long
      * @param appointment_id Long
-     * @author Vinh Truong Canh Thanh
+     * @author Vinh Truong Canh Thanh, Linh Ngo Phuc
      */
     @Override
     public void deleteAppointment(Long user_id, Long appointment_id) {
@@ -244,7 +242,7 @@ public class AppointmentServiceImpl implements AppointmentService {
      * add appointment to doctor
      * @param doctor_id Long
      * @param appointment_id Appointment
-     * @author Vinh Truong Canh Thanh
+     * @author Vinh Truong Canh Thanh, Tri Nguyen Minh
      */
     @Override
     public void addAppointmentToDoctor(Long doctor_id, Long appointment_id) {

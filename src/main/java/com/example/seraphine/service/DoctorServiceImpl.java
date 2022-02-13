@@ -4,7 +4,6 @@ import com.example.seraphine.model.*;
 import com.example.seraphine.repository.DoctorRepo;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.ArrayList;
