@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react"
 import SearchInput from "./search/SearchInput";
 import Navbar from '../../../component/navbar/Navbar';
 
-const Appointment = () => {
+const SearchAppointment = () => {
     return (
         <div>
             <SearchInput />
@@ -11,4 +11,4 @@ const Appointment = () => {
     )
 }
 
-export default Appointment
+export default SearchAppointment

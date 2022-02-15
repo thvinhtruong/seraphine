@@ -5,7 +5,7 @@ import Homepage from "./component/homepage/Homepage"
 //page
 import Login from "./page/landingpage/login/Login"
 import Register from "./page/landingpage/register/Register"
-import Appointment from "./page/landingpage/appointment/Appointment"
+import SearchAppointment from "./page/landingpage/appointment/SearchAppointment"
 
 function App() {
     return (
@@ -21,7 +21,7 @@ function App() {
                 </Route>    
 
                 <Route path="/page/landingpage/appointment/Appointment">
-                    <Appointment className="App-background"/>
+                    <SearchAppointment className="App-background"/>
                 </Route>
 
                 <Route path="/">

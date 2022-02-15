@@ -50,11 +50,12 @@ public class Appointment {
         this.booked = booked;
     }
 
-
     /**
      * Get user id
      */
-    public Long getId() { return id; }
+    public Long getId() {
+        return id;
+    }
 
     /**
      * Set user id

@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import {Link} from 'react-router-dom'
-import {Form, Button} from "react-bootstrap";
+import {Form, Button, Card} from "react-bootstrap";
 
 const SearchInput = () => {
   const [searchProblem, setSearchProblem] = useState("");
@@ -10,18 +10,17 @@ const SearchInput = () => {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
-  const [url, setUrl] = useState(`/api/v1/doctor/appointment/search/query?issue_cover=${searchProblem}&address=${searchPostalCode}&distance_to_user=${searchDistance}`)
 
-  useEffect(() => {
-    fetch(url, {
+  function handleSubmit(event) {
+    fetch(`/api/v1/doctor/search/query?issue_covered=${searchProblem}&address=${searchPostalCode}&distance_to_user=${searchDistance}`, {
       method: 'GET',
       mode: 'no-cors'
     })
       .then(response => {
-        if (response.ok()) {
-          return response.json()
+        if (response.ok) { 
+          return response.json();
         }
-        throw response
+        throw response;
       })
       .then(
         (result) => {
@@ -32,11 +31,8 @@ const SearchInput = () => {
           setIsLoaded(true);
           setError(error);
         }
-      )
-  }, [items])
-
-  function handleSubmit(event) {
-    event.preventDefault();
+      );
+      event.preventDefault();
   }
 
   return (
@@ -72,12 +68,27 @@ const SearchInput = () => {
               <option value="100">100 km</option>
             </select>
           </Form.Group>
-        </Form>
-        <div>
-            <Button className="search-button" onClick={}>
+          <div>
+            <Button className="search-button" type="submit">
               Search
             </Button>
           </div>
+
+          <div>
+            {items.map(item => (
+                <Card style={{width: '30rem', align: 'center'}} key={item.id} border="primary" bg='light'>
+                    <Card.Body>
+                    <Card.Title>Dr {item.firstName + ' ' + item.lastName}</Card.Title>
+                    <Card.Subtitle className="mb-2 text-muted">Specialization: {item.specialization}</Card.Subtitle>
+                    <Card.Text>
+                        Treatment: {item.issue_covered}
+                    </Card.Text>
+                    <Card.Link href="#">Learn More</Card.Link>
+                    </Card.Body>
+                </Card>
+            ))}
+          </div>
+        </Form>
       </div>
     </React.Fragment>
   );

@@ -1,6 +1,7 @@
 package com.example.seraphine.service;
 
 import com.example.seraphine.model.*;
+import com.example.seraphine.repository.AppointmentRepo;
 import com.example.seraphine.repository.DoctorRepo;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,9 @@ import java.util.Optional;
 public class DoctorServiceImpl implements DoctorService {
     @Autowired
     private DoctorRepo doctorRepo;
+
+    @Autowired
+    private AppointmentRepo appointmentRepo;
 
     /**
      * Save doctor to database
@@ -140,14 +144,16 @@ public class DoctorServiceImpl implements DoctorService {
     @Override
     public List<Appointment> showAvailableAppointments(Long doctor_id) {
         List<Appointment> results = new ArrayList<Appointment>();
+        List<Appointment> allAppointments = this.appointmentRepo.findAll();
         Optional<Doctor> doctor_obj = this.doctorRepo.findById(doctor_id);
         if (doctor_obj.isEmpty()) {
             System.out.println("doctor not found");
         }
-        Doctor doctor = doctor_obj.get();
-        for (int i = 0; i < doctor.getAppointments().size(); i++) {
-            if (!doctor.getAppointments().get(i).isBooked()) {
-                results.add(doctor.getAppointments().get(i));
+        for (int i=0; i<allAppointments.size(); i++) {
+            if (allAppointments.get(i).getDoctor_id() == doctor_id) {
+                if (!allAppointments.get(i).isBooked()) {
+                    results.add(allAppointments.get(i));
+                }
             }
         }
         return results;

@@ -93,8 +93,9 @@ public class DoctorController {
     @GetMapping(path = "/search/query")
     public List<Doctor> displayAllDoctorsWithQuery(@RequestParam String issue_covered,
                                                    @RequestParam String address,
-                                                   @RequestParam int distance_to_user) {
-        return this.doctorService.findDoctorWithCriteria(issue_covered, address, distance_to_user);
+                                                   @RequestParam String distance_to_user) {
+        int distance = Integer.parseInt(distance_to_user);
+        return this.doctorService.findDoctorWithCriteria(issue_covered, address, distance);
     }
 
     /**
