@@ -10,18 +10,19 @@ const SearchInput = () => {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
-
-  function validateForm() {
-    return searchProblem.length > 0 && searchDistance.length > 0;
-  }
-
-  function handleSubmit(event) {
-    event.preventDefault();
-  }
+  const [url, setUrl] = useState(`/api/v1/doctor/appointment/search/query?issue_cover=${searchProblem}&address=${searchPostalCode}&distance_to_user=${searchDistance}`)
 
   useEffect(() => {
-    fetch(`localhost:8080/api/v1/doctor/appointment/search/query?issue_cover=${searchProblem}&address=${searchPostalCode}&distance_to_user=${searchDistance}`)
-      .then(res => res.json())
+    fetch(url, {
+      method: 'GET',
+      mode: 'no-cors'
+    })
+      .then(response => {
+        if (response.ok()) {
+          return response.json()
+        }
+        throw response
+      })
       .then(
         (result) => {
           setIsLoaded(true);
@@ -32,11 +33,15 @@ const SearchInput = () => {
           setError(error);
         }
       )
-  }, [searchProblem, searchPostalCode, searchDistance])
+  }, [items])
+
+  function handleSubmit(event) {
+    event.preventDefault();
+  }
 
   return (
-    <div>
-      <div className="search-input">
+    <React.Fragment>
+      <div>
         <p className="App-title">Search Doctor</p>
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="searchProblem">
@@ -61,30 +66,20 @@ const SearchInput = () => {
 
           <Form.Group controlId="searchDistance">
             <Form.Label>Distance to current location</Form.Label>
-            <select value="in km" onChange={(event) => {setSearchDistance(event.target.value)}}>
+            <select type="search" value={searchDistance} onChange={(event) => {setSearchDistance(event.target.value)}}>
               <option value="10">10 km</option>
               <option value="50">50 km </option>
               <option value="100">100 km</option>
             </select>
           </Form.Group>
-
-          <div>
-            <Button
-              className="search-btn search-btn-p" block type="submit" disabled={!validateForm()}>Search
-            </Button>
-          </div>
         </Form>
         <div>
-          <ul>
-            {items.map(item => (
-              <li key={item.id}>
-                {item.name} {item.price}
-              </li>
-            ))}
-          </ul>
-        </div>
+            <Button className="search-button" onClick={}>
+              Search
+            </Button>
+          </div>
       </div>
-    </div>
+    </React.Fragment>
   );
 }
 

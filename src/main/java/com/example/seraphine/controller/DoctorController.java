@@ -18,7 +18,7 @@ import java.util.Optional;
 @RestController
 @AllArgsConstructor
 @RequestMapping("api/v1/doctor")
-@CrossOrigin(origins = "http://localhost:3000/search")
+@CrossOrigin(origins = "http://localhost:3000")
 public class DoctorController {
     @Autowired
     private DoctorService doctorService;

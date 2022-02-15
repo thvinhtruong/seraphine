@@ -1,5 +1,4 @@
-import React from 'react'
-
+import React, { useState, useEffect } from "react"
 //component
 import SearchInput from "./search/SearchInput";
 import Navbar from '../../../component/navbar/Navbar';
@@ -7,7 +6,7 @@ import Navbar from '../../../component/navbar/Navbar';
 const Appointment = () => {
     return (
         <div>
-            <SearchInput/>
+            <SearchInput />
         </div>
     )
 }
