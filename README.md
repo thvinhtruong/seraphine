@@ -1,4 +1,4 @@
-<img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/c7c3a90f-aa6c-430f-8afc-53dd142bbe0c/League-of-Legends-Seraphine.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220211%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220211T023511Z&X-Amz-Expires=86400&X-Amz-Signature=9992317f752bf1f906e423f4ac3f227e6ba0ff3149a65bef3f0e6c0bcdc86e2c&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22League-of-Legends-Seraphine.jpg%22&x-id=GetObject"/>
+<iframe src="https://giphy.com/embed/Vr3HlfDMnSllDmnNNh" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/leagueoflegends-Vr3HlfDMnSllDmnNNh">via GIPHY</a></p>
 
 # Seraphine
 
@@ -38,7 +38,7 @@ Install Node and npm (we use Node version 16.9.1 and npm version 7.21.1 to run t
 
 # 🤖 Technologies We Used
 
-<img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/92952390-3b67-418a-988f-0d8a60e91755/Screenshot_2022-02-11_at_02.50.51.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220211%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220211T023140Z&X-Amz-Expires=86400&X-Amz-Signature=2d06f142bd02b9ba06adeea3111fa0ec1664e38a86ce8fcd8b20e14e61b0c004&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Screenshot%25202022-02-11%2520at%252002.50.51.png%22&x-id=GetObject"/>
+<img src="technical_stack.png">
 
 ---
 
