@@ -1,8 +1,8 @@
-<iframe src="https://giphy.com/embed/Vr3HlfDMnSllDmnNNh" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/leagueoflegends-Vr3HlfDMnSllDmnNNh">via GIPHY</a></p>
+![Alt Text](https://media.giphy.com/media/Vr3HlfDMnSllDmnNNh/giphy.gif)
 
 # Seraphine
 
-> Seraphine is a web-based smart eHealth booking app, which allows clients to book an Appointment with doctors from home. Seraphine is named after a character in Leauge Of Legend (LOL) game, who has the abillity to recover mana and blood for teammates. Seraphine is written in Java Spring Boot (for Backend) and ReactJS (for Frontend — currently in development).
+> Seraphine is a web-based smart eHealth booking app, which allows clients to book an Appointment with doctors from home. Seraphine is written in Java Spring Boot (for Backend) and ReactJS (for Frontend — currently in development).
 > 
 
 # ☎️ Contact information
