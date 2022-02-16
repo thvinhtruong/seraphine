@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 import './Register.css';
 export default function Form() {
 	// States for registration
@@ -9,11 +10,12 @@ export default function Form() {
 	const [userName, setUserName] = useState('');
 	const [dateofbirth, setDateofbirth] = useState('');
 	const [insuranceName, setInsuranceName] = useState('');
-	const [insuranceType, setInsuranceType] = useState('')
+	const [insuranceType, setInsuranceType] = useState('');
 
 	// States for checking the errors
 	const [submitted, setSubmitted] = useState(false);
 	const [error, setError] = useState(false);
+	const [items, setItems] = useState([]);
 
 	//Handling the fisrtName change
 	const handlefirstName = (e) => {
@@ -65,40 +67,38 @@ export default function Form() {
 
 	// Handling the form submission
 	const handleSubmit = (e) => {
-		e.preventDefault();
-		if (firstName ==='' || lastName ==='' || userName === '' || email === '' || password === '' || dateofbirth === '' || insuranceName === '' || insuranceType === '') {
-		setError(true);
+		const dataPost = {firstName, lastName, email, userName, password, dateofbirth, insuranceType, insuranceName}
+		if (firstName ==='' || lastName ==='' || userName === '' || email === '' || password === '' 
+		|| dateofbirth === '' || insuranceName === '' || insuranceType === '') {
+			setError(true);
 		} else {
-		setSubmitted(true);
-		setError(false);
+			setSubmitted(true);
+			setError(false);
 		}
+		
+		fetch(`/api/v1/registration`, {
+			method: 'POST',
+			mode: 'no-cors',
+			body: JSON.stringify(dataPost),
+			header: "text/plain"
+		})
+		.then((response) => {
+			if (response.ok) {
+				return response.json();
+			}
+			throw response;
+		})
+		.then((result) => {
+			setSubmitted(true);
+			setItems(result);
+			console.log(items);
+		}).catch((error) => {
+			setSubmitted(false);
+			console.log(error);
+		})
+		e.preventDefault();
 	};
 
-	// Showing success message
-	const successMessage = () => {
-		return (
-		<div
-			className="success"
-			style={{
-			display: submitted ? '' : 'none',
-			}}>
-			<p className="App-title">USER SUCCESSFULLY REGISTER</p>
-		</div>
-		);
-	};
-
-	// Showing error message if error is true
-	const errorMessage = () => {
-		return (
-		<div
-			className="error"
-			style={{
-			display: error ? '' : 'none',
-			}}>
-			<p className="App-notify">PLEASE ENTER ALL THE FIELDS</p>
-		</div>
-		);
-	};
 
 	return (
 		// <div className = "App-background">
@@ -106,11 +106,6 @@ export default function Form() {
 			<div className="form">
 			<p className = "App-title">REGISTRATION</p> 
 
-			{/* Calling to the methods */}
-			<div className="messages">
-				{errorMessage()}
-				{successMessage()}
-			</div>
 			<form>
 				{/* Labels and inputs for form data */}
 				<div>

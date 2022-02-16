@@ -1,15 +1,15 @@
-import React, {useState} from 'react';
-import {Button} from 'react-bootstrap';
+import React, { useState} from 'react';
+import {useParams} from 'react-router-dom';
+import ReminderSelect from './ReminderSelect';
 
-const BookButton = () => {
+const ConfirmPage = (props) => {
+    const {id} = useParams();
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [message, setMessage] = useState([]);
-    const [user_id, setUser_id] = useState("");
-    const [appointment_id, setAppointment_id] = useState("");
 
     function handleSubmit(event) {
-        fetch(`api/v1/user/${user_id}/appointment/${appointment_id}/book`, {
+        fetch(`api/v1/user/${props.user_id}/appointment/${id}/book`, {
             method: 'GET',
             mode: 'no-cors'
         })
@@ -22,22 +22,27 @@ const BookButton = () => {
         .then((result) => {
             setIsLoaded(true);
             setMessage(result);
-            console.log(result);
-          },
-          (error) => {
+            console.log(message);
+        }, 
+        (error) => {
             setIsLoaded(true);
             setError(error);
-          }
-        );
+        });
         event.preventDefault();
     }
 
     return (
         <div>
-            <Button onSubmit={handleSubmit} type='submit'>
-                Book now!
-            </Button>
+            <h2>Do you want to book this appointment?</h2>
+            <br></br>
+            <button onClick={handleSubmit}>Confirm</button>
+            <br></br>
+            <h2>Do you want us to remind you?</h2>
+            <ReminderSelect />
+
         </div>
     )
+
 }
-export default BookButton;
+
+export default ConfirmPage;

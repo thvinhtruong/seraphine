@@ -32,7 +32,7 @@ public class Doctor {
     private double distance_to_user;
     private String issue_covered;
 
-    @OneToMany(targetEntity = Appointment.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(targetEntity = Appointment.class, cascade = CascadeType.ALL)
     @JoinColumn(name ="appointments", referencedColumnName = "doctor_id")
     private List<Appointment> appointments = new ArrayList<>();
 

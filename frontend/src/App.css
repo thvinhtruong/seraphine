@@ -99,3 +99,6 @@
     font-size: 20px;
   }
 
+  .button {
+      align-items: center;
+  }

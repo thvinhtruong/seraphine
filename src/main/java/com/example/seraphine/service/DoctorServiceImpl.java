@@ -6,6 +6,8 @@ import com.example.seraphine.repository.DoctorRepo;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.print.Doc;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -158,5 +160,23 @@ public class DoctorServiceImpl implements DoctorService {
         }
         return results;
     }
+
+    @Override
+    public void addAppointment(Long doctor_id) {
+        Optional<Doctor> doctor_obj = this.doctorRepo.findById(doctor_id);
+        if (doctor_obj.isEmpty()) {
+            System.out.println("doctor not found");
+        }
+        Doctor doctor = doctor_obj.get();
+        String criteria = "doctor_id";
+        QueryBuilder<Appointment> newQuery = new QueryBuilder<Appointment>();
+        newQuery.add(new SearchCriteria(criteria, doctor_id, SearchOperation.EQUAL));
+        List<Appointment> temp = this.appointmentRepo.findAll(newQuery);
+
+        doctor.setAppointments(temp);
+
+
+    }
+
 
 }

@@ -1,15 +1,16 @@
 import React, { useState, useEffect} from 'react';
+import {useParams, Link} from 'react-router-dom';
 import {Card} from "react-bootstrap";
 
 
-const DoctorTimeSlot = () => {
+const DoctorTimeSlot = (props) => {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [appointments, setAppointments] = useState([]);
-    const [id, setId] = useState("");
+    const {id} = useParams();
     
     useEffect(() => {
-        fetch(`api/v1/doctor/appointment/${id}/all`, { 
+        fetch(`/api/v1/doctor/appointment/${id}/all`, { 
             method: 'GET', 
             mode:'no-cors'
         })
@@ -29,20 +30,21 @@ const DoctorTimeSlot = () => {
               setError(error);
             }
         );
-    });
+    }, [id]);
 
     return (
         <div>
             {appointments.map(item => (
-                <ol key={item.id}>
-                    <Card style={{width: '18rem', align: 'center'}} body>
-                        Date: {item.dateBooking}
-                        Time: {item.start_time} - {item.end_time}
-                        Status: {() => {if (item.booked) {
-                            return "booked"
-                        }}}
-                    </Card>
-                </ol>
+                <Link to={`book/appointment/${props.user_id}/${item.id}`}>
+                    <div key={item.id}>
+                        <button>
+                            Date: {item.dateBooking}
+                            <br></br>
+                            Time: {item.start_time} - {item.end_time}
+                            <br></br>
+                        </button>
+                    </div>
+                </Link>
             ))}
         </div>  
     );

@@ -19,4 +19,5 @@ public interface DoctorService {
     void calculateDistanceToUser(String address);
     List<Doctor> findDoctorWithCriteria(String issues, String address, int distance_to_user);
     List<Appointment> showAvailableAppointments(Long doctor_id);
+    void addAppointment(Long doctor_id);
 }
