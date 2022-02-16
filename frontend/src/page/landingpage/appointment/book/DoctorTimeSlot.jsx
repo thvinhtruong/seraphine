@@ -1,11 +1,11 @@
-import React, { useState} from 'react';
+import React, { useState, useEffect} from 'react';
 import {Card} from "react-bootstrap";
 
 
 const DoctorTimeSlot = () => {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
-    const [doctors, setDoctors] = useState([]);
+    const [appointments, setAppointments] = useState([]);
     const [id, setId] = useState("");
     
     useEffect(() => {
@@ -22,7 +22,7 @@ const DoctorTimeSlot = () => {
         .then(
             (result) => {
               setIsLoaded(true);
-              setItems(result);
+              setAppointments(result);
             },
             (error) => {
               setIsLoaded(true);
@@ -33,7 +33,7 @@ const DoctorTimeSlot = () => {
 
     return (
         <div>
-            {items.map(item => (
+            {appointments.map(item => (
                 <ol key={item.id}>
                     <Card style={{width: '18rem', align: 'center'}} body>
                         Date: {item.dateBooking}

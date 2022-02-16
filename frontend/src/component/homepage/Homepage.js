@@ -7,7 +7,7 @@ import '../../App.css'
 const RenderLogin = () => {
     return (
         <Button type="button">
-            <Link to="/page/landingpage/login/Login" className="link-style">
+            <Link to="/page/login" className="link-style">
                 <span>Login</span>
             </Link>
         </Button>
@@ -17,7 +17,7 @@ const RenderLogin = () => {
 const RenderRegister = () => {
     return (
         <Button type="button" >
-            <Link to="/page/landingpage/register/Register" className="link-style">
+            <Link to="/page/register" className="link-style">
                 <span >Register</span>
             </Link>
         </Button>

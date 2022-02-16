@@ -1,8 +1,6 @@
 import React from 'react';
-import DoctorMainPage from './doctor/DoctorMainPage';
-import DoctorTimeSlot from './doctor/DoctorTimeSlot';
-import BookButton from './doctor/BookButton';
-import ReminderSelect from './doctor/ReminderSelect';
+import BookButton from './book/BookButton';
+import ReminderSelect from './book/ReminderSelect';
 
 const BookAppointment = () => {
     return (

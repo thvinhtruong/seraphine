@@ -12,15 +12,15 @@ function App() {
         <div className = "App-background">
             <Navbar/>
             <Switch>
-                <Route path="/page/landingpage/login/Login">
+                <Route path="/page/login">
                     <Login className="App-background"/>
                 </Route>
 
-                <Route path="/page/landingpage/register/Register">
+                <Route path="/page/register">
                     <Register className="App-background"/>
                 </Route>    
 
-                <Route path="/page/landingpage/appointment/Appointment">
+                <Route path="/page/search/appointment">
                     <SearchAppointment className="App-background"/>
                 </Route>
 

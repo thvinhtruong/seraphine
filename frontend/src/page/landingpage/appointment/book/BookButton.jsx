@@ -1,10 +1,10 @@
-import React from 'react';
-import Button from 'react-bootstrap';
+import React, {useState} from 'react';
+import {Button} from 'react-bootstrap';
 
 const BookButton = () => {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
-    const [doctors, setDoctors] = useState([]);
+    const [message, setMessage] = useState([]);
     const [user_id, setUser_id] = useState("");
     const [appointment_id, setAppointment_id] = useState("");
 
@@ -21,7 +21,8 @@ const BookButton = () => {
         })
         .then((result) => {
             setIsLoaded(true);
-            setItems(result);
+            setMessage(result);
+            console.log(result);
           },
           (error) => {
             setIsLoaded(true);

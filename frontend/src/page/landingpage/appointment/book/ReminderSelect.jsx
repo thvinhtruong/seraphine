@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {Form, Button} from 'react-bootstrap';
 
-const ReminderSelection = () => {
+const ReminderSelect = () => {
     const [user_id, setUser_id] = useState("");
     const [appointment_id, setAppointment_id] = useState("");
     const [option, setOption] = useState("");
@@ -42,7 +42,9 @@ const ReminderSelection = () => {
                 </Form.Group>
 
                 <div>
-                    <Button className="search-btn" type='submit'>Remind me!</Button>
+                    <Button className="search-btn" type='submit' onClick={() => {
+                        return "you are reminded";
+                    }}>Remind me!</Button>
                 </div>
             </Form>
         </div>
