@@ -2,7 +2,7 @@
 
 # Seraphine
 
-> Seraphine is a web-based smart eHealth booking app, which allows clients to book an Appointment with doctors from home. Seraphine is written in Java Spring Boot (for Backend) and ReactJS (for Frontend — currently in development).
+> Seraphine is a web-based smart eHealth booking app, which allows clients to book an Appointment with doctors from home. Seraphine is named after a character in the famous game Leauge of Legend (LOL), whose skill is healing for the whole team, therefore, we name the project with hope the project will help people in healing and recover their pain. Seraphine is written in Java Spring Boot (for Backend) and ReactJS (for Frontend — currently in development).
 > 
 
 # ☎️ Contact information
