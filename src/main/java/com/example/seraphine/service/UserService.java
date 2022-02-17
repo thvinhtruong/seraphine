@@ -12,6 +12,7 @@ import com.example.seraphine.model.User;
 @Service
 public interface UserService extends UserDetailsService {
     String signUpUser(User appUser);
+    String loginUser(User appUser);
     String Forgot(String email, String password);
     void enableAppUser(String email);
     void updatePassword(User user, String password);

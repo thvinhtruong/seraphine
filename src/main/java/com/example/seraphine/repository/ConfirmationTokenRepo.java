@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 import com.example.seraphine.model.ConfirmationToken;
@@ -29,4 +30,7 @@ public interface ConfirmationTokenRepo
             "SET c.confirmedAt = ?2 " +
             "WHERE c.token = ?1")
     int updateConfirmedAt(String token,LocalDateTime confirmedAt);
+
+    @Query(value = "SELECT * FROM confirmation_token WHERE app_user_id= ?1", nativeQuery = true)
+    List<ConfirmationToken> findByUserId(Long id);
 }

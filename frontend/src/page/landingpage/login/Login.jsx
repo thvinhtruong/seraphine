@@ -1,25 +1,50 @@
 import './Login.css'
 import React, { useState } from "react"
-import {Switch, Route, Redirect} from "react-router-dom"
+import {Link, Redirect} from "react-router-dom"
 import {Form, Button} from "react-bootstrap";
 
-export default function Login() {
+export default function Login({setToken}) {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
-  function validateForm() {
-    return userName.length > 0 && password.length > 0;
+  async function handleSubmit(event) {
+    const postData = {userName, password};
+    fetch(`/user/login`, {
+      method: 'POST',
+      body: JSON.stringify(postData),
+      headers: {
+        'Accept': 'application/json, text/plain',
+        'Content-Type': 'application/json;charset=UTF-8'
+      }
+    })
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw response;
+    })
+    .then((result) => {
+      console.log(result);
+    })
+    .catch((error) => {
+      setError(error);
+      console.log(error);
+    })
+    event.preventDefault();
   }
 
-  function handleSubmit(event) {
-    event.preventDefault();
+  function validateForm() {
+    if (userName.length === 0 || password.length === 0) {
+      alert("Please enter all required fields");
+    }
   }
 
   return (
     <div>
     <div className="Login">
-      <p className = "App-title">LOGIN</p> 
       <Form onSubmit={handleSubmit}>
+      <p className = "App-title">LOGIN</p> 
         <Form.Group controlId="userName">
           <Form.Label>User Name</Form.Label>
           <Form.Control
@@ -36,11 +61,13 @@ export default function Login() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}/>
         </Form.Group>
-        <Button block type="submit" disabled={!validateForm()}>
-          LOGIN
-        </Button>
-        <p></p>
-        <a href="/">Forgot your password</a>
+          <Link to={`/page/search/appointment`}>
+            <Button block type="submit" onClick={validateForm}>
+              LOGIN
+            </Button>
+          </Link>
+          <p></p>
+          <a href="/">Forgot your password</a>
       </Form>
       </div>
     </div>

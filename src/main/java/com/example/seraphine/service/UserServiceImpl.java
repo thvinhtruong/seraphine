@@ -78,6 +78,23 @@ public class UserServiceImpl implements UserService {
         return token;
     }
 
+    @Override
+    public String loginUser(User appUser) {
+        boolean userExists = appUserRepository.findByEmail(appUser.getEmail()).isPresent();
+        if (!userExists) {
+            throw new UsernameNotFoundException(USER_NOT_FOUND_MSG);
+        }
+        String token  = UUID.randomUUID().toString();
+        ConfirmationToken confirmationToken = new ConfirmationToken(token,
+                LocalDateTime.now(),
+                LocalDateTime.now().plusMinutes(15),
+                appUser);
+
+        confirmationTokenService.saveConfirmationToken(confirmationToken);
+        return token;
+
+    }
+
     /** 
      * Forgot password for user.
      * @param email

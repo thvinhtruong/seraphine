@@ -1,9 +1,9 @@
 import React, { useState, useEffect} from 'react';
 import {useParams, Link} from 'react-router-dom';
-import {Card} from "react-bootstrap";
+import {Form} from "react-bootstrap";
 
 
-const DoctorTimeSlot = (props) => {
+const DoctorTimeSlot = () => {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [appointments, setAppointments] = useState([]);
@@ -34,18 +34,20 @@ const DoctorTimeSlot = (props) => {
 
     return (
         <div>
-            {appointments.map(item => (
-                <Link to={`book/appointment/${props.user_id}/${item.id}`}>
-                    <div key={item.id}>
-                        <button>
-                            Date: {item.dateBooking}
-                            <br></br>
-                            Time: {item.start_time} - {item.end_time}
-                            <br></br>
-                        </button>
-                    </div>
-                </Link>
-            ))}
+            <Form>
+                {appointments.map(item => (
+                    <Link to={`/book/appointment/5/${item.id}`}>
+                        <div key={item.id}>
+                            <button>
+                                Date: {item.dateBooking}
+                                <br></br>
+                                Time: {item.start_time} - {item.end_time}
+                                <br></br>
+                            </button>
+                        </div>
+                    </Link>
+                ))}
+            </Form>
         </div>  
     );
 }

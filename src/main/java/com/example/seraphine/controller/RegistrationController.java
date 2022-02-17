@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import com.example.seraphine.service.RegistrationRequest;
 import com.example.seraphine.service.RegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -24,7 +25,7 @@ public class RegistrationController {
      * @param request Registration request
      * @return newly created account
      */
-    @PostMapping
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public String register(@RequestBody RegistrationRequest request) {
         return registrationService.register(request);
     }

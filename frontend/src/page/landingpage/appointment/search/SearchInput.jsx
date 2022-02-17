@@ -42,8 +42,8 @@ const SearchInput = () => {
   return (
     <React.Fragment>
       <div>
-        <h1 className="App-title">Search Doctor</h1>
         <Form onSubmit={handleSubmit}>
+        <h1>Search Doctor</h1>
           <Form.Group controlId="searchProblem">
             <Form.Label><b>Health Problem</b></Form.Label>
             <Form.Control
@@ -85,8 +85,10 @@ const SearchInput = () => {
                   <h2>Dr {item.firstName + " " + item.lastName}</h2>
                   <ol>
                     Address: {item.address}
-                    <></>
+                    <br></br>
                     Treatments: {item.issue_covered}
+                    <br></br>
+                    About {item.distance_to_user} km to your current location
                   </ol>
                 </div>
               </Link>

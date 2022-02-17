@@ -44,7 +44,7 @@ public class ConfirmationToken {
 
     private LocalDateTime confirmedAt;
 
-    @ManyToOne
+    @ManyToOne(targetEntity=User.class, cascade=CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(nullable = false, name = "app_user_id")
     private User appUser;
 

@@ -1,9 +1,12 @@
 package com.example.seraphine.service;
 
+import com.example.seraphine.model.ConfirmationToken;
 import com.example.seraphine.model.User;
+import com.example.seraphine.repository.ConfirmationTokenRepo;
 import com.example.seraphine.repository.UserRepo;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,6 +23,8 @@ public class AdminServiceImpl implements AdminService{
     @Autowired
     private UserRepo userRepo;
 
+    @Autowired
+    private final ConfirmationTokenRepo confirmationTokenRepository;
     /**
      * create admin
      * @author Tri Nguyen Minh
@@ -54,8 +59,13 @@ public class AdminServiceImpl implements AdminService{
      */
 
     @Override
-    public void deleteUser(Long id) {
-        this.userRepo.deleteById(id); }
+    public void deleteUser(long id) {
+        List<ConfirmationToken> confirmationTokens = this.confirmationTokenRepository.findByUserId(id);
+        for (int i=0; i<confirmationTokens.size(); i++) {
+            this.confirmationTokenRepository.deleteById(confirmationTokens.get(i).getId());
+        }
+        this.userRepo.deleteById(id);
+    }
 
     /**
      * Update specific user using user's id

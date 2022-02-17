@@ -64,7 +64,7 @@ public class AdminController {
      * @return void
      */
     @DeleteMapping("/user/delete/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable(value = "id") Long id) {
+    public ResponseEntity<Void> deleteUser(@PathVariable(value = "id") long id) {
         this.adminService.deleteUser(id);
         return ResponseEntity.ok().build();
     }

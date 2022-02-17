@@ -78,9 +78,11 @@ export default function Form() {
 		
 		fetch(`/api/v1/registration`, {
 			method: 'POST',
-			mode: 'no-cors',
 			body: JSON.stringify(dataPost),
-			header: "text/plain"
+			headers: {
+                'Accept': 'application/json, text/plain',
+                'Content-Type': 'application/json;charset=UTF-8'
+			}
 		})
 		.then((response) => {
 			if (response.ok) {

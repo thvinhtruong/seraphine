@@ -2,20 +2,21 @@ import React, {useState} from "react";
 import {Form, Button} from 'react-bootstrap';
 
 const ReminderSelect = () => {
-    const [user_id, setUser_id] = useState("");
     const [appointment_id, setAppointment_id] = useState("");
     const [option, setOption] = useState("");
     const [items, setItems] = useState("");
     const [error, setError] = useState("");
 
     function handleSubmit(event) {
-        fetch(`api/v1/user/${user_id}/appointment/${appointment_id}/remind?${option}`, {
+        fetch(`/api/v1/user/5/appointment/${appointment_id}/remind?${option}`, {
             method: 'GET',
             mode: 'no-cors'
         })
         .then((response) => {
             if (response.ok) {
                 return response.json();
+            } else {
+                alert("reminder has been set!");
             }
             throw response;
         })

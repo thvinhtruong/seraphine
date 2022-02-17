@@ -32,7 +32,7 @@ public interface AdminService {
      * @author Tri Nguyen Minh
      * @param id Long
      */
-    void deleteUser(Long id);
+    void deleteUser(long id);
     /**
      * create admin
      * @author Tri Nguyen Minh
