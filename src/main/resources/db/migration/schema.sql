@@ -35,7 +35,6 @@ CREATE TABLE Appointment (
     doctor_id INT NOT NULL,
     datetime DATETIME NOT NULL,
     appointment_type VARCHAR(50),
-
     appointment_description VARCHAR(1000),
     primary key(id),
     foreign key(doctor_id) references Doctor(id) ON DELETE CASCADE
