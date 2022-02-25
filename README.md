@@ -14,9 +14,10 @@
 ---
 # 📖 Documentation
 
-- Our requirement from teacher: [eHealth Requirement]
+- Our requirement from teacher: [Requirement](https://github.com/thvinhtruong/seraphine/blob/main/eHealth.pdf)
 - **Our API document (generated with Javadoc): [API Doc](https://javadoc-seraphine.netlify.app)**
-- Our main document for the project: currently in development.
+- Our main document for the project: [Project Report](https://github.com/thvinhtruong/seraphine/blob/main/Group_19___EHealth__Java___Object_Oriented_Programming.pdf]
+
 
 ---
 
