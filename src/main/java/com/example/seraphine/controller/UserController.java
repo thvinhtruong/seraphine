@@ -43,4 +43,11 @@ public class UserController {
         this.userService.editPersonalInfor(user_id, new_user);
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping("/{user_id}/{appointment_id}/cancel")
+    @PreAuthorize("#user_id == authentication.getPrincipal().getId()")
+    public ResponseEntity<Void> cancelAppointment(@PathVariable(value = "user_id") Long user_id, @PathVariable(value = "appointment_id") Long appointment_id) {
+        this.userService.cancelAppointment(user_id, appointment_id);
+        return ResponseEntity.ok().build();
+    }
 }

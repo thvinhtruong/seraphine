@@ -6,8 +6,6 @@ import com.example.seraphine.repository.DoctorRepo;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.print.Doc;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -28,17 +26,19 @@ public class DoctorServiceImpl implements DoctorService {
 
     /**
      * Save doctor to database
+     *
      * @param doctor Doctor
      * @author Vinh Truong Canh Thanh
      */
 
     @Override
-    public void saveDoctor(Doctor doctor){
+    public void saveDoctor(Doctor doctor) {
         doctorRepo.save(doctor);
     }
 
     /**
      * Display all doctor
+     *
      * @author Vinh Truong Canh Thanh
      */
 
@@ -49,6 +49,7 @@ public class DoctorServiceImpl implements DoctorService {
 
     /**
      * Get a doctor based on id
+     *
      * @param id Long
      * @author Vinh Truong Canh Thanh
      */
@@ -60,7 +61,8 @@ public class DoctorServiceImpl implements DoctorService {
 
     /**
      * Update information for a doctor
-     * @param id Long
+     *
+     * @param id        Long
      * @param newdoctor Doctor
      * @author Vinh Truong Canh Thanh
      */
@@ -85,6 +87,7 @@ public class DoctorServiceImpl implements DoctorService {
 
     /**
      * Delete doctor from database
+     *
      * @param id Long
      * @author Vinh Truong Canh Thanh
      */
@@ -96,6 +99,7 @@ public class DoctorServiceImpl implements DoctorService {
 
     /**
      * calculate distance between doctor to user
+     *
      * @param address String
      * @author Vinh Truong Canh Thanh
      */
@@ -118,8 +122,9 @@ public class DoctorServiceImpl implements DoctorService {
 
     /**
      * Find all doctors that satisfied the condition (query search for doctor)
-     * @param issues String
-     * @param address String
+     *
+     * @param issues           String
+     * @param address          String
      * @param distance_to_user int
      * @author Vinh Truong Canh Thanh
      */
@@ -139,23 +144,18 @@ public class DoctorServiceImpl implements DoctorService {
 
     /**
      * Show all doctor appointment that available for user
+     *
      * @param doctor_id Long
      * @author Vinh Truong Canh Thanh
      */
 
     @Override
     public List<Appointment> showAvailableAppointments(Long doctor_id) {
-        List<Appointment> results = new ArrayList<Appointment>();
-        List<Appointment> allAppointments = this.appointmentRepo.findAll();
-        Optional<Doctor> doctor_obj = this.doctorRepo.findById(doctor_id);
-        if (doctor_obj.isEmpty()) {
-            System.out.println("doctor not found");
-        }
-        for (int i=0; i<allAppointments.size(); i++) {
-            if (allAppointments.get(i).getDoctor_id() == doctor_id) {
-                if (!allAppointments.get(i).isBooked()) {
-                    results.add(allAppointments.get(i));
-                }
+        List<Appointment> appointments = this.appointmentRepo.findByDoctorId(doctor_id);
+        List<Appointment> results = new ArrayList<>();
+        for (int i=0; i<appointments.size(); i++) {
+            if (!appointments.get(i).isBooked()) {
+                results.add(appointments.get(i));
             }
         }
         return results;
@@ -174,9 +174,5 @@ public class DoctorServiceImpl implements DoctorService {
         List<Appointment> temp = this.appointmentRepo.findAll(newQuery);
 
         doctor.setAppointments(temp);
-
-
     }
-
-
 }

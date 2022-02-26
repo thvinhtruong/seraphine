@@ -1,12 +1,15 @@
 package com.example.seraphine.service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 import java.util.Optional;
 
+import com.example.seraphine.model.Appointment;
 import com.example.seraphine.model.ConfirmationToken;
 import com.example.seraphine.model.ForgotPasswordToken;
 import com.example.seraphine.model.User;
+import com.example.seraphine.repository.AppointmentRepo;
 import com.example.seraphine.repository.UserRepo;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +34,8 @@ public class UserServiceImpl implements UserService {
     private final ForgotPasswordTokenService forgotPasswordTokenService;
     private final static String USER_NOT_FOUND_MSG = "user with username %s not found";
 
+    @Autowired
+    private AppointmentRepo appointmentRepo;
     /**
      * Login for user using username.
      * @param username
@@ -173,5 +178,34 @@ public class UserServiceImpl implements UserService {
             newUser.setId(id);
             return this.appUserRepository.save(newUser);
         });
+    }
+
+    @Override
+    public void cancelAppointment(Long user_id, Long appointment_id) {
+        Optional<User> user_obj = this.appUserRepository.findById(user_id);
+        if (user_obj.isEmpty()) {
+            System.out.println("User not found");
+        }
+        User user = user_obj.get();
+        Optional<Appointment> appointment_obj = this.appointmentRepo.findById(appointment_id);
+        if (appointment_obj.isEmpty()) {
+            System.out.println("Appointment not found");
+        }
+        Appointment appointment = appointment_obj.get();
+
+        appointment.setUser_id(0L);
+        appointment.setStatus(false);
+
+        List<Appointment> user_appointment = user.getMyAppointment();
+        for (int i=0; i<user_appointment.size(); i++) {
+            if (user_appointment.get(i).getUser_id().equals(user.getId())) {
+                user_appointment.remove(i);
+            }
+        }
+    }
+
+    @Override
+    public List<Appointment> showAllAppointments(Long user_id) {
+        return this.appointmentRepo.findByUserId(user_id);
     }
 }

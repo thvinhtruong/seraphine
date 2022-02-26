@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import {Switch, Route, Redirect} from "react-router-dom"
 import Navbar from "./component/navbar/Navbar"
 import Homepage from "./component/homepage/Homepage"
+import './App.css';
 //page
 import Login from "./page/landingpage/login/Login"
 import Register from "./page/landingpage/register/Register"

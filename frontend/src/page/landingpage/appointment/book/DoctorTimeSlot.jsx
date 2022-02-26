@@ -1,7 +1,7 @@
 import React, { useState, useEffect} from 'react';
 import {useParams, Link} from 'react-router-dom';
 import {Form} from "react-bootstrap";
-
+import DoctorProfile from "../doctor/DoctorProfile";
 
 const DoctorTimeSlot = () => {
     const [error, setError] = useState(null);
@@ -35,6 +35,7 @@ const DoctorTimeSlot = () => {
     return (
         <div>
             <Form>
+                <DoctorProfile id = {id} />
                 {appointments.map(item => (
                     <Link to={`/book/appointment/5/${item.id}`}>
                         <div key={item.id}>
