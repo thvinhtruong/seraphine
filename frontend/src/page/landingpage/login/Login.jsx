@@ -3,14 +3,21 @@ import React, { useState } from "react"
 import {Link, Redirect} from "react-router-dom"
 import {Form, Button} from "react-bootstrap";
 
-export default function Login({setToken}) {
+export default function Login() {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [token, setToken] = useState([]);
 
-  async function handleSubmit(event) {
+  const handleSubmit = (event) => {
     const postData = {userName, password};
-    fetch(`/user/login`, {
+    if (userName === "" || password === "" ) {
+      alert("Please enter all required fields");
+      setError(true);
+    } else {
+      setError(false);
+    }
+    fetch(`/api/v1/user/login`, {
       method: 'POST',
       body: JSON.stringify(postData),
       headers: {
@@ -25,7 +32,8 @@ export default function Login({setToken}) {
       throw response;
     })
     .then((result) => {
-      console.log(result);
+      setToken(result);
+      console.log(token);
     })
     .catch((error) => {
       setError(error);
@@ -34,17 +42,11 @@ export default function Login({setToken}) {
     event.preventDefault();
   }
 
-  function validateForm() {
-    if (userName.length === 0 || password.length === 0) {
-      alert("Please enter all required fields");
-    }
-  }
-
   return (
     <div>
     <div className="Login">
       <Form onSubmit={handleSubmit}>
-      <p className = "App-title">LOGIN</p> 
+        <p className = "App-title">LOGIN</p> 
         <Form.Group controlId="userName">
           <Form.Label>User Name</Form.Label>
           <Form.Control
@@ -54,18 +56,16 @@ export default function Login({setToken}) {
             onChange={(e) => setUserName(e.target.value)}/>
         </Form.Group>
 
-        <Form.Group  controlId="password">
+        <Form.Group controlId="password">
           <Form.Label>Password </Form.Label>
           <Form.Control
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}/>
         </Form.Group>
-          <Link to={`/page/search/appointment`}>
-            <Button block type="submit" onClick={validateForm}>
-              LOGIN
-            </Button>
-          </Link>
+          <Button block type="submit">
+            LOGIN
+          </Button>
           <p></p>
           <a href="/">Forgot your password</a>
       </Form>

@@ -5,10 +5,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.Optional;
 
-import com.example.seraphine.model.Appointment;
-import com.example.seraphine.model.ConfirmationToken;
-import com.example.seraphine.model.ForgotPasswordToken;
-import com.example.seraphine.model.User;
+import com.example.seraphine.model.*;
 import com.example.seraphine.repository.AppointmentRepo;
 import com.example.seraphine.repository.UserRepo;
 
@@ -31,6 +28,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepo appUserRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final ConfirmationTokenService confirmationTokenService;
+    private final AccessTokenService accessTokenService;
     private final ForgotPasswordTokenService forgotPasswordTokenService;
     private final static String USER_NOT_FOUND_MSG = "user with username %s not found";
 
@@ -84,20 +82,24 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String loginUser(User appUser) {
-        boolean userExists = appUserRepository.findByEmail(appUser.getEmail()).isPresent();
+    public String loginUser(String username, String password) {
+        boolean userExists = appUserRepository.findByUsername(username).isPresent();
         if (!userExists) {
             throw new UsernameNotFoundException(USER_NOT_FOUND_MSG);
         }
+
+        Optional<User> user_obj = appUserRepository.findByUsername(username);
+        User user = user_obj.get();
+
         String token  = UUID.randomUUID().toString();
-        ConfirmationToken confirmationToken = new ConfirmationToken(token,
+        AccessToken accessToken = new AccessToken(token,
                 LocalDateTime.now(),
-                LocalDateTime.now().plusMinutes(15),
-                appUser);
+                LocalDateTime.now().plusMinutes(30),
+                user);
 
-        confirmationTokenService.saveConfirmationToken(confirmationToken);
+        accessTokenService.saveAccessToken(accessToken);
+        user.getToken().add(accessToken);
         return token;
-
     }
 
     /** 

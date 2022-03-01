@@ -16,7 +16,7 @@ import java.util.List;
 @Service
 public interface UserService extends UserDetailsService {
     String signUpUser(User appUser);
-    String loginUser(User appUser);
+    String loginUser(String username, String password);
     String Forgot(String email, String password);
     void enableAppUser(String email);
     void updatePassword(User user, String password);

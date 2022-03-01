@@ -1,20 +1,19 @@
 package com.example.seraphine.controller;
 
-import com.example.seraphine.model.User;
-import com.example.seraphine.service.UserService;
+import com.example.seraphine.service.LoginRequest;
+import com.example.seraphine.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("api/v1/signin")
 public class LoginController {
     @Autowired
-    private UserService userService;
+    private LoginService loginService;
 
-    @PostMapping("user/login")
-    public String login(@RequestBody User user) {
-        return this.userService.loginUser(user);
+    @PostMapping
+    public String login(@RequestBody LoginRequest loginRequest) {
+        return this.loginService.login(loginRequest);
     }
-
 }

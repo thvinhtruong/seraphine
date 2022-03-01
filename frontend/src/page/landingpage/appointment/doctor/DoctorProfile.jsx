@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 
 const DoctorProfile = (props) => {
     const [profile, setProfile] = useState([]);
-    const [isLoaded, setIsLoaded] = useState(False);
+    const [isLoaded, setIsLoaded] = useState(false);
     const [error, setError] = useState("");
     const id = props.id;
     console.log(props, id);
@@ -17,11 +17,11 @@ const DoctorProfile = (props) => {
             }
         })
         .then((result) => {
-            setIsLoaded(True)
+            setIsLoaded(true)
             setProfile(result)
         }, 
-        then (error => {
-            setIsLoaded(True)
+        (error => {
+            setIsLoaded(true)
             setError(error)
         })
     ), [id]));

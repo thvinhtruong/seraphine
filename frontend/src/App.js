@@ -12,6 +12,7 @@ import ConfirmBooking from './page/landingpage/appointment/ConfirmBooking'
 import Dashboard from './component/dashboard/Dashboard'
 
 function App() {
+
     return (
         <div className = "App-background">
             <Navbar/>

@@ -42,6 +42,10 @@ public class User implements UserDetails {
     @JoinColumn(name ="appointments", referencedColumnName = "id")
     private List<Appointment> myAppointment = new ArrayList<>();
 
+    @OneToMany(targetEntity = ConfirmationToken.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "access_token", referencedColumnName = "id")
+    private List<AccessToken> token = new ArrayList<>();
+
     private Boolean locked = false;
     private Boolean enabled = false;
     private String resetPasswordToken;
@@ -59,6 +63,7 @@ public class User implements UserDetails {
      * @param insuranceType The insurance type of the user.
      * @param insuranceName The insurance name of the user.
     */
+
     public User(String firstName, String lastName, String email, String username, String password, String dateOfBirth, String insuranceType, String insuranceName) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -68,6 +73,11 @@ public class User implements UserDetails {
         this.dateOfBirth = dateOfBirth;
         this.insuranceType = insuranceType;
         this.insuranceName = insuranceName;
+    }
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
     }
 
     /**
@@ -296,6 +306,7 @@ public class User implements UserDetails {
         this.userRole = userRole;
     }
 
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singleton(new SimpleGrantedAuthority(this.getUserRole()));
@@ -325,6 +336,13 @@ public class User implements UserDetails {
         return enabled;
     }
 
+    public List<AccessToken> getToken() {
+        return token;
+    }
+
+    public void setToken(List<AccessToken> token) {
+        this.token = token;
+    }
 
     @Override
     public boolean equals(Object o) {
