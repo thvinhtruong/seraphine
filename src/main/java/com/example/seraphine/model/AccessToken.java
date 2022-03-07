@@ -6,14 +6,14 @@ import java.time.LocalDateTime;
 @Entity
 public class AccessToken {
     @SequenceGenerator(
-            name = "confirmation_token_sequence",
-            sequenceName = "confirmation_token_sequence",
+            name = "access_token_sequence",
+            sequenceName = "access_token_sequence",
             allocationSize = 1
     )
     @Id
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "confirmation_token_sequence"
+            generator = "access_token_sequence"
     )
     private Long id;
 
@@ -28,18 +28,22 @@ public class AccessToken {
 
     private LocalDateTime confirmedAt;
 
+    private String username;
+    private String password;
+
     @ManyToOne(targetEntity=User.class, cascade=CascadeType.PERSIST, fetch = FetchType.LAZY)
-    @JoinColumn(nullable = false, name = "app_user_id")
+    @JoinColumn(name = "app_user_id", referencedColumnName = "id")
     private User appUser;
 
     /**
      * Constructor
      */
-    public AccessToken(String token, LocalDateTime createdAt, LocalDateTime expiresAt, User appUser) {
+    public AccessToken(String token, LocalDateTime createdAt, LocalDateTime expiresAt, String username, String password) {
         this.token = token;
         this.createdAt = createdAt;
         this.expiresAt = expiresAt;
-        this.appUser = appUser;
+        this.username = username;
+        this.password = password;
     }
 
     public AccessToken() {}
@@ -82,6 +86,22 @@ public class AccessToken {
 
     public void setConfirmedAt(LocalDateTime confirmedAt) {
         this.confirmedAt = confirmedAt;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public User getAppUser() {

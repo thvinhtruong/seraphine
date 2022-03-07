@@ -2,6 +2,7 @@ package com.example.seraphine.service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.Optional;
 
@@ -84,22 +85,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public String loginUser(String username, String password) {
         boolean userExists = appUserRepository.findByUsername(username).isPresent();
-        if (!userExists) {
-            throw new UsernameNotFoundException(USER_NOT_FOUND_MSG);
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        boolean passwordExists = encoder.matches(password, appUserRepository.findByUsername(username).get().getPassword());
+        if (userExists && passwordExists) {
+            String token = UUID.randomUUID().toString();
+            AccessToken accessToken = new AccessToken(token,
+                    LocalDateTime.now(),
+                    LocalDateTime.now().plusMinutes(60),
+                    username, password);
+
+            accessTokenService.saveAccessToken(accessToken);
+            return token;
+        } else {
+            throw new IllegalStateException("Wrong user name or password");
         }
-
-        Optional<User> user_obj = appUserRepository.findByUsername(username);
-        User user = user_obj.get();
-
-        String token  = UUID.randomUUID().toString();
-        AccessToken accessToken = new AccessToken(token,
-                LocalDateTime.now(),
-                LocalDateTime.now().plusMinutes(30),
-                user);
-
-        accessTokenService.saveAccessToken(accessToken);
-        user.getToken().add(accessToken);
-        return token;
     }
 
     /** 

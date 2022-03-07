@@ -18,14 +18,14 @@ import com.example.seraphine.repository.ForgotPasswordTokenRepo;
 @AllArgsConstructor
 public class ForgotPasswordTokenServiceImpl implements ForgotPasswordTokenService{
     @Autowired
-    private final ForgotPasswordTokenRepo confirmationTokenRepository;
+    private final ForgotPasswordTokenRepo forgotPasswordTokenRepository;
 
     /**
      * Save forgot password token.
      * @param token
      */
     public void saveForgotPasswordToken(ForgotPasswordToken token) {
-        confirmationTokenRepository.save(token);
+        forgotPasswordTokenRepository.save(token);
     }
 
     /**
@@ -34,7 +34,7 @@ public class ForgotPasswordTokenServiceImpl implements ForgotPasswordTokenServic
      * @return
      */
     public Optional<ForgotPasswordToken> getToken(String token) {
-        return confirmationTokenRepository.findByToken(token);
+        return forgotPasswordTokenRepository.findByToken(token);
     }
 
     /**
@@ -43,7 +43,7 @@ public class ForgotPasswordTokenServiceImpl implements ForgotPasswordTokenServic
      * @return
      */
     public int setConfirmedAt(String token) {
-        return confirmationTokenRepository.updateConfirmedAt(
+        return forgotPasswordTokenRepository.updateConfirmedAt(
                 token, LocalDateTime.now());
     }
 }

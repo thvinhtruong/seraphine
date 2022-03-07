@@ -4,12 +4,12 @@ import {Link, Redirect} from "react-router-dom"
 import {Form, Button} from "react-bootstrap";
 
 export default function Login() {
-  const [userName, setUserName] = useState("");
-  const [password, setPassword] = useState("");
+  const [userName, setUserName] = useState();
+  const [password, setPassword] = useState();
   const [error, setError] = useState("");
   const [token, setToken] = useState([]);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async(event) => {
     const postData = {userName, password};
     if (userName === "" || password === "" ) {
       alert("Please enter all required fields");
@@ -17,13 +17,13 @@ export default function Login() {
     } else {
       setError(false);
     }
-    fetch(`/api/v1/user/login`, {
+    fetch(`/api/v1/login`, {
       method: 'POST',
-      body: JSON.stringify(postData),
       headers: {
         'Accept': 'application/json, text/plain',
         'Content-Type': 'application/json;charset=UTF-8'
-      }
+      },
+      body: JSON.stringify(postData)
     })
     .then((response) => {
       if (response.ok) {
@@ -45,7 +45,7 @@ export default function Login() {
   return (
     <div>
     <div className="Login">
-      <Form onSubmit={handleSubmit}>
+      <Form>
         <p className = "App-title">LOGIN</p> 
         <Form.Group controlId="userName">
           <Form.Label>User Name</Form.Label>
@@ -63,7 +63,7 @@ export default function Login() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}/>
         </Form.Group>
-          <Button block type="submit">
+          <Button block type="submit" onClick={handleSubmit}>
             LOGIN
           </Button>
           <p></p>

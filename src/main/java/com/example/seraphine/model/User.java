@@ -42,12 +42,10 @@ public class User implements UserDetails {
     @JoinColumn(name ="appointments", referencedColumnName = "id")
     private List<Appointment> myAppointment = new ArrayList<>();
 
-    @OneToMany(targetEntity = ConfirmationToken.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "access_token", referencedColumnName = "id")
-    private List<AccessToken> token = new ArrayList<>();
-
     private Boolean locked = false;
     private Boolean enabled = false;
+
+    private String access_token;
     private String resetPasswordToken;
 
 
@@ -73,11 +71,6 @@ public class User implements UserDetails {
         this.dateOfBirth = dateOfBirth;
         this.insuranceType = insuranceType;
         this.insuranceName = insuranceName;
-    }
-
-    public User(String username, String password) {
-        this.username = username;
-        this.password = password;
     }
 
     /**
@@ -336,12 +329,12 @@ public class User implements UserDetails {
         return enabled;
     }
 
-    public List<AccessToken> getToken() {
-        return token;
+    public String getAccess_token() {
+        return access_token;
     }
 
-    public void setToken(List<AccessToken> token) {
-        this.token = token;
+    public void setAccess_token(String access_token) {
+        this.access_token = access_token;
     }
 
     @Override
@@ -373,7 +366,6 @@ public class User implements UserDetails {
                 ", userRole=" + userRole +
                 ", locked=" + locked +
                 ", enabled=" + enabled +
-                ", resetPasswordToken='" + resetPasswordToken + '\'' +
                 '}';
     }
 }
